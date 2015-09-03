@@ -1,8 +1,5 @@
 ul {
-    clear: both;
-    list-style-type: none;
-    text-align: left;
-    margin: 0 0 50px 0;
+  list-style-type: none;
 }
 
 footer {
@@ -21,27 +18,8 @@ img {
   margin-left: auto;
   margin-right: auto;
 }
-#hawthorne-page {
-  display: none;
-}
 
-#morrison-page {
-  display: none;
-}
-
-#burnside-page {
-  display: none;
-}
-
-#broadway-page {
-  display: none;
-}
-
-#cuevas-crossing-page {
-  display: none;
-}
-
-#feed-page {
+#hawthorne-page, #morrison-page, #burnside-page, #broadway-page, #cuevas-crossing-page, #feed-page, #arrow-button {
   display: none;
 }
 
@@ -53,10 +31,6 @@ img {
   text-shadow: none;
   font-weight: lighter;
   margin: 20px 20px 20px 20px;
-}
-
-#arrow-button {
-  display: none;
 }
 
 #menu-items {
@@ -77,7 +51,7 @@ img {
   text-align: left;
 }
 
-#menu-feed {
+#menu-feed, #menu-terms {
   text-decoration: none;
   color: white;
   text-shadow: none;
@@ -85,22 +59,11 @@ img {
   margin: 0 0 20px 0;
   text-align: left;
 }
-
-#menu-terms {
-  text-decoration: none;
-  color: white;
-  text-shadow: none;
-  font-size: 24px;
-  margin: 0 0 20px 0;
-  text-align: left;
-}
-
 
 #bridge-window {
   padding-bottom: 5px;
   border-bottom: 4px;
   border-color: #5e8dc4;
-
 }
 
 #bridge-notification-banner {
@@ -115,29 +78,14 @@ img {
   height: 40px;
 }
 
-.bridge-event {
-
-}
-
-.toggle-button {
-    float: left;
-    color: white;
-    font: arial;
-    font-size: 35px;
-    height: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
 #feed-page {
   padding-left: 50px;
   padding-right: 50px;
 }
 
 #bridge-page {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
   text-align: center;
 }
 
@@ -171,6 +119,43 @@ img {
   background: #5e8dc4;
 }
 
+#bridge-box {
+  background: white;
+}
+
+#bridge-list-item {
+  margin-top: 10px;
+  background: white;
+  border-radius: 30px 0px 0px 30px;
+  opacity: 0.75;
+  text-align: left;
+}
+.my-new-list {
+  text-align: center;
+  display: list-item;  
+}
+.bridge-event {
+  text-align: center;
+  background: white;
+  width: 50%;
+}
+
+.bridge-last {
+  display: inline;
+  text-align: center;
+}
+
+.toggle-button {
+    float: left;
+    color: white;
+    font: arial;
+    font-size: 35px;
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
 
 .bridge-info {
   background-color: white;
@@ -191,23 +176,7 @@ img {
   font-size: 24px;
 }
 
-.led {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    vertical-align: text-bottom;
-    display: inline-block;
-    margin-left: 5px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.25);
-    font-size: 12px;
-    color: white;
-    line-height: 4em;
-    text-align: center;
-    text-shadow: none;
-    font-weight: lighter;
-}
+
 
 .content {
     position: absolute;
@@ -271,29 +240,34 @@ img {
 
 /* LED styling */
 
+.led {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    vertical-align: text-bottom;
+    display: inline-block;
+    margin-left: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.25);
+    font-size: 12px;
+    color: white;
+    line-height: 4em;
+    text-align: center;
+    text-shadow: none;
+    font-weight: lighter;
+}
+
 
 .led-red {
     background-color: #F00;
-}
-
-.led-orange {
-    background-color: #FF7000;
-    box-shadow: #000 0 -1px 6px 1px, inset #630 0 -1px 8px, #FF7000 0 3px 11px;
-}
-
-.led-yellow {
-    background-color: #FF0;
-    box-shadow: #000 0 -1px 6px 1px, inset #660 0 -1px 8px, #FF0 0 3px 11px;
 }
 
 .led-green {
     background-color: #2e7d32;
 }
 
-.led-blue {
-    background-color: #06F;
-    box-shadow: #000 0 -1px 6px 1px, inset #006 0 -1px 8px, #06F 0 3px 11px;
-}
+/* Slideout */
 
 .slideout-menu {
   position: fixed;
