@@ -16,17 +16,17 @@ socket.on('bridge data', function (data) {
   $.each(data, function (bridge) {
     if(data[bridge] != null){
       if(data[bridge].scheduledLift) {
-        console.log(data[bridge].scheduledLift)
         var estLiftTime = data[bridge].scheduledLift.estimatedLiftTime;
         var newEstLiftTime = new Date(estLiftTime)
         bridge = bridge.replace(/\s/g, '-');
-        console.log(newEstLiftTime);
         $("#" + bridge + "-next").show();
         $("#" + bridge + "-next").append(moment(newEstLiftTime).format('lll'));
-      };
-      else {
-        $("#" + bridge + "-next").hide();
       }
+      else{
+        console.log('foo');
+        $("#" + bridge + "-next").hide();
+        $("#" + bridge + "-next").empty();
+      };
     };
   });
 });
