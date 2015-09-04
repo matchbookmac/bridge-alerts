@@ -11,8 +11,8 @@ socket.on('bridge data', function (data) {
     }
       else {
         bridge = bridge.replace(/\s/g, '-');
-        $("#" + bridge + "-led").removeClass("led-red").addClass("led-green")
-      };
+        $("#" + bridge + "-led").removeClass("led-red").addClass("led-green");
+      }
   });
 
 });
@@ -35,7 +35,7 @@ $( document ).ready(function() {
     for (var i = toggles.length - 1; i >= 0; i--) {
       var toggle = toggles[i];
       toggleHandler(toggle);
-    };
+    }
 
     function toggleHandler(toggle) {
       toggle.addEventListener( "click", function(e) {
@@ -62,6 +62,10 @@ $( document ).ready(function() {
   })();
 
   document.querySelector('#toggle-button').addEventListener('click', function() {});
+
+  $( "#multco-us" ).click(function () {
+    var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services', '_system');
+  });
 
   $( "#menu-feed" ).click(function() {
     $("#bridge-page").hide();
@@ -111,10 +115,10 @@ $( document ).ready(function() {
       var items = [];
       $.each( data, function( key, val ) {
         var up_time = val.up_time.toString();
-        var new_up_time = new Date(up_time)
+        var new_up_time = new Date(up_time);
 
         var down_time = val.down_time.toString();
-        var new_down_time = new Date(down_time)
+        var new_down_time = new Date(down_time);
         items.push("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>" );
         items.push("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>" );
       });
@@ -135,10 +139,10 @@ $( document ).ready(function() {
       var items = [];
       $.each( data, function( key, val ) {
         var up_time = val.up_time.toString();
-        var new_up_time = new Date(up_time)
+        var new_up_time = new Date(up_time);
 
         var down_time = val.down_time.toString();
-        var new_down_time = new Date(down_time)
+        var new_down_time = new Date(down_time);
         items.push("<li class='bridge-event'>" + " Up: " + moment(new_up_time).format('lll') + "</li>" );
         items.push("<li class='bridge-event'>" + "Down: " + moment(new_down_time).format('lll') + "</li><br>" );
       });
