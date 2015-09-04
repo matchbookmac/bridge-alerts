@@ -4,7 +4,6 @@ socket.on('bridge data', function (data) {
   // $("#bridges").text("");
   $.each(data, function (bridge) {
     if(data[bridge].status){
-
       bridge = bridge.replace(/\s/g, '-');
       $("#" + bridge + "-led").removeClass("led-green", 1000, "easeInBack");
       $("#" + bridge + "-led").addClass("led-red", 1000, "easeInBack");
@@ -14,7 +13,22 @@ socket.on('bridge data', function (data) {
         $("#" + bridge + "-led").removeClass("led-red").addClass("led-green")
       };
   });
-
+  $.each(data, function (bridge) {
+    if(data[bridge] != null){
+      if(data[bridge].scheduledLift) {
+        console.log(data[bridge].scheduledLift)
+        var estLiftTime = data[bridge].scheduledLift.estimatedLiftTime;
+        var newEstLiftTime = new Date(estLiftTime)
+        bridge = bridge.replace(/\s/g, '-');
+        console.log(newEstLiftTime);
+        $("#" + bridge + "-next").show();
+        $("#" + bridge + "-next").append(moment(newEstLiftTime).format('lll'));
+      };
+      else {
+        $("#" + bridge + "-next").hide();
+      }
+    };
+  });
 });
 
 
