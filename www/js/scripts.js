@@ -108,21 +108,14 @@ $( document ).ready(function() {
     $("#hawthorne-page").show();
     $("#toggle-button").removeClass("c-hamburger--htx").addClass("c-hamburger--htla").addClass("is-active");
     $.getJSON( "http://54.191.150.69/bridges/hawthorne/events/actual/5", function( data ) {
-      var items = [];
       $.each( data, function( key, val ) {
         var up_time = val.up_time.toString();
         var new_up_time = new Date(up_time)
-
         var down_time = val.down_time.toString();
-        var new_down_time = new Date(down_time)
-        items.push("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>" );
-        items.push("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>" );
+        var new_down_time = new Date(down_time);
+        $("#hawthorne-last").append("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>")
+        $("#hawthorne-last").append("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>")
       });
-
-      $( "<ul/>", {
-        "class": "my-new-list",
-        html: items.join( "" )
-      }).appendTo( "#hawthorne-last" );
     });
   });
 
@@ -132,21 +125,14 @@ $( document ).ready(function() {
     $("#morrison-page").show();
     $("#toggle-button").removeClass("c-hamburger--htx").addClass("c-hamburger--htla").addClass("is-active");
     $.getJSON( "http://54.191.150.69/bridges/morrison/events/actual/5", function( data ) {
-      var items = [];
       $.each( data, function( key, val ) {
         var up_time = val.up_time.toString();
-        var new_up_time = new Date(up_time)
-
+        var new_up_time = new Date(up_time);
         var down_time = val.down_time.toString();
-        var new_down_time = new Date(down_time)
-        items.push("<li class='bridge-event'>" + " Up: " + moment(new_up_time).format('lll') + "</li>" );
-        items.push("<li class='bridge-event'>" + "Down: " + moment(new_down_time).format('lll') + "</li><br>" );
+        var new_down_time = new Date(down_time);
+        $("#morrison-last").append("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>")
+        $("#morrison-last").append("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>")
       });
-
-      $( "<ul/>", {
-        "class": "my-new-list",
-        html: items.join( "" )
-      }).appendTo( "#morrison-last" );
     });
   });
 
@@ -156,20 +142,14 @@ $( document ).ready(function() {
     $("#burnside-page").show();
     $("#toggle-button").removeClass("c-hamburger--htx").addClass("c-hamburger--htla").addClass("is-active");
     $.getJSON( "http://54.191.150.69/bridges/burnside/events/actual/5", function( data ) {
-      var items = [];
       $.each( data, function( key, val ) {
-        var up_time = Date(val.up_time);
-        up_time = up_time.slice(0,24);
-        var down_time = Date(val.down_time);
-        down_time = down_time.slice(0,24);
-        items.push("<li class='bridge-event'>" + " Time up: " + up_time + "</li>" );
-        items.push("<li class='bridge-event'>" + "Time down: " + down_time + "</li><br>" );
+        var up_time = val.up_time.toString();
+        var new_up_time = new Date(up_time);
+        var down_time = val.down_time.toString();
+        var new_down_time = new Date(down_time);
+        $("#burnside-last").append("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>")
+        $("#burnside-last").append("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>")
       });
-
-      $( "<ul/>", {
-        "class": "my-new-list",
-        html: items.join( "" )
-      }).appendTo( "#burnside-last" );
     });
   });
 
@@ -179,20 +159,14 @@ $( document ).ready(function() {
     $("#broadway-page").show();
     $("#toggle-button").removeClass("c-hamburger--htx").addClass("c-hamburger--htla").addClass("is-active");
     $.getJSON( "http://54.191.150.69/bridges/broadway/events/actual/5", function( data ) {
-      var items = [];
       $.each( data, function( key, val ) {
-        var up_time = Date(val.up_time);
-        up_time = up_time.slice(0,24);
-        var down_time = Date(val.down_time);
-        down_time = down_time.slice(0,24);
-        items.push("<li class='bridge-event'>" + " Time up: " + up_time + "</li>" );
-        items.push("<li class='bridge-event'>" + "Time down: " + down_time + "</li><br>" );
+        var up_time = val.up_time.toString();
+        var new_up_time = new Date(up_time);
+        var down_time = val.down_time.toString();
+        var new_down_time = new Date(down_time);
+        $("#broadway-last").append("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>")
+        $("#broadway-last").append("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>")
       });
-
-      $( "<ul/>", {
-        "class": "my-new-list",
-        html: items.join( "" )
-      }).appendTo( "#broadway-last" );
     });
   });
 
@@ -202,20 +176,14 @@ $( document ).ready(function() {
     $("#cuevas-crossing-page").show();
     $("#toggle-button").removeClass("c-hamburger--htx").addClass("c-hamburger--htla").addClass("is-active");
     $.getJSON( "http://54.191.150.69/bridges/cuevas%20crossing/events/actual/5", function( data ) {
-      var items = [];
       $.each( data, function( key, val ) {
-        var up_time = Date(val.up_time);
-        up_time = up_time.slice(0,24);
-        var down_time = Date(val.down_time);
-        down_time = down_time.slice(0,24);
-        items.push("<li class='bridge-event'>" + " Time up: " + up_time + "</li>" );
-        items.push("<li class='bridge-event'>" + "Time down: " + down_time + "</li><br>" );
+        var up_time = val.up_time.toString();
+        var new_up_time = new Date(up_time);
+        var down_time = val.down_time.toString();
+        var new_down_time = new Date(down_time);
+        $("#cuevas-crossing-last").append("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>");
+        $("#cuevas-crossing-last").append("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>");
       });
-
-      $( "<ul/>", {
-        "class": "my-new-list",
-        html: items.join( "" )
-      }).appendTo( "#cuevas-crossing-last" );
     });
   });
 });

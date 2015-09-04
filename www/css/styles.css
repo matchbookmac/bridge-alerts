@@ -130,14 +130,13 @@ img {
   opacity: 0.75;
   text-align: left;
 }
-.my-new-list {
+
+.last-five {
   text-align: center;
-  display: list-item;  
-}
-.bridge-event {
-  text-align: center;
-  background: white;
-  width: 50%;
+  display: inline;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 .bridge-last {
