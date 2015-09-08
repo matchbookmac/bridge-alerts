@@ -19,12 +19,23 @@ img {
   margin-right: auto;
 }
 
-#hawthorne-page, #morrison-page, #burnside-page, #broadway-page, #cuevas-crossing-page, #feed-page, #arrow-button {
-  display: none;
+nav {
+  height: 76px;
+  color: #444;
+  padding-top: 20px;
+  background-color: #2c4a6f;
 }
 
-.bridge-nav {
-  height: 96px;
+.button-collapse {
+  margin-left: 10px;
+}
+
+.side-nav {
+  padding-top: 20px;
+}
+
+#hawthorne-page, #morrison-page, #burnside-page, #broadway-page, #cuevas-crossing-page, #feed-page, #arrow-button {
+  display: none;
 }
 
 #terms-page {
@@ -39,7 +50,6 @@ img {
 
 #menu-items > li {
   text-decoration: none;
-  color: white;
   text-shadow: none;
   font-size: 24px;
   margin: 0 0 20px 0;

@@ -21,12 +21,17 @@ socket.on('bridge data', function (data) {
 
 $( document ).ready(function() {
   // window.open = cordova.InAppBrowser.open;
-  var slideout = new Slideout({
-      'panel': document.getElementById('panel'),
-      'menu': document.getElementById('menu'),
-      'padding': 256,
-      'tolerance': 70
-  });
+  // var slideout = new Slideout({
+  //     'panel': document.getElementById('panel'),
+  //     'menu': document.getElementById('menu'),
+  //     'padding': 256,
+  //     'tolerance': 70
+  // });
+
+  $('.button-collapse').sideNav({
+      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+    }
+  );
 
   (function() {
     "use strict";
@@ -74,8 +79,8 @@ $( document ).ready(function() {
     $("#burnside-page").hide();
     $("#broadway-page").hide();
     $("#cuevas-crossing-page").hide();
-    $("#toggle-button").removeClass("is-active");
-    slideout.toggle();
+    // Hide sideNav
+    $('.button-collapse').sideNav('hide');
   });
 
   $( "#menu-home").click(function(){
@@ -87,8 +92,8 @@ $( document ).ready(function() {
     $("#burnside-page").hide();
     $("#broadway-page").hide();
     $("#cuevas-crossing-page").hide();
-    $("#toggle-button").removeClass("is-active");
-    slideout.toggle();
+    // Hide sideNav
+    $('.button-collapse').sideNav('hide');
   });
 
   $( "#menu-terms").click(function(){
@@ -100,8 +105,8 @@ $( document ).ready(function() {
     $("#burnside-page").hide();
     $("#broadway-page").hide();
     $("#cuevas-crossing-page").hide();
-    $("#toggle-button").removeClass("is-active");
-    slideout.toggle();
+    // Hide sideNav
+    $('.button-collapse').sideNav('hide');
   });
 
   $( "#hawthorne").click(function(){
