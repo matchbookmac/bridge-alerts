@@ -52,7 +52,7 @@
             "PACKAGE_NAME": "com.cordova.bridges"
         },
         "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.cordova.bridges"
+            "PACKAGE_NAME": "com.multco.bridges"
         }
     },
     "dependent_plugins": {}

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.cordova.bridges" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.multco.bridges" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="false" />
@@ -26,6 +26,25 @@
     </feature>
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
+    <icon height="180" src="www/img/icon/ios/icon-60@3x.png" width="180" />
+    <icon height="60" src="www/img/icon/ios/icon-60.png" width="60" />
+    <icon height="120" src="www/img/icon/ios/icon-60@2x.png" width="120" />
+    <icon height="40" src="www/img/icon/ios/icon-40.png" width="40" />
+    <icon height="80" src="www/img/icon/ios/icon-40@2x.png" width="80" />
+    <icon height="57" src="www/img/icon/ios/icon.png" width="57" />
+    <icon height="114" src="www/img/icon/ios/icon@2x.png" width="114" />
+    <icon height="29" src="www/img/icon/ios/icon-small.png" width="29" />
+    <icon height="58" src="www/img/icon/ios/icon-small@2x.png" width="58" />
+    <splash height="650" src="www/img/splash/ios/Default-Landscape-568h@2x~iphone.png" width="1136" />
+    <splash height="1334" src="www/img/splash/ios/Default-667h.png" width="750" />
+    <splash height="2208" src="www/img/splash/ios/Default-736h.png" width="1242" />
+    <splash height="1136" src="www/img/splash/ios/Default-568h@2x~iphone.png" width="640" />
+    <splash height="750" src="www/img/splash/ios/Default-Landscape-667h.png" width="1334" />
+    <splash height="1242" src="www/img/splash/ios/Default-Landscape-736h.png" width="2208" />
+    <splash height="640" src="www/img/splash/ios/Default-Landscape@2x~iphone.png" width="960" />
+    <splash height="320" src="www/img/splash/ios/Default-Landscape~iphone.png" width="480" />
+    <splash height="960" src="www/img/splash/ios/Default@2x~iphone.png" width="640" />
+    <splash height="480" src="www/img/splash/ios/Default~iphone.png" width="320" />
     <name>Bridges</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -33,12 +52,15 @@
     <author email="dev@cordova.apache.org" href="http://cordova.io">
         Apache Cordova Team
     </author>
-    <content src="index.html" />
     <access origin="*" />
+    <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="EnableViewportScale" value="true" />
+    <preference name="BackupWebStorage" value="local" />
 </widget>

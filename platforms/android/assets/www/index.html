@@ -2,19 +2,25 @@
 
 <html>
   <head>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi"/>
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+
     <!-- Jquery -->
-  <script src="js/jquery-1.6.4.min.js" type="text/javascript"></script>
+    <script src="js/jquery-1.6.4.min.js" type="text/javascript"></script>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
-  <link rel="stylesheet" href="css/hamburger.css" media="screen" title="no title" charset="utf-8">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/hamburger.css" media="screen" title="no title" charset="utf-8">
 
-  <!-- Page behavior -->
-  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-  <script src="js/moment.js"></script>
-  <script src="js/scripts.js"></script>
-  <meta name=viewport content='width=700'>
-  <script src="js/slideout.js"></script>
+    <!-- Page behavior -->
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+    <script type="text/javascript" src="js/slideout.js"></script>
 
   </head>
 
@@ -24,10 +30,10 @@
         <h2>Menu</h2>
       </header>
       <ul id="menu-items">
-        <li><a href="#" id="menu-home">Home</a></li>
-        <li><a href="#" id="menu-feed">@MultCoBridges</a></li>
-        <li><a href="#" id="menu-terms">Terms & Conditions</a></li>
-        <li><a href="#" id="multco-us">www.multco.us</a></li>
+        <li><div id="menu-home">Home</a></li>
+        <li><div id="menu-feed">@MultCoBridges</a></li>
+        <li><div id="menu-terms">Terms & Conditions</a></li>
+        <li><div id="multco-us">multco</div></li>
       </ul>
     </nav>
     <main id="panel">

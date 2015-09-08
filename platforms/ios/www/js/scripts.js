@@ -20,7 +20,7 @@ socket.on('bridge data', function (data) {
 
 
 $( document ).ready(function() {
-
+  // window.open = cordova.InAppBrowser.open;
   var slideout = new Slideout({
       'panel': document.getElementById('panel'),
       'menu': document.getElementById('menu'),
@@ -64,7 +64,7 @@ $( document ).ready(function() {
   document.querySelector('#toggle-button').addEventListener('click', function() {});
 
   $( "#multco-us" ).click(function () {
-    var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services', '_system');
+    var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services', '_blank', 'enableViewportScale=yes;location=yes');
   });
 
   $( "#menu-feed" ).click(function() {
