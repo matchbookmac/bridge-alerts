@@ -120,21 +120,14 @@ img {
   background: #5e8dc4;
 }
 
-#bridge-box {
-  background: white;
-}
-
-#bridge-list-item {
+.bridge-list-item {
   margin-top: 10px;
   background: white;
   border-radius: 30px 0px 0px 30px;
   opacity: 0.75;
   text-align: left;
 }
-.my-new-list {
-  text-align: center;
-  display: list-item;
-}
+
 .bridge-event {
   text-align: center;
   background: white;
@@ -151,7 +144,8 @@ img {
     color: white;
     font: arial;
     font-size: 35px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
@@ -174,10 +168,8 @@ img {
   text-transform: capitalize;
   text-decoration: none;
   color: black;
-  font-size: 24px;
+  font-size: 20px;
 }
-
-
 
 .content {
     position: absolute;

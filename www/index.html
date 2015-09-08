@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi"/>
+    <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi"/> -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
@@ -30,16 +30,16 @@
         <h2>Menu</h2>
       </header>
       <ul id="menu-items">
-        <li><div id="menu-home">Home</a></li>
-        <li><div id="menu-feed">@MultCoBridges</a></li>
-        <li><div id="menu-terms">Terms & Conditions</a></li>
+        <li><div id="menu-home">Home</div></li>
+        <li><div id="menu-feed">@MultCoBridges</div></li>
+        <li><div id="menu-terms">Terms & Conditions</div></li>
         <li><div id="multco-us">multco</div></li>
       </ul>
     </nav>
     <main id="panel">
       <header>
-        <div class="container-fluid">
-          <button id="toggle-button" class="c-hamburger c-hamburger--htx">
+        <div class="bridge-nav">
+          <button class="c-hamburger c-hamburger--htx toggle-button">
             <span>toggle menu</span>
           </button>
           <div id="bridge-notification-banner">
@@ -50,30 +50,27 @@
 
       <!-- first page -->
       <div id="bridge-page">
-        <div class="container-fluid" id="bridge-window">
-          <ul id="bridge-list">
-            <li id="bridge-list-item">
-              <span class="led led-green" id="hawthorne-led"> DOWN </span>
-              <a href="#" class="bridge" id="hawthorne">Hawthorne</a>
-            </li>
-            <li id="bridge-list-item">
-              <span class="led led-green" id="morrison-led"> DOWN </span>
-              <a href="#" class="bridge" id="morrison">Morrison</a>
-            </li>
-            <li id="bridge-list-item">
-              <span class="led led-green" id="burnside-led"> DOWN </span>
-              <a href="#" class="bridge" id="burnside">Burnside</a>
-            </li>
-            <li id="bridge-list-item">
-              <span class="led led-green" id="broadway-led"> DOWN </span>
-              <a href="#" class="bridge" id="broadway">Broadway</a>
-            </li>
-            <li id="bridge-list-item">
-              <span class="led led-green" id="cuevas-crossing-led"> DOWN </span>
-              <a href="#" class="bridge" id="cuevas-crossing">Cuevas Crossing</a>
-            </li>
-
-          </ul>
+        <div id="bridge-window">
+          <div class="bridge-list-item" id="hawthorne">
+            <span class="led led-green" id="hawthorne-led"> DOWN </span>
+            <div class="bridge">Hawthorne</div>
+          </div>
+          <div class="bridge-list-item" id="morrison">
+            <span class="led led-green" id="morrison-led"> DOWN </span>
+            <div class="bridge">Morrison</div>
+          </div>
+          <div class="bridge-list-item" id="burnside">
+            <span class="led led-green" id="burnside-led"> DOWN </span>
+            <div class="bridge">Burnside</div>
+          </div>
+          <div class="bridge-list-item" id="broadway">
+            <span class="led led-green" id="broadway-led"> DOWN </span>
+            <div class="bridge">Broadway</div>
+          </div>
+          <div class="bridge-list-item" id="cuevas-crossing">
+            <span class="led led-green" id="cuevas-crossing-led"> DOWN </span>
+            <div class="bridge">Cuevas Crossing</div>
+          </div>
         </div>
       </div>
       <!-- second page -->
@@ -88,7 +85,7 @@
       </div>
       <!-- third page -->
       <div id="terms-page">
-        <div class="container-fluid" id="terms">
+        <div id="terms">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </div>
       </div>
