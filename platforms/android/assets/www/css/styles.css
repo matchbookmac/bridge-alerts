@@ -7,7 +7,6 @@ footer {
 }
 
 body {
-  margin-top: 30px;
   width: 100%;
   height: 100%;
   background: #5e8dc4;
@@ -18,6 +17,21 @@ img {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+nav {
+  height: 76px;
+  color: #444;
+  padding-top: 20px;
+  background-color: #2c4a6f;
+}
+
+.button-collapse {
+  margin-left: 10px;
+}
+
+.side-nav {
+  padding-top: 20px;
 }
 
 #hawthorne-page, #morrison-page, #burnside-page, #broadway-page, #cuevas-crossing-page, #feed-page, #arrow-button {
@@ -34,69 +48,17 @@ img {
   margin: 20px 20px 20px 20px;
 }
 
-#menu-items {
-  text-decoration: none;
-  color: black;
-  font-size: 24px;
-  margin: 0 0 20px 0;
-  text-align: left;
-}
-
-#menu-home {
-  text-decoration: none;
-  color: white;
-  text-shadow: none;
-
-  font-size: 24px;
-  margin: 0 0 20px 0;
-  text-align: left;
-}
-
-#menu-feed, #menu-terms {
-  text-decoration: none;
-  color: white;
-  text-shadow: none;
-  font-size: 24px;
-  margin: 0 0 20px 0;
-  text-align: left;
-}
-
-#bridge-window {
-  padding-bottom: 5px;
-  border-bottom: 4px;
-  border-color: #5e8dc4;
-}
-
-#bridge-notification-banner {
-  background: #5e8dc4;
-  color: white;
-  font-size: 35px;
-  text-shadow: none;
-  font-weight: lighter;
-  text-align: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  height: 40px;
-}
-
 #feed-page {
   padding-left: 50px;
   padding-right: 50px;
+  padding-top: 20px;
 }
 
 #bridge-page {
   padding-left: 10px;
   padding-right: 10px;
+  padding-top: 10px;
   text-align: center;
-}
-
-#header {
-  text-align: center;
-}
-
-#banner {
-  width:100%;
-  height:150px;
 }
 
 #bridges {
@@ -107,49 +69,44 @@ img {
   text-align: left;
 }
 
-#menu {
-  font-family: "Helvetica Neue",Helvetica,Arial,Geneva,"Lucida Grande",sans-serif;
-  background: #2c4a6f;
-  color: white;
-  text-shadow: none;
-  font-weight: lighter;
-  text-align: center;
-}
-
 #panel {
   background: #5e8dc4;
 }
 
 .bridge-list-item {
-  margin-top: 10px;
-  background: white;
-  border-radius: 30px 0px 0px 30px;
-  opacity: 0.75;
+  border-radius: 31.5px 0px 0px 31.5px;
   text-align: left;
 }
 
 .bridge-event {
   text-align: center;
-  background: white;
-  width: 50%;
+  display: inline;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+#hawthorne-next, #burnside-next, #morrison-next, #broadway-next, #cuevas-crossing-next  {
+  display: none;
+}
+
+.bridge-next {
+  display: inline;
+  text-align: right;
+  font-size: 15px;
+}
+
+.last-five {
+  text-align: center;
+  display: inline;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 .bridge-last {
   display: inline;
   text-align: center;
-}
-
-.toggle-button {
-    float: left;
-    color: white;
-    font: arial;
-    font-size: 35px;
-    width: 20px;
-    height: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
 }
 
 .bridge-info {
@@ -160,132 +117,38 @@ img {
 }
 
 .bridge {
-  vertical-align: middle;
   text-align: left;
   vertical-align: 50%;
-  padding-left: 25px;
+  padding-left: 15px;
   display: inline-block;
   text-transform: capitalize;
   text-decoration: none;
   color: black;
-  font-size: 20px;
-}
-
-.content {
-    position: absolute;
-}
-
-.bar-header-secondary>input {
-    margin-top: 6px;
-    height: 31px;
-}
-
-.table-view {
-    margin: 0 !important;
-    border: none;
-}
-
-.details h1 {
-    padding-top: 16px;
-    font-size: 18px;
-}
-
-.media-object {
-    width: 42px;
-    height: 42px;
-    border-radius: 25px;
-}
-
-.icon-call {
-    background: transparent url(images/ic_action_phone_outgoing.png);
-    background-repeat: no-repeat;
-}
-
-.icon-sms {
-    background: transparent url(images/ic_action_dialog.png);
-    background-repeat: no-repeat;
-}
-
-.icon-mail {
-    background: transparent url(images/ic_action_mail.png);
-    background-repeat: no-repeat;
-}
-
-.icon-manager {
-    background: transparent url(images/ic_action_user.png);
-    background-repeat: no-repeat;
-}
-
-.icon-reports {
-    background: transparent url(images/ic_action_users.png);
-    background-repeat: no-repeat;
-}
-
-.icon-contact {
-    background: transparent url(images/ic_action_add.png);
-    background-repeat: no-repeat;
-}
-
-.icon-location {
-    background: transparent url(images/ic_action_location.png);
-    background-repeat: no-repeat;
+  font-size: 24px;
 }
 
 /* LED styling */
 
 .led {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    vertical-align: text-bottom;
-    display: inline-block;
-    margin-left: 5px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.25);
-    font-size: 12px;
-    color: white;
-    line-height: 4em;
-    text-align: center;
-    text-shadow: none;
-    font-weight: lighter;
+  margin-left: 7px;
+  margin-top: 7px;
+  margin-bottom: 4px;
+  vertical-align: text-bottom;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+  color: white;
+  line-height: 4em;
+  text-align: center;
 }
 
-
 .led-red {
-    background-color: #F00;
+  background-color: #F00;
 }
 
 .led-green {
-    background-color: #2e7d32;
-}
-
-/* Slideout */
-
-.slideout-menu {
-  position: fixed;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  z-index: 0;
-  width: 256px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  display: none;
-}
-
-.slideout-panel {
-  position: relative;
-  z-index: 1000;
-}
-
-.slideout-open,
-.slideout-open body,
-.slideout-open .slideout-panel {
-  overflow: hidden;
-}
-
-.slideout-open .slideout-menu {
-  display: block;
+  background-color: #2e7d32;
 }

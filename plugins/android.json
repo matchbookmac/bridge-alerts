@@ -9,7 +9,7 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
                         },
                         {
@@ -21,7 +21,7 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -40,16 +40,16 @@
         }
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.cordova.bridges"
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.multco.bridges"
         },
         "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "com.cordova.bridges"
+            "PACKAGE_NAME": "com.multco.bridges"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.cordova.bridges"
+            "PACKAGE_NAME": "com.multco.bridges"
         },
-        "cordova-plugin-inappbrowser": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.multco.bridges"
         }
     },

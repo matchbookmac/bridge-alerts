@@ -80,8 +80,28 @@ nav {
 
 .bridge-event {
   text-align: center;
-  background: white;
-  width: 50%;
+  display: inline;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+#hawthorne-next, #burnside-next, #morrison-next, #broadway-next, #cuevas-crossing-next  {
+  display: none;
+}
+
+.bridge-next {
+  display: inline;
+  text-align: right;
+  font-size: 15px;
+}
+
+.last-five {
+  text-align: center;
+  display: inline;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 .bridge-last {
@@ -97,7 +117,6 @@ nav {
 }
 
 .bridge {
-  vertical-align: middle;
   text-align: left;
   vertical-align: 50%;
   padding-left: 15px;
