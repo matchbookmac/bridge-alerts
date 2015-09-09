@@ -20,13 +20,6 @@ socket.on('bridge data', function (data) {
 
 
 $( document ).ready(function() {
-  // window.open = cordova.InAppBrowser.open;
-  // var slideout = new Slideout({
-  //     'panel': document.getElementById('panel'),
-  //     'menu': document.getElementById('menu'),
-  //     'padding': 256,
-  //     'tolerance': 70
-  // });
 
   $('.button-collapse').sideNav({
       closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
