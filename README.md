@@ -74,3 +74,12 @@ After that, you can import the app into Android studio, and build and run from t
 ```console
 cordova run android
 ```
+
+## Push Notifications
+Using:
+https://github.com/cranberrygame/cordova-plugin-pushnotification-parsepushnotification
+and Parse:
+https://www.parse.com/tutorials/ios-push-notifications
+up until step three
+
+If you already have a provisioning profile installed in xcode, you will need to delete it (Xcode > preferences > accounts > View Details ). right click on profile > show in finder. Delete it there, and wherever you first downloaded it. Or you can just create a new provisioning profile at developers.apple.com and install that in xcode, and just sign everything with that.

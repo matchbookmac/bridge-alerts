@@ -1,0 +1,45 @@
+<html>
+<head>
+	<script type="text/javascript" src="cordova.js"></script>
+</head>
+<body>
+
+<script>
+
+var applicationId = "XiTcV0ExgO0NknDe1NEAekcK0DPLcHpPtoGpXiUT";
+var clientKey = "XiTcV0ExgO0NknDe1NEAekcK0DPLcHpPtoGpXiUT";
+
+document.addEventListener("deviceready", function(){
+
+	window.parsepushnotification.setUp(applicationId, clientKey);
+	
+	//registerAsPushNotificationClient callback (called after setUp)
+	window.parsepushnotification.onRegisterAsPushNotificationClientSucceeded = function() {
+		alert('onRegisterAsPushNotificationClientSucceeded');
+	};
+	window.parsepushnotification.onRegisterAsPushNotificationClientFailed = function() {
+		alert('onRegisterAsPushNotificationClientFailed');
+	};
+	
+	//subscribe callback
+	window.parsepushnotification.onSubscribeToChannelSucceeded = function() {
+		alert('onSubscribeToChannelSucceeded');
+	};
+	window.parsepushnotification.onSubscribeToChannelFailed = function() {
+		alert('onSubscribeToChannelFailed');
+	};	
+	//unsubscribe callback
+	window.parsepushnotification.onUnsubscribeSucceeded = function() {
+		alert('onUnsubscribeSucceeded');
+	};
+	window.parsepushnotification.onUnsubscribeFailed = function() {
+		alert('onUnsubscribeFailed');
+	};	
+}, false);
+</script>
+
+<p><button onclick="window.parsepushnotification.subscribeToChannel('Game');">subscribeToChannel</button></p>
+<p><button onclick="window.parsepushnotification.unsubscribe('Game');">unsubscribe</button></p>
+
+</body>
+</html>

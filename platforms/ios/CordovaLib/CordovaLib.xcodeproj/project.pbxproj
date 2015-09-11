@@ -399,6 +399,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Cordova;
+				PROVISIONING_PROFILE = "2aa67274-0859-4c74-baf2-e3ff88d3b035";
 				PUBLIC_HEADERS_FOLDER_PATH = include/Cordova;
 				SKIP_INSTALL = YES;
 			};
@@ -420,6 +421,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Cordova;
+				PROVISIONING_PROFILE = "2aa67274-0859-4c74-baf2-e3ff88d3b035";
 				PUBLIC_HEADERS_FOLDER_PATH = include/Cordova;
 				SKIP_INSTALL = YES;
 			};

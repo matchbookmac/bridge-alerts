@@ -29,6 +29,13 @@ module.exports = [
         "clobbers": [
             "navigator.splashscreen"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-pushnotification-parsepushnotification/www/parsepushnotification.js",
+        "id": "cordova-plugin-pushnotification-parsepushnotification.parsepushnotification",
+        "clobbers": [
+            "window.parsepushnotification"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -37,7 +44,8 @@ module.exports.metadata =
     "cordova-plugin-inappbrowser": "1.0.1",
     "cordova-plugin-network-information": "1.0.1",
     "cordova-plugin-splashscreen": "2.1.0",
-    "cordova-plugin-whitelist": "1.0.0"
+    "cordova-plugin-whitelist": "1.0.0",
+    "cordova-plugin-pushnotification-parsepushnotification": "1.0.32"
 }
 // BOTTOM OF METADATA
 });

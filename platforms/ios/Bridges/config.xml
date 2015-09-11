@@ -24,6 +24,9 @@
         <param name="ios-package" value="CDVSplashScreen" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="ParsePushNotificationPlugin">
+        <param name="ios-package" value="ParsePushNotificationPlugin" />
+    </feature>
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <icon height="180" src="www/img/icon/ios/icon-60@3x.png" width="180" />
