@@ -51,16 +51,16 @@ var app = {
 
         //subscribe callback
         Parse.onSubscribeToChannelSucceeded = function() {
+            alert('onSubscribeToChannelSucceeded');
             return;
-            // alert('onSubscribeToChannelSucceeded');
         };
         Parse.onSubscribeToChannelFailed = function() {
             alert('Subscribe To Channel Failed');
         };
         //unsubscribe callback
         Parse.onUnsubscribeSucceeded = function() {
+            alert('onUnsubscribeSucceeded');
             return;
-            // alert('onUnsubscribeSucceeded');
         };
         Parse.onUnsubscribeFailed = function() {
             alert('Unsubscribe Failed');
