@@ -1,4 +1,6 @@
 var socket = io('http://54.191.150.69');
+// var socket = io('http://172.20.150.140');
+// var socket = io('http://127.0.0.1:9000');
 
 socket.on('bridge data', function (data) {
   // $("#bridges").text("");

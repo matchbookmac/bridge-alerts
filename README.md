@@ -55,3 +55,22 @@ In your bash profile, you will need the android tools in your path. Add the foll
 export PATH="/Users/macdoni/Library/Android/sdk/platform-tools:$PATH"
 export PATH="/Users/macdoni/Library/Android/sdk/tools:$PATH"
 ```
+
+After that, setup the device to be in developer mode:
+http://developer.android.com/tools/building/building-studio.html
+Be sure to accept the key from your machine when you first plug it in via usb.
+If you run:
+```console
+adb devices
+```
+you should see something like this:
+```console
+$ adb devices
+List of devices attached
+090bc6b6	device
+
+```
+After that, you can import the app into Android studio, and build and run from there, or you can use cordova from the command line:
+```console
+cordova run android
+```
