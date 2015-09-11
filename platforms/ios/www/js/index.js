@@ -43,31 +43,34 @@ var app = {
 
         //registerAsPushNotificationClient callback (called after setUp)
         Parse.onRegisterAsPushNotificationClientSucceeded = function() {
-            alert('onRegisterAsPushNotificationClientSucceeded');
+            alert('You have registered for notifications with Parse');
         };
         Parse.onRegisterAsPushNotificationClientFailed = function() {
-            alert('onRegisterAsPushNotificationClientFailed');
+            alert('Register As Push Notification Client Failed');
         };
 
         //subscribe callback
         Parse.onSubscribeToChannelSucceeded = function() {
-            alert('onSubscribeToChannelSucceeded');
+            return;
+            // alert('onSubscribeToChannelSucceeded');
         };
         Parse.onSubscribeToChannelFailed = function() {
-            alert('onSubscribeToChannelFailed');
+            alert('Subscribe To Channel Failed');
         };
         //unsubscribe callback
         Parse.onUnsubscribeSucceeded = function() {
-            alert('onUnsubscribeSucceeded');
+            return;
+            // alert('onUnsubscribeSucceeded');
         };
         Parse.onUnsubscribeFailed = function() {
-            alert('onUnsubscribeFailed');
+            alert('Unsubscribe Failed');
         };
 
         Parse.subscribeToChannel('Hawthorne');
         Parse.subscribeToChannel('Morrison');
         Parse.subscribeToChannel('Burnside');
         Parse.subscribeToChannel('Broadway');
+        Parse.subscribeToChannel('Cuevas Crossing');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

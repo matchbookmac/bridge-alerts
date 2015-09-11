@@ -16,6 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+var applicationId = "3auqJUgZz2edaX8bUDrB1TRoUaVxPaWZ4gSAFzYq";
+var clientKey = "ZujNEPdo02x2mvyeXUUcqmaQtDD1YOVD3BNhT3IR";
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -33,7 +37,40 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+        // app.receivedEvent('deviceready');
+        var Parse = window.parsepushnotification;
+        Parse.setUp(applicationId, clientKey);
+
+        //registerAsPushNotificationClient callback (called after setUp)
+        Parse.onRegisterAsPushNotificationClientSucceeded = function() {
+            alert('You have registered for notifications with Parse');
+        };
+        Parse.onRegisterAsPushNotificationClientFailed = function() {
+            alert('Register As Push Notification Client Failed');
+        };
+
+        //subscribe callback
+        Parse.onSubscribeToChannelSucceeded = function() {
+            return;
+            // alert('onSubscribeToChannelSucceeded');
+        };
+        Parse.onSubscribeToChannelFailed = function() {
+            alert('Subscribe To Channel Failed');
+        };
+        //unsubscribe callback
+        Parse.onUnsubscribeSucceeded = function() {
+            return;
+            // alert('onUnsubscribeSucceeded');
+        };
+        Parse.onUnsubscribeFailed = function() {
+            alert('Unsubscribe Failed');
+        };
+
+        Parse.subscribeToChannel('Hawthorne');
+        Parse.subscribeToChannel('Morrison');
+        Parse.subscribeToChannel('Burnside');
+        Parse.subscribeToChannel('Broadway');
+        Parse.subscribeToChannel('Cuevas Crossing');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
