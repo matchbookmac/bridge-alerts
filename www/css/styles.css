@@ -1,3 +1,24 @@
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../font/material-design-icons/materialize-icons.woff2);
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  word-wrap: normal;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
 ul {
   list-style-type: none;
 }
@@ -66,44 +87,11 @@ nav {
 .bridge-list-item {
   border-radius: 31.5px 0px 0px 31.5px;
   text-align: left;
+  max-height: 56px;
 }
-/*
-.bridge-event {
-  text-align: center;
-  display: inline;
-  margin-left: auto;
-  margin-right: auto;
-
-}*/
 
 #hawthorne-next, #burnside-next, #morrison-next, #broadway-next, #cuevas-crossing-next  {
   display: none;
-}
-
-.bridge-next {
-  display: inline;
-  text-align: right;
-  font-size: 15px;
-}
-
-/*.last-five {
-  text-align: center;
-  display: inline;
-  margin-left: auto;
-  margin-right: auto;
-
-}
-
-.bridge-last {
-  display: inline;
-  text-align: center;
-}*/
-
-.bridge-info {
-  background-color: white;
-  border-style: solid;
-  border-width: 2px;
-  border-color: #5e8dc4;
 }
 
 .bridge {
@@ -114,7 +102,22 @@ nav {
   text-transform: capitalize;
   text-decoration: none;
   color: black;
-  font-size: 24px;
+  font-size: 20px;
+}
+
+.row > .bridge-led {
+  padding-left: 0px;
+}
+
+.bridge-row {
+  margin-bottom: 0px;
+}
+
+.bridge-next {
+  padding-top: 5px;
+  font-size: 15px;
+  vertical-align: 50%;
+  display: inline-block;
 }
 
 /* LED styling */
@@ -141,4 +144,9 @@ nav {
 
 .led-green {
   background-color: #2e7d32;
+}
+
+.led-yellow {
+  background-color: #ffeb3b;
+  color: black;
 }

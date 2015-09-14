@@ -23,65 +23,250 @@ var clientKey = "ZujNEPdo02x2mvyeXUUcqmaQtDD1YOVD3BNhT3IR";
 var app = {
     // Application Constructor
     initialize: function() {
-        this.bindEvents();
+      this.bindEvents();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+      // Cordova DOM ready event
+      document.addEventListener('deviceready', this.onDeviceReady, false);
+      // Browser DOM ready event
+      document.addEventListener('DOMContentLoaded', this.onBrowserReady);
+      window.addEventListener('online', this.online, false);
+      window.addEventListener('offline', this.offline, false);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        // app.receivedEvent('deviceready');
-        var Parse = window.parsepushnotification;
-        Parse.setUp(applicationId, clientKey);
+      app.registerToParse();
+      app.socket.connect();
+      app.nav.setUp();
+    },
+    onBrowserReady: function () {
+      app.nav.setUp();
+      app.socket.connect();
+    },
+    registerToParse: function () {
+      // Parse Push notification service
+      var Parse = window.parsepushnotification;
+      Parse.setUp(applicationId, clientKey);
 
-        //registerAsPushNotificationClient callback (called after setUp)
-        Parse.onRegisterAsPushNotificationClientSucceeded = function() {
-            alert('You have registered for notifications with Parse');
-        };
-        Parse.onRegisterAsPushNotificationClientFailed = function() {
-            alert('Register As Push Notification Client Failed');
-        };
+      //registerAsPushNotificationClient callback (called after setUp)
+      Parse.onRegisterAsPushNotificationClientSucceeded = function() {
+          alert('You have registered for notifications with Parse');
+      };
+      Parse.onRegisterAsPushNotificationClientFailed = function() {
+          alert('Register As Push Notification Client Failed');
+      };
 
-        //subscribe callback
-        Parse.onSubscribeToChannelSucceeded = function() {
-            return;
-            // alert('onSubscribeToChannelSucceeded');
-        };
-        Parse.onSubscribeToChannelFailed = function() {
-            alert('Subscribe To Channel Failed');
-        };
-        //unsubscribe callback
-        Parse.onUnsubscribeSucceeded = function() {
-            return;
-            // alert('onUnsubscribeSucceeded');
-        };
-        Parse.onUnsubscribeFailed = function() {
-            alert('Unsubscribe Failed');
-        };
+      //subscribe callback
+      Parse.onSubscribeToChannelSucceeded = function() {
+          alert('onSubscribeToChannelSucceeded');
+          return;
+      };
+      Parse.onSubscribeToChannelFailed = function() {
+          alert('Subscribe To Channel Failed');
+      };
+      //unsubscribe callback
+      Parse.onUnsubscribeSucceeded = function() {
+          alert('onUnsubscribeSucceeded');
+          return;
+      };
+      Parse.onUnsubscribeFailed = function() {
+          alert('Unsubscribe Failed');
+      };
+// Add set timeout here, having trouble doing it async
+      Parse.subscribeToChannel('Hawthorne');
+      Parse.subscribeToChannel('Morrison');
+      Parse.subscribeToChannel('Burnside');
+      Parse.subscribeToChannel('Broadway');
+      Parse.subscribeToChannel('Cuevas Crossing');
+    },
+    socket: {
+      connect: function () {
+        this.connection = io('http://54.191.150.69');
+        // var socket = io('http://172.20.150.140');
+        // var socket = io('http://127.0.0.1:9000');
+        this.connection.on('bridge data', this.updateDOM);
+      },
+      updateDOM: function (data) {
+        // $("#bridges").text("");
+        var bridgeLED;
+        var bridgeSchedule;
+        $.each(data, function (bridge) {
+          if(data[bridge] != null){
+            bridgeName = bridge.replace(/\s/g, '-');
+            bridgeLED = $("#" + bridgeName + "-led");
+            bridgeSchedule = $("#" + bridgeName + "-next");
+            bridgeLED.removeClass("led-yellow");
+            if (data[bridge].status) {
+              bridgeLED.removeClass("led-green", 1000, "easeInBack");
+              bridgeLED.addClass("led-red", 1000, "easeInBack");
+              bridgeLED.text(" UP");
+            } else {
+              bridgeLED.removeClass("led-red").addClass("led-green");
+              bridgeLED.text(" DOWN");
+            }
+            if(data[bridge].scheduledLift) {
+              var estLiftTime = data[bridge].scheduledLift.estimatedLiftTime;
+              var newEstLiftTime = new Date(estLiftTime)
+              bridge = bridge.replace(/\s/g, '-');
+              bridgeSchedule.empty()
+                .append("Next sheduled lift:<br>"+ moment(newEstLiftTime).format('lll'))
+                .show();
+            } else{
+              bridgeSchedule.hide().empty();
+            };
+          }
+        });
+      }
+    },
+    nav: {
+      setUp: function () {
+        $('.button-collapse').sideNav({
+            closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+          }
+        );
 
-        Parse.subscribeToChannel('Hawthorne');
-        Parse.subscribeToChannel('Morrison');
-        Parse.subscribeToChannel('Burnside');
-        Parse.subscribeToChannel('Broadway');
-        Parse.subscribeToChannel('Cuevas Crossing');
+        $( "#multco-us" ).click(function () {
+          if (window['cordova'] == 'undefined') {
+            var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services', '_blank', 'enableViewportScale=yes;location=yes');
+          } else {
+            window.open('https://multco.us/bridge-services');
+          }
+        });
+
+        $( "#menu-feed" ).click(function() {
+          $("#bridge-page").hide();
+          $("#feed-page").show();
+          $("#terms-page").hide();
+          $("#hawthorne-page").hide();
+          $("#morrison-page").hide();
+          $("#burnside-page").hide();
+          $("#broadway-page").hide();
+          $("#cuevas-crossing-page").hide();
+          // Hide sideNav
+          $('.button-collapse').sideNav('hide');
+        });
+
+        $( "#menu-home").click(function(){
+          $("#bridge-page").show();
+          $("#feed-page").hide();
+          $("#terms-page").hide();
+          $("#hawthorne-page").hide();
+          $("#morrison-page").hide();
+          $("#burnside-page").hide();
+          $("#broadway-page").hide();
+          $("#cuevas-crossing-page").hide();
+          // Hide sideNav
+          $('.button-collapse').sideNav('hide');
+        });
+
+        $( "#menu-terms").click(function(){
+          $("#bridge-page").hide();
+          $("#feed-page").hide();
+          $("#terms-page").show();
+          $("#hawthorne-page").hide();
+          $("#morrison-page").hide();
+          $("#burnside-page").hide();
+          $("#broadway-page").hide();
+          $("#cuevas-crossing-page").hide();
+          // Hide sideNav
+          $('.button-collapse').sideNav('hide');
+        });
+
+        $("#hawthorne").click(this.showBridgePage);
+
+        $( "#morrison").click(this.showBridgePage);
+
+        $( "#burnside").click(this.showBridgePage);
+
+        $( "#broadway").click(this.showBridgePage);
+
+        $( "#cuevas-crossing").click(this.showBridgePage);
+
+        $(".bridge-link").click(function (event) {
+          var bridge = event.currentTarget.id.replace('-link', "");
+          if (window['cordova'] == 'undefined') {
+            var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services/'+ bridge, '_blank', 'enableViewportScale=yes;location=yes');
+          } else {
+            window.open('https://multco.us/bridge-services/'+ bridge);
+          }
+        });
+      },
+      showBridgePage: function(event){
+        var bridge = event.currentTarget.id;
+        $("#"+ bridge +"-last-5").empty();
+        $("#bridge-page").hide();
+        $("#"+ bridge +"-page").show();
+        $.getJSON( "http://54.191.150.69/bridges/"+ bridge +"/events/actual/5", function( data ) {
+          $("#"+ bridge +"-last-5").append(
+            "<table class='striped'>"+
+              "<thead>"+
+                "<tr>"+
+                  "<th data-field='time-up'>Time Up</th>"+
+                  "<th data-field='time-down'>Time Down</th>"+
+                  "<th data-field='duration'>Duration (min)</th>"+
+                "</tr>"+
+              "</thead>"+
+              "<tbody id='"+ bridge +"-data'>"+
+              "</tbody>"+
+            "</table>"
+          );
+          $.each( data, function( key, val ) {
+            // var up_time = val.up_time.toString();
+            var up_time = new Date(val.up_time);
+            // var down_time = val.down_time.toString();
+            var down_time = new Date(val.down_time);
+            var duration = down_time - up_time;
+            $("#"+ bridge +"-data").append(
+              "<tr>"+
+                "<td>"+moment(up_time).format('lll')+"</td>"+
+                "<td>"+moment(down_time).format('lll')+"</td>"+
+                "<td>"+_.round(duration/60000, 2)+"</td>"+
+              "</tr>"
+            );
+          });
+        });
+      }
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+      var parentElement = document.getElementById(id);
+      var listeningElement = parentElement.querySelector('.listening');
+      var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+      listeningElement.setAttribute('style', 'display:none;');
+      receivedElement.setAttribute('style', 'display:block;');
 
-        console.log('Received Event: ' + id);
+      console.log('Received Event: ' + id);
+    },
+    // Update DOM to reflect offline status
+    offline: function () {
+      app.socket.connection.disconnect();
+      var condition = navigator.onLine ? "online" : "offline";
+      // $("#bridge-page").prepend(
+      //   "<div id='connection-status'><h3>Unable to connect to server, please check your internet connection</h3></div>"
+      // );
+      Materialize.toast('<i class="material-icons left">error_outline</i>Unable to connect to server, please check your internet connection', 10000, 'rounded yellow black-text');
+      var bridgeLED;
+      $.each($("#bridge-page").children(), function ( index, child ) {
+        bridgeLED = $("#"+ child.id).find("#"+ child.id +"-led");
+        bridgeLED.removeClass("led-red").removeClass("led-green").addClass("led-yellow");
+        bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>")
+      });
+      console.log(condition);
+    },
+    // Update DOM to reflect offline status
+    online: function () {
+      var condition = navigator.onLine ? "online" : "offline";
+      $("#connection-status").remove();
+      console.log(condition);
+      app.socket.connection.connect();
     }
 };
 

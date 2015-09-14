@@ -9,6 +9,7 @@
 
     <!-- CSS -->
     <!-- <link rel="stylesheet" href="css/hamburger.css" media="screen" title="no title" charset="utf-8"> -->
+    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <link rel="stylesheet" href="css/materialize.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
 
@@ -19,8 +20,8 @@
     <script type="text/javascript" src="js/moment.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/lodash.min.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
   </head>
 
   <body>
@@ -40,29 +41,37 @@
       <!-- first page -->
       <div id="bridge-page">
         <div class="card bridge-list-item" id="hawthorne">
-          <span class="led led-green" id="hawthorne-led"> DOWN </span>
+          <span class="led led-yellow" id="hawthorne-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
           <div class="bridge">Hawthorne</div>
-          <span class="bridge-next" id="hawthorne-next">Next sheduled lift: </span>
+          <span class="bridge-next" id="hawthorne-next"></span>
         </div>
         <div class="card bridge-list-item" id="morrison">
-          <span class="led led-green" id="morrison-led"> DOWN </span>
+          <span class="led led-yellow" id="morrison-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
           <div class="bridge">Morrison</div>
-          <span class="bridge-next" id="morrison-next">Next sheduled lift: </span>
+          <span class="bridge-next" id="morrison-next"></span>
         </div>
         <div class="card bridge-list-item" id="burnside">
-          <span class="led led-green" id="burnside-led"> DOWN </span>
+          <span class="led led-yellow" id="burnside-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
           <div class="bridge">Burnside</div>
-          <span class="bridge-next" id="burnside-next">Next sheduled lift: </span>
+          <span class="bridge-next" id="burnside-next"></span>
         </div>
         <div class="card bridge-list-item" id="broadway">
-          <span class="led led-green" id="broadway-led"> DOWN </span>
+          <span class="led led-yellow" id="broadway-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
           <div class="bridge">Broadway</div>
-          <span class="bridge-next" id="broadway-next">Next sheduled lift: </span>
+          <span class="bridge-next" id="broadway-next"></span>
         </div>
         <div class="card bridge-list-item" id="cuevas-crossing">
-          <span class="led led-green" id="cuevas-crossing-led"> DOWN </span>
-          <div class="bridge">Cuevas Crossing</div>
-          <span class="bridge-next" id="cuevas-crossing-next">Next sheduled lift: </span>
+          <div class="row bridge-row">
+            <div class="col s1 bridge-led">
+              <span class="led led-yellow" id="cuevas-crossing-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
+            </div>
+            <!-- <div> -->
+              <span class="bridge">Cuevas Crossing<br><span class="bridge-next" id="cuevas-crossing-next"></span></span>
+            <!-- </div> -->
+            <!-- <div> -->
+              <!-- <span class="bridge-next" id="cuevas-crossing-next"></span> -->
+            <!-- </div> -->
+          </div>
         </div>
       </div>
       <!-- second page -->
