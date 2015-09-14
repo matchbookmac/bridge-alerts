@@ -101,21 +101,25 @@ nav {
 
 .bridge {
   text-align: left;
-  vertical-align: 50%;
   display: inline-block;
   text-transform: capitalize;
   text-decoration: none;
   color: black;
   font-size: 20px;
+  max-height: 56px;
+}
+
+.row .bridge-text {
+  max-height: 56px;
 }
 
 .row > .bridge-led {
   padding-left: 0px;
-  /*margin-right: 15px;*/
 }
 
 .bridge-row {
   margin-bottom: 0px;
+  max-height: 56px;
 }
 
 .bridge-next {

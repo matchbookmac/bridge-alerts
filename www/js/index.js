@@ -43,10 +43,9 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
       app.registerToParse();
-      app.socket.connect();
-      app.nav.setUp();
     },
     onBrowserReady: function () {
+      Materialize.toast('<i class="material-icons left">query_builder</i>Establishing connection...', 10000, 'rounded yellow black-text');
       app.nav.setUp();
       app.socket.connect();
     },
@@ -94,7 +93,7 @@ var app = {
         this.connection.on('bridge data', this.updateDOM);
       },
       updateDOM: function (data) {
-        // $("#bridges").text("");
+        $("#toast-container").remove();
         var bridgeLED;
         var bridgeSchedule;
         $.each(data, function (bridge) {
@@ -116,7 +115,7 @@ var app = {
               var newEstLiftTime = new Date(estLiftTime)
               bridge = bridge.replace(/\s/g, '-');
               bridgeSchedule.empty()
-                .append("Lift estimated: "+ moment(newEstLiftTime).format('ddd [at] LT'))
+                .append("<br>Lift est: "+ moment(newEstLiftTime).format('ddd [at] LT'))
                 .show();
             } else{
               bridgeSchedule.hide().empty();
@@ -262,7 +261,11 @@ var app = {
     online: function () {
       var condition = navigator.onLine ? "online" : "offline";
       console.log(condition);
-      app.socket.connection.connect();
+      if (typeof app.socket.connection === 'undefined') {
+        app.socket.connect();
+      } else {
+        app.socket.connection.connect();
+      }
     }
 };
 

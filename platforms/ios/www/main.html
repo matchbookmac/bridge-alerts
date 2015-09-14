@@ -13,10 +13,8 @@
     <link rel="stylesheet" href="css/materialize.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
 
-    <!-- Jquery -->
     <script src="js/jquery-2.1.1.min.js" type="text/javascript"></script>
-    <!-- Page behavior -->
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script type="text/javascript" src="js/socket.io.js"></script>
     <script type="text/javascript" src="js/moment.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/lodash.min.js"></script>
@@ -41,36 +39,53 @@
       <!-- first page -->
       <div id="bridge-page">
         <div class="card bridge-list-item" id="hawthorne">
-          <span class="led led-yellow" id="hawthorne-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
-          <div class="bridge">Hawthorne</div>
-          <span class="bridge-next" id="hawthorne-next"></span>
+          <div class="row bridge-row">
+            <div class="col s2 bridge-led">
+              <span class="led led-yellow" id="hawthorne-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
+            </div>
+            <div class="col s8 valign-wrapper bridge-text">
+              <p class="bridge valign">Hawthorne<span class="bridge-next" id="hawthorne-next"></span></p>
+            </div>
+          </div>
         </div>
         <div class="card bridge-list-item" id="morrison">
-          <span class="led led-yellow" id="morrison-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
-          <div class="bridge">Morrison</div>
-          <span class="bridge-next" id="morrison-next"></span>
+          <div class="row bridge-row">
+            <div class="col s2 bridge-led">
+              <span class="led led-yellow" id="morrison-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
+            </div>
+            <div class="col s8 valign-wrapper bridge-text">
+              <p class="bridge valign">Morrison<span class="bridge-next" id="morrison-next"></span></p>
+            </div>
+          </div>
         </div>
         <div class="card bridge-list-item" id="burnside">
-          <span class="led led-yellow" id="burnside-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
-          <div class="bridge">Burnside</div>
-          <span class="bridge-next" id="burnside-next"></span>
+          <div class="row bridge-row">
+            <div class="col s2 bridge-led">
+              <span class="led led-yellow" id="burnside-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
+            </div>
+            <div class="col s8 valign-wrapper bridge-text">
+              <p class="bridge valign">Burnside<span class="bridge-next" id="burnside-next"></span></p>
+            </div>
+          </div>
         </div>
         <div class="card bridge-list-item" id="broadway">
-          <span class="led led-yellow" id="broadway-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
-          <div class="bridge">Broadway</div>
-          <span class="bridge-next" id="broadway-next"></span>
+          <div class="row bridge-row">
+            <div class="col s2 bridge-led">
+              <span class="led led-yellow" id="broadway-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
+            </div>
+            <div class="col s8 valign-wrapper bridge-text">
+              <p class="bridge valign">Broadway<span class="bridge-next" id="broadway-next"></span></p>
+            </div>
+          </div>
         </div>
         <div class="card bridge-list-item" id="cuevas-crossing">
           <div class="row bridge-row">
             <div class="col s2 bridge-led">
               <span class="led led-yellow" id="cuevas-crossing-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
             </div>
-            <div class="col s8">
-              <span class="bridge">Cuevas Crossing<br><span class="bridge-next" id="cuevas-crossing-next"></span></span>
+            <div class="col s8 valign-wrapper bridge-text">
+              <p class="bridge valign">Cuevas Crossing<span class="bridge-next" id="cuevas-crossing-next"></span></p>
             </div>
-            <!-- <div> -->
-              <!-- <span class="bridge-next" id="cuevas-crossing-next"></span> -->
-            <!-- </div> -->
           </div>
         </div>
       </div>
