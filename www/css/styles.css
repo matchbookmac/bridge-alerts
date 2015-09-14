@@ -11,6 +11,7 @@ body {
 
 img {
   display: block;
+  margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -36,11 +37,8 @@ nav {
 
 #terms-page {
   display: none;
-  background: #5e8dc4;
-  color: white;
   font-size: 12px;
   text-shadow: none;
-  font-weight: lighter;
   margin: 20px 20px 20px 20px;
 }
 
@@ -69,14 +67,14 @@ nav {
   border-radius: 31.5px 0px 0px 31.5px;
   text-align: left;
 }
-
+/*
 .bridge-event {
   text-align: center;
   display: inline;
   margin-left: auto;
   margin-right: auto;
 
-}
+}*/
 
 #hawthorne-next, #burnside-next, #morrison-next, #broadway-next, #cuevas-crossing-next  {
   display: none;
@@ -88,7 +86,7 @@ nav {
   font-size: 15px;
 }
 
-.last-five {
+/*.last-five {
   text-align: center;
   display: inline;
   margin-left: auto;
@@ -99,7 +97,7 @@ nav {
 .bridge-last {
   display: inline;
   text-align: center;
-}
+}*/
 
 .bridge-info {
   background-color: white;

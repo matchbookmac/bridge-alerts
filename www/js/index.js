@@ -44,10 +44,10 @@ var app = {
     onDeviceReady: function() {
       app.registerToParse();
       app.socket.connect();
-      app.setUpNav();
+      app.nav.setUp();
     },
     onBrowserReady: function () {
-      app.setUpNav();
+      app.nav.setUp();
       app.socket.connect();
     },
     registerToParse: function () {
@@ -125,139 +125,114 @@ var app = {
         });
       }
     },
-    setUpNav: function () {
-      $('.button-collapse').sideNav({
-          closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-        }
-      );
+    nav: {
+      setUp: function () {
+        $('.button-collapse').sideNav({
+            closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+          }
+        );
 
-      $( "#multco-us" ).click(function () {
-        var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services', '_blank', 'enableViewportScale=yes;location=yes');
-      });
+        $( "#multco-us" ).click(function () {
+          if (window['cordova'] == 'undefined') {
+            var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services', '_blank', 'enableViewportScale=yes;location=yes');
+          } else {
+            window.open('https://multco.us/bridge-services');
+          }
+        });
 
-      $( "#menu-feed" ).click(function() {
+        $( "#menu-feed" ).click(function() {
+          $("#bridge-page").hide();
+          $("#feed-page").show();
+          $("#terms-page").hide();
+          $("#hawthorne-page").hide();
+          $("#morrison-page").hide();
+          $("#burnside-page").hide();
+          $("#broadway-page").hide();
+          $("#cuevas-crossing-page").hide();
+          // Hide sideNav
+          $('.button-collapse').sideNav('hide');
+        });
+
+        $( "#menu-home").click(function(){
+          $("#bridge-page").show();
+          $("#feed-page").hide();
+          $("#terms-page").hide();
+          $("#hawthorne-page").hide();
+          $("#morrison-page").hide();
+          $("#burnside-page").hide();
+          $("#broadway-page").hide();
+          $("#cuevas-crossing-page").hide();
+          // Hide sideNav
+          $('.button-collapse').sideNav('hide');
+        });
+
+        $( "#menu-terms").click(function(){
+          $("#bridge-page").hide();
+          $("#feed-page").hide();
+          $("#terms-page").show();
+          $("#hawthorne-page").hide();
+          $("#morrison-page").hide();
+          $("#burnside-page").hide();
+          $("#broadway-page").hide();
+          $("#cuevas-crossing-page").hide();
+          // Hide sideNav
+          $('.button-collapse').sideNav('hide');
+        });
+
+        $("#hawthorne").click(this.showBridgePage);
+
+        $( "#morrison").click(this.showBridgePage);
+
+        $( "#burnside").click(this.showBridgePage);
+
+        $( "#broadway").click(this.showBridgePage);
+
+        $( "#cuevas-crossing").click(this.showBridgePage);
+
+        $(".bridge-link").click(function (event) {
+          var bridge = event.currentTarget.id.replace('-link', "");
+          if (window['cordova'] == 'undefined') {
+            var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services/'+ bridge, '_blank', 'enableViewportScale=yes;location=yes');
+          } else {
+            window.open('https://multco.us/bridge-services/'+ bridge);
+          }
+        });
+      },
+      showBridgePage: function(event){
+        var bridge = event.currentTarget.id;
+        $("#"+ bridge +"-last-5").empty();
         $("#bridge-page").hide();
-        $("#feed-page").show();
-        $("#terms-page").hide();
-        $("#hawthorne-page").hide();
-        $("#morrison-page").hide();
-        $("#burnside-page").hide();
-        $("#broadway-page").hide();
-        $("#cuevas-crossing-page").hide();
-        // Hide sideNav
-        $('.button-collapse').sideNav('hide');
-      });
-
-      $( "#menu-home").click(function(){
-        $("#bridge-page").show();
-        $("#feed-page").hide();
-        $("#terms-page").hide();
-        $("#hawthorne-page").hide();
-        $("#morrison-page").hide();
-        $("#burnside-page").hide();
-        $("#broadway-page").hide();
-        $("#cuevas-crossing-page").hide();
-        // Hide sideNav
-        $('.button-collapse').sideNav('hide');
-      });
-
-      $( "#menu-terms").click(function(){
-        $("#bridge-page").hide();
-        $("#feed-page").hide();
-        $("#terms-page").show();
-        $("#hawthorne-page").hide();
-        $("#morrison-page").hide();
-        $("#burnside-page").hide();
-        $("#broadway-page").hide();
-        $("#cuevas-crossing-page").hide();
-        // Hide sideNav
-        $('.button-collapse').sideNav('hide');
-      });
-
-      $( "#hawthorne").click(function(){
-        $("#hawthorne-last").empty();
-        $("#bridge-page").hide();
-        $("#hawthorne-page").show();
-        $("#toggle-button").removeClass("c-hamburger--htx").addClass("c-hamburger--htla").addClass("is-active");
-        $.getJSON( "http://54.191.150.69/bridges/hawthorne/events/actual/5", function( data ) {
+        $("#"+ bridge +"-page").show();
+        $.getJSON( "http://54.191.150.69/bridges/"+ bridge +"/events/actual/5", function( data ) {
+          $("#"+ bridge +"-last-5").append(
+            "<table class='striped'>"+
+              "<thead>"+
+                "<tr>"+
+                  "<th data-field='time-up'>Time Up</th>"+
+                  "<th data-field='time-down'>Time Down</th>"+
+                  "<th data-field='duration'>Duration (min)</th>"+
+                "</tr>"+
+              "</thead>"+
+              "<tbody id='"+ bridge +"-data'>"+
+              "</tbody>"+
+            "</table>"
+          );
           $.each( data, function( key, val ) {
-            var up_time = val.up_time.toString();
-            var new_up_time = new Date(up_time)
-            var down_time = val.down_time.toString();
-            var new_down_time = new Date(down_time);
-            $("#hawthorne-last").append("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>")
-            $("#hawthorne-last").append("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>");
+            // var up_time = val.up_time.toString();
+            var up_time = new Date(val.up_time);
+            // var down_time = val.down_time.toString();
+            var down_time = new Date(val.down_time);
+            var duration = down_time - up_time;
+            $("#"+ bridge +"-data").append(
+              "<tr>"+
+                "<td>"+moment(up_time).format('lll')+"</td>"+
+                "<td>"+moment(down_time).format('lll')+"</td>"+
+                "<td>"+_.round(duration/60000, 2)+"</td>"+
+              "</tr>"
+            );
           });
         });
-      });
-
-      $( "#morrison").click(function(){
-        $("#morrison-last").empty();
-        $("#bridge-page").hide();
-        $("#morrison-page").show();
-        $("#toggle-button").removeClass("c-hamburger--htx").addClass("c-hamburger--htla").addClass("is-active");
-        $.getJSON( "http://54.191.150.69/bridges/morrison/events/actual/5", function( data ) {
-          $.each( data, function( key, val ) {
-            var up_time = val.up_time.toString();
-            var new_up_time = new Date(up_time);
-            var down_time = val.down_time.toString();
-            var new_down_time = new Date(down_time);
-            $("#morrison-last").append("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>")
-            $("#morrison-last").append("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>")
-          });
-        });
-      });
-
-      $( "#burnside").click(function(){
-        $("#burnside-last").empty();
-        $("#bridge-page").hide();
-        $("#burnside-page").show();
-        $("#toggle-button").removeClass("c-hamburger--htx").addClass("c-hamburger--htla").addClass("is-active");
-        $.getJSON( "http://54.191.150.69/bridges/burnside/events/actual/5", function( data ) {
-          $.each( data, function( key, val ) {
-            var up_time = val.up_time.toString();
-            var new_up_time = new Date(up_time);
-            var down_time = val.down_time.toString();
-            var new_down_time = new Date(down_time);
-            $("#burnside-last").append("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>")
-            $("#burnside-last").append("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>")
-          });
-        });
-      });
-
-      $( "#broadway").click(function(){
-        $("#broadway-last").empty();
-        $("#bridge-page").hide();
-        $("#broadway-page").show();
-        $("#toggle-button").removeClass("c-hamburger--htx").addClass("c-hamburger--htla").addClass("is-active");
-        $.getJSON( "http://54.191.150.69/bridges/broadway/events/actual/5", function( data ) {
-          $.each( data, function( key, val ) {
-            var up_time = val.up_time.toString();
-            var new_up_time = new Date(up_time);
-            var down_time = val.down_time.toString();
-            var new_down_time = new Date(down_time);
-            $("#broadway-last").append("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>")
-            $("#broadway-last").append("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>")
-          });
-        });
-      });
-
-      $( "#cuevas-crossing").click(function(){
-        $("#cuevas-crossing-last").empty();
-        $("#bridge-page").hide();
-        $("#cuevas-crossing-page").show();
-        $("#toggle-button").removeClass("c-hamburger--htx").addClass("c-hamburger--htla").addClass("is-active");
-        $.getJSON( "http://54.191.150.69/bridges/cuevas%20crossing/events/actual/5", function( data ) {
-          $.each( data, function( key, val ) {
-            var up_time = val.up_time.toString();
-            var new_up_time = new Date(up_time);
-            var down_time = val.down_time.toString();
-            var new_down_time = new Date(down_time);
-            $("#cuevas-crossing-last").append("<li class='bridge-event'>" + " Time up: " + moment(new_up_time).format('lll') + "</li>");
-            $("#cuevas-crossing-last").append("<li class='bridge-event'>" + "Time down: " + moment(new_down_time).format('lll') + "</li><br>");
-          });
-        });
-      });
+      }
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

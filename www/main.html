@@ -18,9 +18,9 @@
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script type="text/javascript" src="js/moment.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/lodash.min.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/materialize.js"></script>
-
   </head>
 
   <body>
@@ -31,7 +31,7 @@
           <li><div id="menu-home">Home</div></li>
           <li><div id="menu-feed">@MultCoBridges</div></li>
           <li><div id="menu-terms">Terms & Conditions</div></li>
-          <li><div id="multco-us">multco</div></li>
+          <li><div id="multco-us">Multnomah County Website</div></li>
         </ul>
         <a href="#" data-activates="side-nav" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
       </div>
@@ -82,54 +82,54 @@
         </div>
       </div>
       <!-- Hawthorne Page -->
-      <div class="bridge-page" id="hawthorne-page">
+      <div id="hawthorne-page">
         <div class="container">
           <p style="text-align: center">Hawthorne Bridge</p>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Hawthorne_Bridge_%28Multnomah_County%2C_Oregon_scenic_images%29_%28mulDA0052%29.jpg" alt="Hawthorne Bridge" style="width: 50%;"/>
           <p style="text-align: center">Height: 49'</p>
           <p style="text-align: center">Last five bridge openings: </p>
-          <ul class="bridge-last" id="hawthorne-last"></ul>
-          <p style="text-align: center">More info here: <a href="https://multco.us/bridge-services/hawthorne-bridge"> Hawthorne Bridge Page</a></p>
+          <div class="bridge-last-5" id="hawthorne-last-5"></div>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Hawthorne_Bridge_%28Multnomah_County%2C_Oregon_scenic_images%29_%28mulDA0052%29.jpg" alt="Hawthorne Bridge" style="width: 50%;"/>
+          <p style="text-align: center">More info here: <a id="hawthorne-bridge-link" class="bridge-link"> Hawthorne Bridge Page</a></p>
         </div>
       </div>
-      <div class="bridge-page" id="morrison-page">
+      <div id="morrison-page">
         <div class="container">
           <p style="text-align: center">Morrison Bridge</p>
-          <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/General_view_of_Morrison_Bridge%2C_looking_northeast._-_Morrison_Bridge%2C_Spanning_Willamette_River_on_Morrison_and_Alder_Streets%2C_Portland%2C_Multnomah_County%2C_OR_HAER_OR-100-27_%28CT%29.tif/lossy-page1-303px-thumbnail.tif.jpg" alt="Morrison Bridge" style="width: 50%;"/>
           <p style="text-align: center">Height: 69'</p>
           <p style="text-align: center">Last five bridge openings: </p>
-          <ul class="bridge-last" id="morrison-last"></ul>
-          <p style="text-align: center">More info here: <a href="https://multco.us/bridge-services/morrison-bridge"> Morrison Bridge Page</a></p>
+          <div class="bridge-last-5" id="morrison-last-5"></div>
+          <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/General_view_of_Morrison_Bridge%2C_looking_northeast._-_Morrison_Bridge%2C_Spanning_Willamette_River_on_Morrison_and_Alder_Streets%2C_Portland%2C_Multnomah_County%2C_OR_HAER_OR-100-27_%28CT%29.tif/lossy-page1-303px-thumbnail.tif.jpg" alt="Morrison Bridge" style="width: 50%;"/>
+          <p style="text-align: center">More info here: <a id="morrison-bridge-link" class="bridge-link"> Morrison Bridge Page</a></p>
         </div>
       </div>
-        <div class="bridge-page" id="burnside-page">
+        <div id="burnside-page">
           <div class="container">
             <p style="text-align: center">Burnside Bridge</p>
-            <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Burnside_Bridge.JPG/320px-Burnside_Bridge.JPG" alt="Morrison Bridge" style="width: 50%;"/>
             <p style="text-align: center">Height: 64'</p>
             <p style="text-align: center">Last five bridge openings: </p>
-            <ul class="bridge-last" id="burnside-last"></ul>
-            <p style="text-align: center">More info here: <a href="https://multco.us/bridge-services/burnside-bridge" alt="Burnside Bridge"> Burnside Bridge Page</a></p>
+            <div class="bridge-last-5" id="burnside-last-5"></div>
+            <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Burnside_Bridge.JPG/320px-Burnside_Bridge.JPG" alt="Morrison Bridge" style="width: 50%;"/>
+            <p style="text-align: center">More info here: <a id="burnside-bridge-link" class="bridge-link"> Burnside Bridge Page</a></p>
           </div>
         </div>
-      <div class="bridge-page" id="broadway-page">
+      <div id="broadway-page">
         <div class="container">
           <p style="text-align: center">Broadway Bridge</p>
-          <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Broadway_Bridge%2C_Portland_HDR_%2818017408858%29.jpg/640px-Broadway_Bridge%2C_Portland_HDR_%2818017408858%29.jpg" alt="Broadway Bridge" style="width: 50%;"/>
           <p style="text-align: center">Height: 70'</p>
           <p style="text-align: center">Last five bridge openings: </p>
-          <ul class="bridge-last" id="broadway-last"></ul>
-          <p style="text-align: center">More info here: <a href="https://multco.us/bridge-services/broadway-bridge"> Broadway Bridge Page</a></p>
+          <div class="bridge-last-5" id="broadway-last-5"></div>
+          <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Broadway_Bridge%2C_Portland_HDR_%2818017408858%29.jpg/640px-Broadway_Bridge%2C_Portland_HDR_%2818017408858%29.jpg" alt="Broadway Bridge" style="width: 50%;"/>
+          <p style="text-align: center">More info here: <a id="broadway-bridge-link" class="bridge-link"> Broadway Bridge Page</a></p>
         </div>
       </div>
-      <div class="bridge-page" id="cuevas-crossing-page">
+      <div id="cuevas-crossing-page">
         <div class="container">
           <p style="text-align: center">Cuevas Crossing Bridge</p>
-          <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/CrookedRiverHighBridge.jpg/484px-CrookedRiverHighBridge.jpg" alt="Cuevas Crossing Bridge" style="width: 50%;"/>
           <p style="text-align: center">Height: 70'</p>
           <p style="text-align: center">Last five bridge openings: </p>
-          <ul class="bridge-last" id="cuevas-crossing-last"></ul>
-          <p style="text-align: center">More info here: <a href="https://multco.us/bridge-services/broadway-bridge"> Cuevas Crossing Bridge Page</a></p>
+          <div class="bridge-last-5" id="cuevas-crossing-last-5"></div>
+          <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/CrookedRiverHighBridge.jpg/484px-CrookedRiverHighBridge.jpg" alt="Cuevas Crossing Bridge" style="width: 50%;"/>
+          <p style="text-align: center">More info here: <a id="cuevas-crossing-bridge-link" class="bridge-link"> Cuevas Crossing Bridge Page</a></p>
         </div>
       </div>
     </main>
