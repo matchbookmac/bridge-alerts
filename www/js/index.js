@@ -57,6 +57,11 @@ var app = {
       //registerAsPushNotificationClient callback (called after setUp)
       Parse.onRegisterAsPushNotificationClientSucceeded = function() {
           // alert('You have registered for notifications with Parse');
+        Parse.subscribeToChannel('Hawthorne');
+        Parse.subscribeToChannel('Morrison');
+        Parse.subscribeToChannel('Burnside');
+        Parse.subscribeToChannel('Broadway');
+        Parse.subscribeToChannel('CuevasCrossing');
       };
       Parse.onRegisterAsPushNotificationClientFailed = function() {
           alert('Register As Push Notification Client Failed');
@@ -79,11 +84,6 @@ var app = {
           alert('Unsubscribe Failed');
       };
 // Add set timeout here, having trouble doing it async
-      Parse.subscribeToChannel('Hawthorne');
-      Parse.subscribeToChannel('Morrison');
-      Parse.subscribeToChannel('Burnside');
-      Parse.subscribeToChannel('Broadway');
-      Parse.subscribeToChannel('Cuevas Crossing');
     },
     socket: {
       connect: function () {
