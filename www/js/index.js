@@ -34,8 +34,8 @@ var app = {
       document.addEventListener('deviceready', this.onDeviceReady, false);
       // Browser DOM ready event
       document.addEventListener('DOMContentLoaded', this.onBrowserReady);
-      document.addEventListener('online', this.online, false);
-      document.addEventListener('offline', this.offline, false);
+      window.addEventListener('online', this.online, false);
+      window.addEventListener('offline', this.offline, false);
     },
     // deviceready Event Handler
     //
@@ -88,40 +88,40 @@ var app = {
     },
     socket: {
       connect: function () {
-        var socket = io('http://54.191.150.69');
+        this.connection = io('http://54.191.150.69');
         // var socket = io('http://172.20.150.140');
         // var socket = io('http://127.0.0.1:9000');
-        socket.on('bridge data', this.updateDOM);
+        this.connection.on('bridge data', this.updateDOM);
       },
       updateDOM: function (data) {
         // $("#bridges").text("");
-        $.each(data, function (bridge) {
-          if(data[bridge].status){
-            bridge = bridge.replace(/\s/g, '-');
-            $("#" + bridge + "-led").removeClass("led-green", 1000, "easeInBack");
-            $("#" + bridge + "-led").addClass("led-red", 1000, "easeInBack");
-            $("#" + bridge + "-led").text(" UP");
-          }
-            else {
-              bridge = bridge.replace(/\s/g, '-');
-              $("#" + bridge + "-led").removeClass("led-red").addClass("led-green");
-              $("#" + bridge + "-led").text(" DOWN");
-            }
-        });
+        var bridgeLED;
+        var bridgeSchedule;
         $.each(data, function (bridge) {
           if(data[bridge] != null){
+            bridgeName = bridge.replace(/\s/g, '-');
+            bridgeLED = $("#" + bridgeName + "-led");
+            bridgeSchedule = $("#" + bridgeName + "-next");
+            bridgeLED.removeClass("led-yellow");
+            if (data[bridge].status) {
+              bridgeLED.removeClass("led-green", 1000, "easeInBack");
+              bridgeLED.addClass("led-red", 1000, "easeInBack");
+              bridgeLED.text(" UP");
+            } else {
+              bridgeLED.removeClass("led-red").addClass("led-green");
+              bridgeLED.text(" DOWN");
+            }
             if(data[bridge].scheduledLift) {
               var estLiftTime = data[bridge].scheduledLift.estimatedLiftTime;
               var newEstLiftTime = new Date(estLiftTime)
               bridge = bridge.replace(/\s/g, '-');
-              $("#" + bridge + "-next").show();
-              $("#" + bridge + "-next").append(moment(newEstLiftTime).format('lll'));
-            }
-            else{
-              $("#" + bridge + "-next").hide();
-              $("#" + bridge + "-next").empty();
+              bridgeSchedule.empty()
+                .append("Next sheduled lift: "+ moment(newEstLiftTime).format('lll'))
+                .show();
+            } else{
+              bridgeSchedule.hide().empty();
             };
-          };
+          }
         });
       }
     },
@@ -247,11 +247,26 @@ var app = {
     },
     // Update DOM to reflect offline status
     offline: function () {
-
+      app.socket.connection.disconnect();
+      var condition = navigator.onLine ? "online" : "offline";
+      // $("#bridge-page").prepend(
+      //   "<div id='connection-status'><h3>Unable to connect to server, please check your internet connection</h3></div>"
+      // );
+      Materialize.toast('<i class="material-icons left">error_outline</i>Unable to connect to server, please check your internet connection', 10000, 'rounded yellow black-text');
+      var bridgeLED;
+      $.each($("#bridge-page").children(), function ( index, child ) {
+        bridgeLED = $("#"+ child.id).find("#"+ child.id +"-led");
+        bridgeLED.removeClass("led-red").removeClass("led-green").addClass("led-yellow");
+        bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>")
+      });
+      console.log(condition);
     },
     // Update DOM to reflect offline status
     online: function () {
-
+      var condition = navigator.onLine ? "online" : "offline";
+      $("#connection-status").remove();
+      console.log(condition);
+      app.socket.connection.connect();
     }
 };
 
