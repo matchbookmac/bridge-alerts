@@ -57,7 +57,7 @@ var app = {
 
       //registerAsPushNotificationClient callback (called after setUp)
       Parse.onRegisterAsPushNotificationClientSucceeded = function() {
-          alert('You have registered for notifications with Parse');
+          // alert('You have registered for notifications with Parse');
       };
       Parse.onRegisterAsPushNotificationClientFailed = function() {
           alert('Register As Push Notification Client Failed');
@@ -65,7 +65,7 @@ var app = {
 
       //subscribe callback
       Parse.onSubscribeToChannelSucceeded = function() {
-          alert('onSubscribeToChannelSucceeded');
+          // alert('onSubscribeToChannelSucceeded');
           return;
       };
       Parse.onSubscribeToChannelFailed = function() {
@@ -73,7 +73,7 @@ var app = {
       };
       //unsubscribe callback
       Parse.onUnsubscribeSucceeded = function() {
-          alert('onUnsubscribeSucceeded');
+          // alert('onUnsubscribeSucceeded');
           return;
       };
       Parse.onUnsubscribeFailed = function() {
@@ -116,7 +116,7 @@ var app = {
               var newEstLiftTime = new Date(estLiftTime)
               bridge = bridge.replace(/\s/g, '-');
               bridgeSchedule.empty()
-                .append("Next sheduled lift: "+ moment(newEstLiftTime).format('lll'))
+                .append("Lift estimated: "+ moment(newEstLiftTime).format('ddd [at] LT'))
                 .show();
             } else{
               bridgeSchedule.hide().empty();
@@ -133,10 +133,10 @@ var app = {
         );
 
         $( "#multco-us" ).click(function () {
-          if (window['cordova'] == 'undefined') {
-            var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services', '_blank', 'enableViewportScale=yes;location=yes');
-          } else {
+          if (typeof window['cordova'] === 'undefined') {
             window.open('https://multco.us/bridge-services');
+          } else {
+            var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services', '_blank', 'enableViewportScale=yes;location=yes');
           }
         });
 
@@ -191,10 +191,10 @@ var app = {
 
         $(".bridge-link").click(function (event) {
           var bridge = event.currentTarget.id.replace('-link', "");
-          if (window['cordova'] == 'undefined') {
-            var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services/'+ bridge, '_blank', 'enableViewportScale=yes;location=yes');
-          } else {
+          if (typeof window['cordova'] === 'undefined') {
             window.open('https://multco.us/bridge-services/'+ bridge);
+          } else {
+            var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services/'+ bridge, '_blank', 'enableViewportScale=yes;location=yes');
           }
         });
       },
@@ -204,7 +204,7 @@ var app = {
         $("#bridge-page").hide();
         $("#"+ bridge +"-page").show();
         $.getJSON( "http://54.191.150.69/bridges/"+ bridge +"/events/actual/5", function( data ) {
-          $("#"+ bridge +"-last-5").append(
+          $("#"+ bridge +"-last-5").empty().append(
             "<table class='striped'>"+
               "<thead>"+
                 "<tr>"+
@@ -249,10 +249,7 @@ var app = {
     offline: function () {
       app.socket.connection.disconnect();
       var condition = navigator.onLine ? "online" : "offline";
-      // $("#bridge-page").prepend(
-      //   "<div id='connection-status'><h3>Unable to connect to server, please check your internet connection</h3></div>"
-      // );
-      Materialize.toast('<i class="material-icons left">error_outline</i>Unable to connect to server, please check your internet connection', 10000, 'rounded yellow black-text');
+      Materialize.toast('<i class="material-icons left">error_outline</i>Could not establish connection...', 10000, 'rounded yellow black-text');
       var bridgeLED;
       $.each($("#bridge-page").children(), function ( index, child ) {
         bridgeLED = $("#"+ child.id).find("#"+ child.id +"-led");
@@ -264,7 +261,6 @@ var app = {
     // Update DOM to reflect offline status
     online: function () {
       var condition = navigator.onLine ? "online" : "offline";
-      $("#connection-status").remove();
       console.log(condition);
       app.socket.connection.connect();
     }
