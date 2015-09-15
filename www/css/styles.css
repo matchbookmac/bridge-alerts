@@ -57,7 +57,7 @@ nav {
   padding-top: 20px;
 }
 
-#hawthorne-page, #morrison-page, #burnside-page, #broadway-page, #cuevas-crossing-page, #feed-page, #arrow-button {
+#hawthorne-page, #morrison-page, #burnside-page, #broadway-page, #cuevas-crossing-page, #feed-page, #arrow-button, #settings-page {
   display: none;
 }
 
@@ -79,6 +79,14 @@ nav {
   padding-right: 10px;
   padding-top: 10px;
   text-align: center;
+}
+
+#settings-page {
+  padding-top: 10px;
+}
+
+.switch {
+  padding-top: 13px;
 }
 
 #bridges {

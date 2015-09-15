@@ -24,10 +24,11 @@
       <div class="nav-wrapper">
         <span class="brand-logo center">Bridges</span>
         <ul id="side-nav" class="side-nav">
-          <li><div id="menu-home">Home</div></li>
-          <li><div id="menu-feed">@MultCoBridges</div></li>
-          <li><div id="menu-terms">Terms & Conditions</div></li>
-          <li><div id="multco-us">Multnomah County Website</div></li>
+          <li><div id="menu-home"><i class="material-icons tiny left" style="padding-top:13px">home</i>Home</div></li>
+          <li><div id="menu-feed"><i class="material-icons tiny left" style="padding-top:13px">notifications_none</i>@MultCoBridges</div></li>
+          <li><div id="menu-terms"><i class="material-icons tiny left" style="padding-top:13px">info_outline</i>Terms & Conditions</div></li>
+          <li><div id="multco-us"><i class="material-icons tiny left" style="padding-top:13px">open_in_browser</i>Multnomah County</div></li>
+          <li><div id="menu-settings"><i class="material-icons tiny left" style="padding-top:13px">settings</i>Settings</div></li>
         </ul>
         <a href="#" data-activates="side-nav" class="button-collapse show-on-large"><i class="mdi-navigation-menu"></i></a>
       </div>
@@ -38,7 +39,7 @@
         <div class="card bridge-list-item" id="hawthorne">
           <div class="row bridge-row">
             <div class="col s2 bridge-led">
-              <span class="led led-yellow" id="hawthorne-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
+              <span class="led led-yellow" id="hawthorne-led"><i class="material-icons" style='padding-top:12.5px'>sync_outline</i></span>
             </div>
             <div class="col s8 valign-wrapper bridge-text">
               <p class="bridge valign">Hawthorne<span class="bridge-next" id="hawthorne-next"></span></p>
@@ -48,7 +49,7 @@
         <div class="card bridge-list-item" id="morrison">
           <div class="row bridge-row">
             <div class="col s2 bridge-led">
-              <span class="led led-yellow" id="morrison-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
+              <span class="led led-yellow" id="morrison-led"><i class="material-icons" style='padding-top:12.5px'>sync_outline</i></span>
             </div>
             <div class="col s8 valign-wrapper bridge-text">
               <p class="bridge valign">Morrison<span class="bridge-next" id="morrison-next"></span></p>
@@ -58,7 +59,7 @@
         <div class="card bridge-list-item" id="burnside">
           <div class="row bridge-row">
             <div class="col s2 bridge-led">
-              <span class="led led-yellow" id="burnside-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
+              <span class="led led-yellow" id="burnside-led"><i class="material-icons" style='padding-top:12.5px'>sync_outline</i></span>
             </div>
             <div class="col s8 valign-wrapper bridge-text">
               <p class="bridge valign">Burnside<span class="bridge-next" id="burnside-next"></span></p>
@@ -68,7 +69,7 @@
         <div class="card bridge-list-item" id="broadway">
           <div class="row bridge-row">
             <div class="col s2 bridge-led">
-              <span class="led led-yellow" id="broadway-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
+              <span class="led led-yellow" id="broadway-led"><i class="material-icons" style='padding-top:12.5px'>sync_outline</i></span>
             </div>
             <div class="col s8 valign-wrapper bridge-text">
               <p class="bridge valign">Broadway<span class="bridge-next" id="broadway-next"></span></p>
@@ -78,7 +79,7 @@
         <div class="card bridge-list-item" id="cuevas-crossing">
           <div class="row bridge-row">
             <div class="col s2 bridge-led">
-              <span class="led led-yellow" id="cuevas-crossing-led"><i class="material-icons" style='padding-top:12.5px'>query_builder</i></span>
+              <span class="led led-yellow" id="cuevas-crossing-led"><i class="material-icons" style='padding-top:12.5px'>sync_outline</i></span>
             </div>
             <div class="col s8 valign-wrapper bridge-text">
               <p class="bridge valign">Cuevas Crossing<span class="bridge-next" id="cuevas-crossing-next"></span></p>
@@ -151,6 +152,89 @@
           <div class="bridge-last-5" id="cuevas-crossing-last-5"></div>
           <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/CrookedRiverHighBridge.jpg/484px-CrookedRiverHighBridge.jpg" alt="Cuevas Crossing Bridge" style="width: 50%;"/>
           <p style="text-align: center">More info here: <a id="cuevas-crossing-bridge-link" class="bridge-link"> Cuevas Crossing Bridge Page</a></p>
+        </div>
+      </div>
+      <div id="settings-page">
+        <div class="row">
+          <div class="col s12">
+            <h4 class="center-align">Push Notifications</h4>
+          </div>
+
+          <div class="row">
+            <div class="col s6">
+              <h5 class="right-align">Hawthorne</h5>
+            </div>
+            <div class="col s6">
+              <div class="switch">
+                <label>
+                  Off
+                  <input type="checkbox" id="hawthorne-pn" class="push-setting">
+                  <span class="lever"></span>
+                  On
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <h5 class="right-align">Morrison</h5>
+            </div>
+            <div class="col s6">
+              <div class="switch">
+                <label>
+                  Off
+                  <input type="checkbox" id="morrison-pn" class="push-setting">
+                  <span class="lever"></span>
+                  On
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <h5 class="right-align">Burnside</h5>
+            </div>
+            <div class="col s6">
+              <div class="switch">
+                <label>
+                  Off
+                  <input type="checkbox" id="burnside-pn" class="push-setting">
+                  <span class="lever"></span>
+                  On
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <h5 class="right-align">Broadway</h5>
+            </div>
+            <div class="col s6">
+              <div class="switch">
+                <label>
+                  Off
+                  <input type="checkbox" id="broadway-pn" class="push-setting">
+                  <span class="lever"></span>
+                  On
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <h5 class="right-align">Cuevas Crossing</h5>
+            </div>
+            <div class="col s6">
+              <div class="switch">
+                <label>
+                  Off
+                  <input type="checkbox" id="cuevas-crossing-pn" class="push-setting">
+                  <span class="lever"></span>
+                  On
+                </label>
+              </div>
+          </div>
+          </div
         </div>
       </div>
     </main>

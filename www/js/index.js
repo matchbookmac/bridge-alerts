@@ -45,45 +45,45 @@ var app = {
       app.registerToParse();
     },
     onBrowserReady: function () {
-      Materialize.toast('<i class="material-icons left">query_builder</i>Establishing connection...', 10000, 'rounded yellow black-text');
+      Materialize.toast('<i class="material-icons left">sync_outline</i>Establishing connection...', 10000, 'rounded yellow black-text');
       app.nav.setUp();
       app.socket.connect();
     },
     registerToParse: function () {
-      // Parse Push notification service
-      var Parse = window.parsepushnotification;
-      Parse.setUp(applicationId, clientKey);
+      app.parse = window.parsepushnotification;
+      // parse Push notification service
+      // var parse = window.parsepushnotification;
+      app.parse.setUp(applicationId, clientKey);
 
       //registerAsPushNotificationClient callback (called after setUp)
-      Parse.onRegisterAsPushNotificationClientSucceeded = function() {
-          // alert('You have registered for notifications with Parse');
-        Parse.subscribeToChannel('Hawthorne');
-        Parse.subscribeToChannel('Morrison');
-        Parse.subscribeToChannel('Burnside');
-        Parse.subscribeToChannel('Broadway');
-        Parse.subscribeToChannel('CuevasCrossing');
+      app.parse.onRegisterAsPushNotificationClientSucceeded = function() {
+          // alert('You have registered for notifications with parse');
+        app.parse.subscribeToChannel('Hawthorne');
+        app.parse.subscribeToChannel('Morrison');
+        app.parse.subscribeToChannel('Burnside');
+        app.parse.subscribeToChannel('Broadway');
+        app.parse.subscribeToChannel('CuevasCrossing');
       };
-      Parse.onRegisterAsPushNotificationClientFailed = function() {
-          alert('Register As Push Notification Client Failed');
+      app.parse.onRegisterAsPushNotificationClientFailed = function() {
+        alert('Register As Push Notification Client Failed');
       };
 
       //subscribe callback
-      Parse.onSubscribeToChannelSucceeded = function() {
-          // alert('onSubscribeToChannelSucceeded');
-          return;
+      app.parse.onSubscribeToChannelSucceeded = function() {
+        // alert('Subscribe To Channel Succeeded');
+        return;
       };
-      Parse.onSubscribeToChannelFailed = function() {
-          alert('Subscribe To Channel Failed');
+      app.parse.onSubscribeToChannelFailed = function() {
+        alert('Subscribe To Channel Failed');
       };
       //unsubscribe callback
-      Parse.onUnsubscribeSucceeded = function() {
-          // alert('onUnsubscribeSucceeded');
-          return;
+      app.parse.onUnsubscribeSucceeded = function() {
+        // alert('Unsubscribe Succeeded');
+        return;
+    };
+      app.parse.onUnsubscribeFailed = function() {
+        alert('Unsubscribe Failed');
       };
-      Parse.onUnsubscribeFailed = function() {
-          alert('Unsubscribe Failed');
-      };
-// Add set timeout here, having trouble doing it async
     },
     socket: {
       connect: function () {
@@ -148,6 +148,7 @@ var app = {
           $("#burnside-page").hide();
           $("#broadway-page").hide();
           $("#cuevas-crossing-page").hide();
+          $("#settings-page").hide();
           // Hide sideNav
           $('.button-collapse').sideNav('hide');
         });
@@ -161,6 +162,7 @@ var app = {
           $("#burnside-page").hide();
           $("#broadway-page").hide();
           $("#cuevas-crossing-page").hide();
+          $("#settings-page").hide();
           // Hide sideNav
           $('.button-collapse').sideNav('hide');
         });
@@ -174,6 +176,21 @@ var app = {
           $("#burnside-page").hide();
           $("#broadway-page").hide();
           $("#cuevas-crossing-page").hide();
+          $("#settings-page").hide();
+          // Hide sideNav
+          $('.button-collapse').sideNav('hide');
+        });
+
+        $( "#menu-settings").click(function(){
+          $("#bridge-page").hide();
+          $("#feed-page").hide();
+          $("#terms-page").hide();
+          $("#hawthorne-page").hide();
+          $("#morrison-page").hide();
+          $("#burnside-page").hide();
+          $("#broadway-page").hide();
+          $("#cuevas-crossing-page").hide();
+          $("#settings-page").show();
           // Hide sideNav
           $('.button-collapse').sideNav('hide');
         });
@@ -194,6 +211,45 @@ var app = {
             window.open('https://multco.us/bridge-services/'+ bridge);
           } else {
             var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services/'+ bridge, '_blank', 'enableViewportScale=yes;location=yes');
+          }
+        });
+        // TODO: Hook into local storage to save settings between sessions
+        $(".push-setting").each(function (index, setting) {
+          setting.checked = true;
+        });
+        $("#hawthorne-pn").click(function (event) {
+          if (event.target.checked) {
+            app.parse.subscribeToChannel('Hawthorne');
+          } else {
+            app.parse.unsubscribe('Hawthorne');
+          }
+        });
+        $("#morrison-pn").click(function (event) {
+          if (event.target.checked) {
+            app.parse.subscribeToChannel('Morrison');
+          } else {
+            app.parse.unsubscribe('Morrison');
+          }
+        });
+        $("#burnside-pn").click(function (event) {
+          if (event.target.checked) {
+            app.parse.subscribeToChannel('Burnside');
+          } else {
+            app.parse.unsubscribe('Burnside');
+          }
+        });
+        $("#broadway-pn").click(function (event) {
+          if (event.target.checked) {
+            app.parse.subscribeToChannel('Broadway');
+          } else {
+            app.parse.unsubscribe('Broadway');
+          }
+        });
+        $("#cuevas-crossing-pn").click(function (event) {
+          if (event.target.checked) {
+            app.parse.subscribeToChannel('CuevasCrossing');
+          } else {
+            app.parse.unsubscribe('CuevasCrossing');
           }
         });
       },
@@ -232,17 +288,6 @@ var app = {
           });
         });
       }
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-      var parentElement = document.getElementById(id);
-      var listeningElement = parentElement.querySelector('.listening');
-      var receivedElement = parentElement.querySelector('.received');
-
-      listeningElement.setAttribute('style', 'display:none;');
-      receivedElement.setAttribute('style', 'display:block;');
-
-      console.log('Received Event: ' + id);
     },
     // Update DOM to reflect offline status
     offline: function () {
