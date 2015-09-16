@@ -87,7 +87,7 @@ var app = {
     },
     socket: {
       connect: function () {
-        this.connection = io('https://api.multco.us', {secure: true});
+        this.connection = io('https://api.multco.us', { secure: true });
         // var socket = io('http://172.20.150.140');
         // var socket = io('http://127.0.0.1:9000');
         this.connection.on('bridge data', this.updateDOM);
