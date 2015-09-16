@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <PreferenceCategory android:title="Common">
+    <EditTextPreference android:key="title" android:title="Title"/>
+    <ListPreference android:key="lang" android:title="Language" android:defaultValue="en-us" android:entries="@array/apppreferences_undefined" android:entryValues="@array/apppreferences_undefinedValues"/>
+    <SwitchPreference android:key="debug" android:title="Debug" android:defaultValue="false"/>
+  </PreferenceCategory>
+</PreferenceScreen>

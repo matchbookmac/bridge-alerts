@@ -50,19 +50,47 @@ var app = {
       app.socket.connect();
     },
     registerToParse: function () {
-      app.parse = window.parsepushnotification;
       // parse Push notification service
-      // var parse = window.parsepushnotification;
+      app.parse = window.parsepushnotification;
       app.parse.setUp(applicationId, clientKey);
-
+      app.parseSettings = JSON.parse(localStorage.getItem('parseSettings'));
+alert(JSON.stringify(app.parseSettings));
+      if (!app.parseSettings) {
+        app.parseSettings = {
+          Hawthorne: true,
+          Morrison: true,
+          Burnside: true,
+          Broadway: true,
+          CuevasCrossing: true
+        };
+        localStorage.setItem('parseSettings', JSON.stringify(app.parseSettings));
+      }
       //registerAsPushNotificationClient callback (called after setUp)
       app.parse.onRegisterAsPushNotificationClientSucceeded = function() {
           // alert('You have registered for notifications with parse');
-        app.parse.subscribeToChannel('Hawthorne');
-        app.parse.subscribeToChannel('Morrison');
-        app.parse.subscribeToChannel('Burnside');
-        app.parse.subscribeToChannel('Broadway');
-        app.parse.subscribeToChannel('CuevasCrossing');
+        var settingElement;
+        _.forIn(app.parseSettings, function (setting, key) {
+          if (setting) {
+            app.parse.subscribeToChannel(key);
+          } else {
+            app.parse.unsubscribe(key);
+          }
+          settingElement = $("#"+ _.kebabCase(key) +"-pn")
+          // The next line makes no sense, but it makes the settings page work
+          settingElement.click(function (event) {
+            localStorage.removeItem('parseSettings');
+            var bridge = _.capitalize(_.camelCase(event.target.id.split("-")[0]));
+            if (event.target.checked) {
+              app.parseSettings[bridge] = false;
+              app.parse.subscribeToChannel(bridge);
+            } else {
+              app.parseSettings[bridge] = true;
+              app.parse.unsubscribe(bridge);
+            }
+            localStorage.setItem('parseSettings', JSON.stringify(app.parseSettings));
+          });
+          settingElement[0].checked = setting;
+        });
       };
       app.parse.onRegisterAsPushNotificationClientFailed = function() {
         alert('Register As Push Notification Client Failed');
@@ -126,6 +154,33 @@ var app = {
     },
     nav: {
       setUp: function () {
+        // app.parseSettings = {
+        //   Hawthorne: false,
+        //   Morrison: true,
+        //   Burnside: true,
+        //   Broadway: true,
+        //   CuevasCrossing: true
+        // };
+        // _.forIn(app.parseSettings, function (setting, key) {
+        //   settingElement = $("#"+ _.kebabCase(key) +"-pn")[0]
+        //   // The next line makes no sense, but it makes the settings page work
+        //   settingElement.click(function (event) {
+        //     var bridge = _.capitalize(_.camelCase(event.target.id.split("-")[0]));
+        //     if (event.target.checked) {
+        //       app.parseSettings[bridge] = false;
+        //       app.parse.subscribeToChannel(bridge);
+        //     } else {
+        //       app.parseSettings[bridge] = true;
+        //       app.parse.unsubscribe(bridge);
+        //     }
+        //     localStorage.setItem('parseSettings', JSON.stringify(app.parseSettings));
+        //   });
+        //   settingElement.checked = setting;
+        // });
+
+
+
+
         $('.button-collapse').sideNav({
             closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
           }
@@ -197,13 +252,13 @@ var app = {
 
         $("#hawthorne").click(this.showBridgePage);
 
-        $( "#morrison").click(this.showBridgePage);
+        $("#morrison").click(this.showBridgePage);
 
-        $( "#burnside").click(this.showBridgePage);
+        $("#burnside").click(this.showBridgePage);
 
-        $( "#broadway").click(this.showBridgePage);
+        $("#broadway").click(this.showBridgePage);
 
-        $( "#cuevas-crossing").click(this.showBridgePage);
+        $("#cuevas-crossing").click(this.showBridgePage);
 
         $(".bridge-link").click(function (event) {
           var bridge = event.currentTarget.id.replace('-link', "");
@@ -213,52 +268,13 @@ var app = {
             var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services/'+ bridge, '_blank', 'enableViewportScale=yes;location=yes');
           }
         });
-        // TODO: Hook into local storage to save settings between sessions
-        $(".push-setting").each(function (index, setting) {
-          setting.checked = true;
-        });
-        $("#hawthorne-pn").click(function (event) {
-          if (event.target.checked) {
-            app.parse.subscribeToChannel('Hawthorne');
-          } else {
-            app.parse.unsubscribe('Hawthorne');
-          }
-        });
-        $("#morrison-pn").click(function (event) {
-          if (event.target.checked) {
-            app.parse.subscribeToChannel('Morrison');
-          } else {
-            app.parse.unsubscribe('Morrison');
-          }
-        });
-        $("#burnside-pn").click(function (event) {
-          if (event.target.checked) {
-            app.parse.subscribeToChannel('Burnside');
-          } else {
-            app.parse.unsubscribe('Burnside');
-          }
-        });
-        $("#broadway-pn").click(function (event) {
-          if (event.target.checked) {
-            app.parse.subscribeToChannel('Broadway');
-          } else {
-            app.parse.unsubscribe('Broadway');
-          }
-        });
-        $("#cuevas-crossing-pn").click(function (event) {
-          if (event.target.checked) {
-            app.parse.subscribeToChannel('CuevasCrossing');
-          } else {
-            app.parse.unsubscribe('CuevasCrossing');
-          }
-        });
       },
       showBridgePage: function(event){
         var bridge = event.currentTarget.id;
         $("#"+ bridge +"-last-5").empty();
         $("#bridge-page").hide();
         $("#"+ bridge +"-page").show();
-        $.getJSON( "http://54.191.150.69/bridges/"+ bridge +"/events/actual/5", function( data ) {
+        $.getJSON( "https://api.multco.us/bridges/"+ bridge +"/events/actual/5", function( data ) {
           $("#"+ bridge +"-last-5").empty().append(
             "<table class='striped'>"+
               "<thead>"+
