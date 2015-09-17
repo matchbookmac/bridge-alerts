@@ -104,14 +104,12 @@ var app = {
           }
           settingElement = $("#"+ _.kebabCase(key) +"-pn");
           settingElement.click(function (event) {
-            // TODO: This doesn't work for cuevas
-            var bridge = _.capitalize(_.camelCase(event.target.id.split("-")[0]));
             if (event.target.checked) {
-              app.parse.subscribeToChannel(bridge);
-              app.parseSettings[bridge] = true;
+              app.parse.subscribeToChannel(key);
+              app.parseSettings[key] = true;
             } else {
-              app.parse.unsubscribe(bridge);
-              app.parseSettings[bridge] = false;
+              app.parse.unsubscribe(key);
+              app.parseSettings[key] = false;
             }
             app.saveOrCreateSettings();
           });
