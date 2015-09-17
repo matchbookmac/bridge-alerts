@@ -42,6 +42,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+      app.loadSettings();
       app.registerToParse();
     },
     onBrowserReady: function () {
@@ -49,25 +50,51 @@ var app = {
       app.nav.setUp();
       app.socket.connect();
     },
+    loadSettings: function () {
+      window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+      var fileSys;
+      window.requestFileSystem(window.PERSISTENT, 1024*1024, function (fs) {
+        fileSys = app.fs = fs;
+        fs.root.getFile('settings.json', {}, function(fileEntry) {
+          fileEntry.file(function(file) {
+            var reader = new FileReader();
+            reader.onloadend = function(e) {
+              var settings = this.result;
+              app.parseSettings = JSON.parse(settings);
+            };
+            reader.readAsText(file);
+          }, errorHandler);
+        }, app.saveOrCreateSettings);
+      }, errorHandler);
+      function errorHandler(err) {
+        return;
+      }
+    },
+    saveOrCreateSettings: function () {
+      app.fs.root.getFile('settings.json', { create: true }, function (fileEntry) {
+        fileEntry.createWriter(function(fileWriter) {
+          if (!app.parseSettings) {
+            app.parseSettings = {
+              Hawthorne: true,
+              Morrison: true,
+              Burnside: true,
+              Broadway: true,
+              CuevasCrossing: true
+            }
+          }
+          var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
+          fileWriter.write(blob);
+        }, function (err) {
+          console.log(err);
+        });
+      })
+    },
     registerToParse: function () {
       // parse Push notification service
       app.parse = window.parsepushnotification;
       app.parse.setUp(applicationId, clientKey);
-      app.parseSettings = JSON.parse(localStorage.getItem('parseSettings'));
-alert(JSON.stringify(app.parseSettings));
-      if (!app.parseSettings) {
-        app.parseSettings = {
-          Hawthorne: true,
-          Morrison: true,
-          Burnside: true,
-          Broadway: true,
-          CuevasCrossing: true
-        };
-        localStorage.setItem('parseSettings', JSON.stringify(app.parseSettings));
-      }
       //registerAsPushNotificationClient callback (called after setUp)
       app.parse.onRegisterAsPushNotificationClientSucceeded = function() {
-          // alert('You have registered for notifications with parse');
         var settingElement;
         _.forIn(app.parseSettings, function (setting, key) {
           if (setting) {
@@ -76,18 +103,17 @@ alert(JSON.stringify(app.parseSettings));
             app.parse.unsubscribe(key);
           }
           settingElement = $("#"+ _.kebabCase(key) +"-pn")
-          // The next line makes no sense, but it makes the settings page work
           settingElement.click(function (event) {
-            localStorage.removeItem('parseSettings');
+            // TODO: This doesn't work for cuevas
             var bridge = _.capitalize(_.camelCase(event.target.id.split("-")[0]));
             if (event.target.checked) {
-              app.parseSettings[bridge] = false;
               app.parse.subscribeToChannel(bridge);
-            } else {
               app.parseSettings[bridge] = true;
+            } else {
               app.parse.unsubscribe(bridge);
+              app.parseSettings[bridge] = false;
             }
-            localStorage.setItem('parseSettings', JSON.stringify(app.parseSettings));
+            app.saveOrCreateSettings();
           });
           settingElement[0].checked = setting;
         });
@@ -154,33 +180,6 @@ alert(JSON.stringify(app.parseSettings));
     },
     nav: {
       setUp: function () {
-        // app.parseSettings = {
-        //   Hawthorne: false,
-        //   Morrison: true,
-        //   Burnside: true,
-        //   Broadway: true,
-        //   CuevasCrossing: true
-        // };
-        // _.forIn(app.parseSettings, function (setting, key) {
-        //   settingElement = $("#"+ _.kebabCase(key) +"-pn")[0]
-        //   // The next line makes no sense, but it makes the settings page work
-        //   settingElement.click(function (event) {
-        //     var bridge = _.capitalize(_.camelCase(event.target.id.split("-")[0]));
-        //     if (event.target.checked) {
-        //       app.parseSettings[bridge] = false;
-        //       app.parse.subscribeToChannel(bridge);
-        //     } else {
-        //       app.parseSettings[bridge] = true;
-        //       app.parse.unsubscribe(bridge);
-        //     }
-        //     localStorage.setItem('parseSettings', JSON.stringify(app.parseSettings));
-        //   });
-        //   settingElement.checked = setting;
-        // });
-
-
-
-
         $('.button-collapse').sideNav({
             closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
           }

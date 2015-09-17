@@ -20,6 +20,7 @@
     <allow-intent href="geo:*" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="local" />
+    <preference name="iosPersistentFileLocation" value="Library" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="hdpi" height="72" src="www/img/icon/android/hdpi.png" width="72" />
@@ -65,4 +66,5 @@
         <splash height="960" src="www/img/splash/ios/Default@2x~iphone.png" width="640" />
         <splash height="480" src="www/img/splash/ios/Default~iphone.png" width="320" />
     </platform>
+    <plugin name="cordova-plugin-file" spec="~3.0.0" />
 </widget>

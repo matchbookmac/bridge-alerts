@@ -27,6 +27,11 @@
     <feature name="ParsePushNotificationPlugin">
         <param name="ios-package" value="ParsePushNotificationPlugin" />
     </feature>
+    <preference name="AndroidPersistentFileLocation" value="Internal" />
+    <feature name="File">
+        <param name="ios-package" value="CDVFile" />
+        <param name="onload" value="true" />
+    </feature>
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <icon height="180" src="www/img/icon/ios/icon-60@3x.png" width="180" />
@@ -65,4 +70,5 @@
     <allow-intent href="geo:*" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="local" />
+    <preference name="iosPersistentFileLocation" value="Library" />
 </widget>
