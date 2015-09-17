@@ -80,14 +80,14 @@ var app = {
               Burnside: true,
               Broadway: true,
               CuevasCrossing: true
-            }
+            };
           }
           var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
           fileWriter.write(blob);
         }, function (err) {
           console.log(err);
         });
-      })
+      });
     },
     registerToParse: function () {
       // parse Push notification service
@@ -102,7 +102,7 @@ var app = {
           } else {
             app.parse.unsubscribe(key);
           }
-          settingElement = $("#"+ _.kebabCase(key) +"-pn")
+          settingElement = $("#"+ _.kebabCase(key) +"-pn");
           settingElement.click(function (event) {
             // TODO: This doesn't work for cuevas
             var bridge = _.capitalize(_.camelCase(event.target.id.split("-")[0]));
@@ -151,7 +151,7 @@ var app = {
         var bridgeLED;
         var bridgeSchedule;
         $.each(data, function (bridge) {
-          if(data[bridge] != null){
+          if(data[bridge] !== null){
             bridgeName = bridge.replace(/\s/g, '-');
             bridgeLED = $("#" + bridgeName + "-led");
             bridgeSchedule = $("#" + bridgeName + "-next");
@@ -166,14 +166,14 @@ var app = {
             }
             if(data[bridge].scheduledLift) {
               var estLiftTime = data[bridge].scheduledLift.estimatedLiftTime;
-              var newEstLiftTime = new Date(estLiftTime)
+              var newEstLiftTime = new Date(estLiftTime);
               bridge = bridge.replace(/\s/g, '-');
               bridgeSchedule.empty()
                 .append("<br>Lift est: "+ moment(newEstLiftTime).format('ddd [at] LT'))
                 .show();
             } else{
               bridgeSchedule.hide().empty();
-            };
+            }
           }
         });
       }
@@ -186,7 +186,7 @@ var app = {
         );
 
         $( "#multco-us" ).click(function () {
-          if (typeof window['cordova'] === 'undefined') {
+          if (typeof window.cordova === 'undefined') {
             window.open('https://multco.us/bridge-services');
           } else {
             var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services', '_blank', 'enableViewportScale=yes;location=yes');
@@ -261,7 +261,7 @@ var app = {
 
         $(".bridge-link").click(function (event) {
           var bridge = event.currentTarget.id.replace('-link', "");
-          if (typeof window['cordova'] === 'undefined') {
+          if (typeof window.cordova === 'undefined') {
             window.open('https://multco.us/bridge-services/'+ bridge);
           } else {
             var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services/'+ bridge, '_blank', 'enableViewportScale=yes;location=yes');
@@ -313,7 +313,7 @@ var app = {
       $.each($("#bridge-page").children(), function ( index, child ) {
         bridgeLED = $("#"+ child.id).find("#"+ child.id +"-led");
         bridgeLED.removeClass("led-red").removeClass("led-green").addClass("led-yellow");
-        bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>")
+        bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>");
       });
       console.log(condition);
     },
