@@ -105,6 +105,7 @@ var app = {
           settingElement = $("#"+ _.kebabCase(key) +"-pn")
           settingElement.click(function (event) {
             // TODO: This doesn't work for cuevas
+            // TODO: Turn off LED when setting is off
             var bridge = _.capitalize(_.camelCase(event.target.id.split("-")[0]));
             if (event.target.checked) {
               app.parse.subscribeToChannel(bridge);
