@@ -26,75 +26,40 @@ var app = {
       this.bindEvents();
     },
     // Bind Event Listeners
-    //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-      // Cordova DOM ready event
-      document.addEventListener('deviceready', this.onDeviceReady, false);
+      // App sent to fore/background events
+      document.addEventListener('pause', function () {
+        // app.settings.saveOrCreate();
+        app.offline();
+      });
+      document.addEventListener('resume', function () {
+        app.settings.load();
+        app.online();
+      });
+
       // Browser DOM ready event
-      document.addEventListener('DOMContentLoaded', this.onBrowserReady);
-      window.addEventListener('online', this.online, false);
-      window.addEventListener('offline', this.offline, false);
+      document.addEventListener('DOMContentLoaded', app.onBrowserReady);
+      // Cordova device ready event
+      document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
+    // The scope of 'this' is the event. In order to call the needed function, we must explicitly call 'app.function(...);'
     onDeviceReady: function() {
-      app.loadSettings();
+      window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
       app.registerToParse();
     },
     onBrowserReady: function () {
       Materialize.toast('<i class="material-icons left">sync_outline</i>Establishing connection...', 10000, 'rounded yellow black-text');
       app.nav.setUp();
       app.socket.connect();
+      // Network connection events
+      document.addEventListener('online', app.online, false);
+      document.addEventListener('offline', app.offline, false);
     },
-    loadSettings: function () {
-      window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
-      var fileSys;
-      window.requestFileSystem(window.PERSISTENT, 1024*1024, function (fs) {
-        fileSys = app.fs = fs;
-        fs.root.getFile('settings.json', {}, function(fileEntry) {
-          fileEntry.file(function(file) {
-            var reader = new FileReader();
-            reader.onloadend = function(e) {
-              var settings = this.result;
-              app.parseSettings = JSON.parse(settings);
-            };
-            reader.readAsText(file);
-          }, errorHandler);
-        }, app.saveOrCreateSettings);
-      }, errorHandler);
-      function errorHandler(err) {
-        return;
-      }
-    },
-    saveOrCreateSettings: function () {
-      app.fs.root.getFile('settings.json', { create: true }, function (fileEntry) {
-        fileEntry.createWriter(function(fileWriter) {
-          if (!app.parseSettings) {
-            app.parseSettings = {
-              Hawthorne: true,
-              Morrison: true,
-              Burnside: true,
-              Broadway: true,
-              CuevasCrossing: true
-            }
-          }
-          var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
-          fileWriter.write(blob);
-        }, function (err) {
-          console.log(err);
-        });
-      })
-    },
-    registerToParse: function () {
-      // parse Push notification service
-      app.parse = window.parsepushnotification;
-      app.parse.setUp(applicationId, clientKey);
-      //registerAsPushNotificationClient callback (called after setUp)
-      app.parse.onRegisterAsPushNotificationClientSucceeded = function() {
+    settings: {
+      render: function(callback) {
         var settingElement;
         _.forIn(app.parseSettings, function (setting, key) {
           if (setting) {
@@ -102,25 +67,78 @@ var app = {
           } else {
             app.parse.unsubscribe(key);
           }
-          settingElement = $("#"+ _.kebabCase(key) +"-pn")
-          settingElement.click(function (event) {
-            var bridge = _.capitalize(_.camelCase(event.target.id.split("-")[0]));
-            if (event.target.checked) {
-              app.parse.subscribeToChannel(bridge);
-              app.parseSettings[bridge] = true;
-            } else {
-              app.parse.unsubscribe(bridge);
-              app.parseSettings[bridge] = false;
-            }
-            app.saveOrCreateSettings();
-          });
+          settingElement = $("#"+ _.kebabCase(key) +"-pn");
           settingElement[0].checked = setting;
         });
+        if (callback) callback();
+      },
+      load: function (callback) {
+        window.requestFileSystem(window.PERSISTENT, 1024*1024, function (fs) {
+          app.fs = fs;
+          app.fs.root.getFile('settings.json', {}, function(fileEntry) {
+            fileEntry.file(function(file) {
+              var reader = new FileReader();
+              reader.onloadend = function(e) {
+                var settings = this.result;
+                app.parseSettings = JSON.parse(settings);
+                app.settings.render(callback);
+              };
+              reader.readAsText(file);
+            }, errorHandler);
+          }, app.settings.saveOrCreate);
+        }, errorHandler);
+        function errorHandler(err) {
+          return;
+        }
+      },
+      saveOrCreate: function () {
+        if (!app.parseSettings) {
+          app.parseSettings = {
+            Hawthorne: true,
+            Morrison: true,
+            Burnside: true,
+            Broadway: true,
+            CuevasCrossing: true
+          };
+        }
+        app.fs.root.getFile('settings.json', { create: true }, function (fileEntry) {
+          fileEntry.createWriter(function(fileWriter) {
+            app.settingsFileWriter = fileWriter;
+            var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
+            app.settingsFileWriter.write(blob);
+          }, function (err) {
+            console.log(err);
+          });
+        });
+      },
+      attachClickListener: function () {
+        var settingElement;
+        _.forIn(app.parseSettings, function (setting, key) {
+          settingElement = $("#"+ _.kebabCase(key) +"-pn");
+          settingElement.click(function (event) {
+            if (event.target.checked) {
+              app.parse.subscribeToChannel(key);
+              app.parseSettings[key] = true;
+            } else {
+              app.parse.unsubscribe(key);
+              app.parseSettings[key] = false;
+            }
+            app.settings.saveOrCreate();
+          });
+        });
+      }
+    },
+    registerToParse: function () {
+      // parse Push notification service
+      app.parse = window.parsepushnotification;
+      app.parse.setUp(applicationId, clientKey);
+      //registerAsPushNotificationClient callback (called after setUp)
+      app.parse.onRegisterAsPushNotificationClientSucceeded = function () {
+        app.settings.load(app.settings.attachClickListener);
       };
       app.parse.onRegisterAsPushNotificationClientFailed = function() {
         alert('Register As Push Notification Client Failed');
       };
-
       //subscribe callback
       app.parse.onSubscribeToChannelSucceeded = function() {
         // alert('Subscribe To Channel Succeeded');
@@ -133,7 +151,7 @@ var app = {
       app.parse.onUnsubscribeSucceeded = function() {
         // alert('Unsubscribe Succeeded');
         return;
-    };
+      };
       app.parse.onUnsubscribeFailed = function() {
         alert('Unsubscribe Failed');
       };
@@ -150,7 +168,7 @@ var app = {
         var bridgeLED;
         var bridgeSchedule;
         $.each(data, function (bridge) {
-          if(data[bridge] != null){
+          if(data[bridge] !== null){
             bridgeName = bridge.replace(/\s/g, '-');
             bridgeLED = $("#" + bridgeName + "-led");
             bridgeSchedule = $("#" + bridgeName + "-next");
@@ -165,14 +183,14 @@ var app = {
             }
             if(data[bridge].scheduledLift) {
               var estLiftTime = data[bridge].scheduledLift.estimatedLiftTime;
-              var newEstLiftTime = new Date(estLiftTime)
+              var newEstLiftTime = new Date(estLiftTime);
               bridge = bridge.replace(/\s/g, '-');
               bridgeSchedule.empty()
                 .append("<br>Lift est: "+ moment(newEstLiftTime).format('ddd [at] LT'))
                 .show();
             } else{
               bridgeSchedule.hide().empty();
-            };
+            }
           }
         });
       }
@@ -185,7 +203,7 @@ var app = {
         );
 
         $( "#multco-us" ).click(function () {
-          if (typeof window['cordova'] === 'undefined') {
+          if (typeof window.cordova === 'undefined') {
             window.open('https://multco.us/bridge-services');
           } else {
             var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services', '_blank', 'enableViewportScale=yes;location=yes');
@@ -235,6 +253,7 @@ var app = {
         });
 
         $( "#menu-settings").click(function(){
+          app.settings.render();
           $("#bridge-page").hide();
           $("#feed-page").hide();
           $("#terms-page").hide();
@@ -260,7 +279,7 @@ var app = {
 
         $(".bridge-link").click(function (event) {
           var bridge = event.currentTarget.id.replace('-link', "");
-          if (typeof window['cordova'] === 'undefined') {
+          if (typeof window.cordova === 'undefined') {
             window.open('https://multco.us/bridge-services/'+ bridge);
           } else {
             var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services/'+ bridge, '_blank', 'enableViewportScale=yes;location=yes');
@@ -312,7 +331,7 @@ var app = {
       $.each($("#bridge-page").children(), function ( index, child ) {
         bridgeLED = $("#"+ child.id).find("#"+ child.id +"-led");
         bridgeLED.removeClass("led-red").removeClass("led-green").addClass("led-yellow");
-        bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>")
+        bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>");
       });
       console.log(condition);
     },
