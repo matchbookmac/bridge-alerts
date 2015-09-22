@@ -306,15 +306,15 @@ var app = {
           "</table>"
         );
         $.each( data, function( key, val ) {
-          // var up_time = val.up_time.toString();
-          var up_time = new Date(val.up_time);
-          // var down_time = val.down_time.toString();
-          var down_time = new Date(val.down_time);
-          var duration = down_time - up_time;
+          // var upTime = val.upTime.toString();
+          var upTime = new Date(val.upTime);
+          // var downTime = val.downTime.toString();
+          var downTime = new Date(val.downTime);
+          var duration = downTime - upTime;
           $("#"+ bridge +"-data").append(
             "<tr>"+
-              "<td>"+moment(up_time).format('lll')+"</td>"+
-              "<td>"+moment(down_time).format('lll')+"</td>"+
+              "<td>"+moment(upTime).format('lll')+"</td>"+
+              "<td>"+moment(downTime).format('lll')+"</td>"+
               "<td>"+_.round(duration/60000, 2)+"</td>"+
             "</tr>"
           );
