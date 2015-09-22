@@ -12,6 +12,8 @@
     <plugin name="cordova-plugin-whitelist" version="1" />
     <plugin name="cordova-plugin-inappbrowser" spec="~1.0.1" />
     <plugin name="cordova-plugin-pushnotification-parsepushnotification" spec="~1.0.32" />
+    <plugin name="cordova-plugin-file" spec="~3.0.0" />
+    <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -21,6 +23,9 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="local" />
     <preference name="iosPersistentFileLocation" value="Library" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#152c48" />
+    <preference name="StatusBarStyle" value="blackopaque" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon density="hdpi" height="72" src="www/img/icon/android/hdpi.png" width="72" />
@@ -66,5 +71,4 @@
         <splash height="960" src="www/img/splash/ios/Default@2x~iphone.png" width="640" />
         <splash height="480" src="www/img/splash/ios/Default~iphone.png" width="320" />
     </platform>
-    <plugin name="cordova-plugin-file" spec="~3.0.0" />
 </widget>
