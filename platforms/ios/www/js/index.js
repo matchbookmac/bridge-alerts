@@ -186,7 +186,7 @@ var app = {
             var newEstLiftTime = new Date(estLiftTime);
             bridge = bridge.replace(/\s/g, '-');
             bridgeSchedule.empty()
-              .append("<br>Lift est: "+ moment(newEstLiftTime).format('ddd [at] LT'))
+              .append("Lift est: "+ moment(newEstLiftTime).format('ddd [at] LT'))
               .show();
           } else{
             bridgeSchedule.hide().empty();
@@ -196,11 +196,16 @@ var app = {
     }
   },
   nav: {
-    setUp: function () {
-      $('.button-collapse').sideNav({
-          closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-        }
-      );
+   setUp: function () {
+      var $menu = $('#menu'),
+        $menulink = $('.menu-link'),
+        $wrap = $('#content-wrap');
+
+      $menulink.click(function() {
+        $menulink.toggleClass('active');
+        $wrap.toggleClass('active');
+        return false;
+      });
 
       $( "#multco-us" ).click(function () {
         if (typeof window.cordova === 'undefined') {
@@ -220,8 +225,9 @@ var app = {
         $("#broadway-page").hide();
         $("#cuevas-crossing-page").hide();
         $("#settings-page").hide();
-        // Hide sideNav
-        $('.button-collapse').sideNav('hide');
+
+        $menulink.toggleClass('active');
+        $wrap.toggleClass('active');
       });
 
       $( "#menu-home").click(function(){
@@ -234,8 +240,9 @@ var app = {
         $("#broadway-page").hide();
         $("#cuevas-crossing-page").hide();
         $("#settings-page").hide();
-        // Hide sideNav
-        $('.button-collapse').sideNav('hide');
+
+        $menulink.toggleClass('active');
+        $wrap.toggleClass('active');
       });
 
       $( "#menu-terms").click(function(){
@@ -248,8 +255,9 @@ var app = {
         $("#broadway-page").hide();
         $("#cuevas-crossing-page").hide();
         $("#settings-page").hide();
-        // Hide sideNav
-        $('.button-collapse').sideNav('hide');
+
+        $menulink.toggleClass('active');
+        $wrap.toggleClass('active');
       });
 
       $( "#menu-settings").click(function(){
@@ -263,8 +271,9 @@ var app = {
         $("#broadway-page").hide();
         $("#cuevas-crossing-page").hide();
         $("#settings-page").show();
-        // Hide sideNav
-        $('.button-collapse').sideNav('hide');
+
+        $menulink.toggleClass('active');
+        $wrap.toggleClass('active');
       });
 
       $("#hawthorne").click(this.showBridgePage);
@@ -306,15 +315,15 @@ var app = {
           "</table>"
         );
         $.each( data, function( key, val ) {
-          // var up_time = val.up_time.toString();
-          var up_time = new Date(val.up_time);
-          // var down_time = val.down_time.toString();
-          var down_time = new Date(val.down_time);
-          var duration = down_time - up_time;
+          // var upTime = val.upTime.toString();
+          var upTime = new Date(val.upTime);
+          // var downTime = val.downTime.toString();
+          var downTime = new Date(val.downTime);
+          var duration = downTime - upTime;
           $("#"+ bridge +"-data").append(
             "<tr>"+
-              "<td>"+moment(up_time).format('lll')+"</td>"+
-              "<td>"+moment(down_time).format('lll')+"</td>"+
+              "<td>"+moment(upTime).format('lll')+"</td>"+
+              "<td>"+moment(downTime).format('lll')+"</td>"+
               "<td>"+_.round(duration/60000, 2)+"</td>"+
             "</tr>"
           );
