@@ -35,7 +35,7 @@ var app = {
       app.offline();
     });
     document.addEventListener('resume', function () {
-      app.settings.load();
+      // app.settings.load();
       app.online();
     });
 
@@ -261,7 +261,7 @@ var app = {
       });
 
       $( "#menu-settings").click(function(){
-        app.settings.render();
+        // app.settings.render();
         $("#bridge-page").hide();
         $("#feed-page").hide();
         $("#terms-page").hide();

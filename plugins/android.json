@@ -31,10 +31,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"ParsePushNotificationPlugin\"><param name=\"android-package\" value=\"com.cranberrygame.cordova.plugin.pushnotification.parsepushnotification.ParsePushNotificationPlugin\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -44,6 +40,10 @@
                         },
                         {
                             "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" value=\"org.apache.cordova.statusbar.StatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"ParsePushNotificationPlugin\"><param name=\"android-package\" value=\"com.cranberrygame.cordova.plugin.pushnotification.parsepushnotification.ParsePushNotificationPlugin\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -135,9 +135,6 @@
         "cordova-plugin-network-information": {
             "PACKAGE_NAME": "com.multco.bridges"
         },
-        "cordova-plugin-pushnotification-parsepushnotification": {
-            "PACKAGE_NAME": "com.multco.bridges"
-        },
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.multco.bridges"
         },
@@ -145,6 +142,9 @@
             "PACKAGE_NAME": "com.multco.bridges"
         },
         "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.multco.bridges"
+        },
+        "cordova-plugin-pushnotification-parsepushnotification": {
             "PACKAGE_NAME": "com.multco.bridges"
         }
     },

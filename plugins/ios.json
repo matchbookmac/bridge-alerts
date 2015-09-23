@@ -157,10 +157,10 @@
         "cordova-plugin-splashscreen": {
             "PACKAGE_NAME": "com.multco.bridges"
         },
-        "cordova-plugin-whitelist": {
+        "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.multco.bridges"
         },
-        "cordova-plugin-statusbar": {
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.multco.bridges"
         }
     },

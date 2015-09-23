@@ -35,7 +35,7 @@ var app = {
       app.offline();
     });
     document.addEventListener('resume', function () {
-      app.settings.load();
+      // app.settings.load();
       app.online();
     });
 
@@ -47,94 +47,99 @@ var app = {
   // deviceready Event Handler
   // The scope of 'this' is the event. In order to call the needed function, we must explicitly call 'app.function(...);'
   onDeviceReady: function () {
-    window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+    // window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
     app.registerToParse();
   },
   onBrowserReady: function () {
-    Materialize.toast('<i class="material-icons left">sync_outline</i>Establishing connection...', 10000, 'rounded yellow black-text');
+    // Materialize.toast('<i class="material-icons left">sync_outline</i>Establishing connection...', 10000, 'rounded yellow black-text');
     app.nav.setUp();
     app.socket.connect();
     // Network connection events
     document.addEventListener('online', app.online, false);
     document.addEventListener('offline', app.offline, false);
   },
-  settings: {
-    render: function(callback) {
-      var settingElement;
-      _.forIn(app.parseSettings, function (setting, key) {
-        if (setting) {
-          app.parse.subscribeToChannel(key);
-        } else {
-          app.parse.unsubscribe(key);
-        }
-        settingElement = $("#"+ _.kebabCase(key) +"-pn");
-        settingElement[0].checked = setting;
-      });
-      if (callback) callback();
-    },
-    load: function (callback) {
-      window.requestFileSystem(window.PERSISTENT, 1024*1024, function (fs) {
-        app.fs = fs;
-        app.fs.root.getFile('settings.json', {}, function(fileEntry) {
-          fileEntry.file(function(file) {
-            var reader = new FileReader();
-            reader.onloadend = function(e) {
-              var settings = this.result;
-              app.parseSettings = JSON.parse(settings);
-              app.settings.render(callback);
-            };
-            reader.readAsText(file);
-          }, errorHandler);
-        }, app.settings.saveOrCreate);
-      }, errorHandler);
-      function errorHandler(err) {
-        return;
-      }
-    },
-    saveOrCreate: function () {
-      if (!app.parseSettings) {
-        app.parseSettings = {
-          Hawthorne: true,
-          Morrison: true,
-          Burnside: true,
-          Broadway: true,
-          CuevasCrossing: true
-        };
-      }
-      app.fs.root.getFile('settings.json', { create: true }, function (fileEntry) {
-        fileEntry.createWriter(function(fileWriter) {
-          app.settingsFileWriter = fileWriter;
-          var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
-          app.settingsFileWriter.write(blob);
-        }, function (err) {
-          console.log(err);
-        });
-      });
-    },
-    attachClickListener: function () {
-      var settingElement;
-      _.forIn(app.parseSettings, function (setting, key) {
-        settingElement = $("#"+ _.kebabCase(key) +"-pn");
-        settingElement.click(function (event) {
-          if (event.target.checked) {
-            app.parse.subscribeToChannel(key);
-            app.parseSettings[key] = true;
-          } else {
-            app.parse.unsubscribe(key);
-            app.parseSettings[key] = false;
-          }
-          app.settings.saveOrCreate();
-        });
-      });
-    }
-  },
+  // settings: {
+  //   render: function(callback) {
+  //     var settingElement;
+  //     _.forIn(app.parseSettings, function (setting, key) {
+  //       if (setting) {
+  //         app.parse.subscribeToChannel(key);
+  //       } else {
+  //         app.parse.unsubscribe(key);
+  //       }
+  //       settingElement = $("#"+ _.kebabCase(key) +"-pn");
+  //       settingElement[0].checked = setting;
+  //     });
+  //     if (callback) callback();
+  //   },
+  //   load: function (callback) {
+  //     window.requestFileSystem(window.PERSISTENT, 1024*1024, function (fs) {
+  //       app.fs = fs;
+  //       app.fs.root.getFile('settings.json', {}, function(fileEntry) {
+  //         fileEntry.file(function(file) {
+  //           var reader = new FileReader();
+  //           reader.onloadend = function(e) {
+  //             var settings = this.result;
+  //             app.parseSettings = JSON.parse(settings);
+  //             app.settings.render(callback);
+  //           };
+  //           reader.readAsText(file);
+  //         }, errorHandler);
+  //       }, app.settings.saveOrCreate);
+  //     }, errorHandler);
+  //     function errorHandler(err) {
+  //       return;
+  //     }
+  //   },
+  //   saveOrCreate: function () {
+  //     if (!app.parseSettings) {
+  //       app.parseSettings = {
+  //         Hawthorne: true,
+  //         Morrison: true,
+  //         Burnside: true,
+  //         Broadway: true,
+  //         CuevasCrossing: true
+  //       };
+  //     }
+  //     app.fs.root.getFile('settings.json', { create: true }, function (fileEntry) {
+  //       fileEntry.createWriter(function(fileWriter) {
+  //         app.settingsFileWriter = fileWriter;
+  //         var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
+  //         app.settingsFileWriter.write(blob);
+  //       }, function (err) {
+  //         console.log(err);
+  //       });
+  //     });
+  //   },
+  //   attachClickListener: function () {
+  //     var settingElement;
+  //     _.forIn(app.parseSettings, function (setting, key) {
+  //       settingElement = $("#"+ _.kebabCase(key) +"-pn");
+  //       settingElement.click(function (event) {
+  //         if (event.target.checked) {
+  //           app.parse.subscribeToChannel(key);
+  //           app.parseSettings[key] = true;
+  //         } else {
+  //           app.parse.unsubscribe(key);
+  //           app.parseSettings[key] = false;
+  //         }
+  //         app.settings.saveOrCreate();
+  //       });
+  //     });
+  //   }
+  // },
   registerToParse: function () {
     // parse Push notification service
     app.parse = window.parsepushnotification;
     app.parse.setUp(applicationId, clientKey);
     //registerAsPushNotificationClient callback (called after setUp)
     app.parse.onRegisterAsPushNotificationClientSucceeded = function () {
-      app.settings.load(app.settings.attachClickListener);
+      // app.settings.load(app.settings.attachClickListener);
+      app.parse.subscribeToChannel('Hawthorne');
+      app.parse.subscribeToChannel('Morrison');
+      app.parse.subscribeToChannel('Burnside');
+      app.parse.subscribeToChannel('Broadway');
+      app.parse.subscribeToChannel('CuevasCrossing');
     };
     app.parse.onRegisterAsPushNotificationClientFailed = function() {
       alert('Register As Push Notification Client Failed');
@@ -261,7 +266,7 @@ var app = {
       });
 
       $( "#menu-settings").click(function(){
-        app.settings.render();
+        // app.settings.render();
         $("#bridge-page").hide();
         $("#feed-page").hide();
         $("#terms-page").hide();
@@ -325,12 +330,12 @@ var app = {
   offline: function () {
     app.socket.connection.disconnect();
     var condition = navigator.onLine ? "online" : "offline";
-    Materialize.toast('<i class="material-icons left">error_outline</i>Could not establish connection...', 10000, 'rounded yellow black-text');
+    // Materialize.toast('<i class="material-icons left">error_outline</i>Could not establish connection...', 10000, 'rounded yellow black-text');
     var bridgeLED;
     $.each($("#bridge-page").children(), function ( index, child ) {
       bridgeLED = $("#"+ child.id).find("#"+ child.id +"-led");
       bridgeLED.removeClass("led-red").removeClass("led-green").addClass("led-yellow");
-      bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>");
+      // bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>");
     });
     console.log(condition);
   },
