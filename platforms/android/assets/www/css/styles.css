@@ -2,7 +2,6 @@
 *:after,
 *:before {
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 html, body {
@@ -160,10 +159,14 @@ nav li div{
   text-align: left;
   max-height: 60px;
   border:1px solid #dad9d7;
-  box-shadow:2px 2px 1px 0 rgba(70,56,34,.2);
+  box-shadow:1px 1px 0 0 rgba(70,56,34,.2);
+  position:relative;
 }
 .bridge-list-item p{
-  display:inline-block;
+  position: absolute;
+  top: 50%;
+  left:3.75rem;
+  transform: translateY(-50%);
   margin:0 0 0 .125rem;
   font-size:1.25rem;
   line-height:1.2;
@@ -250,7 +253,8 @@ nav li div{
 
 .led {
   margin:.1875rem;
-  display: inline-block;
+  display: block;
+  float:left;
   width: 50px;
   height: 50px;
   border-radius: 50%;
