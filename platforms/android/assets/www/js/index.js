@@ -302,17 +302,7 @@ var app = {
       $("#"+ bridge +"-page").show();
       $.getJSON( "https://api.multco.us/bridges/"+ bridge +"/events/actual/5", function( data ) {
         $("#"+ bridge +"-last-5").empty().append(
-          "<table class='striped'>"+
-            "<thead>"+
-              "<tr>"+
-                "<th data-field='time-up'>Time Up</th>"+
-                "<th data-field='time-down'>Time Down</th>"+
-                "<th data-field='duration'>Duration (min)</th>"+
-              "</tr>"+
-            "</thead>"+
-            "<tbody id='"+ bridge +"-data'>"+
-            "</tbody>"+
-          "</table>"
+            "<ul class='bridge-lifts' id='"+ bridge +"-data'></ul>"
         );
         $.each( data, function( key, val ) {
           // var upTime = val.upTime.toString();
@@ -321,11 +311,11 @@ var app = {
           var downTime = new Date(val.downTime);
           var duration = downTime - upTime;
           $("#"+ bridge +"-data").append(
-            "<tr>"+
-              "<td>"+moment(upTime).format('lll')+"</td>"+
-              "<td>"+moment(downTime).format('lll')+"</td>"+
-              "<td>"+_.round(duration/60000, 2)+"</td>"+
-            "</tr>"
+            "<li>"+
+              "<span class='start-lift'>"+moment(upTime).format('ddd, MMM D gggg - h:mma')+"</span> to "+
+              "<span class='end-lift'>"+moment(downTime).format('h:mma')+"</span>"+
+              //"<div class='lift-duration'>Duration: "+_.round(duration/60000, 2)+"</div>"+
+            "</li>"
           );
         });
       });

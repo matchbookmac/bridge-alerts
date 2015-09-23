@@ -69,6 +69,7 @@ h2{
 }
 h3{
   font-size:1rem;
+  margin:.5rem 0;
 }
 h4{
   font-size:1rem;
@@ -195,6 +196,18 @@ nav li div{
 .page-content img{
   width:100%;
 }
+.bridge-lifts{
+  font-size:.875rem;
+  margin:.5rem 0 1rem;
+  padding:0;
+}
+.bridge-lifts li{
+  padding:.3125rem .25rem;
+}
+.bridge-lifts li:nth-child(2n+1){
+  background: #eaeff4;
+}
+
 .logo{
   width:108px;
   height:32px;
