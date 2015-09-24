@@ -135,15 +135,14 @@ var app = {
         app.parseSettings = {
           Hawthorne: true,
           Morrison: true,
-          Burnside: false,
-          Broadway: false,
-          CuevasCrossing: false
+          Burnside: true,
+          Broadway: true,
+          CuevasCrossing: true
         };
       }
       app.settings.bridges = _.keys(app.parseSettings);
       app.settings.subscribeCounter = 0;
       app.settings.numBridges = app.settings.bridges.length;
-      // app.settings.load();
       app.settings.attachClickListener();
       app.settings.subscribe();
       app.settings.render();

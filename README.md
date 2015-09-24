@@ -78,6 +78,8 @@ cordova run android
 ## Push Notifications
 Using:
 https://github.com/cranberrygame/cordova-plugin-pushnotification-parsepushnotification
+SWITCHED TO THIS FORK:
+https://github.com/anzovin-brian/cordova-plugin-pushnotification-parsepushnotification
 and Parse:
 https://www.parse.com/tutorials/ios-push-notifications
 up until step three

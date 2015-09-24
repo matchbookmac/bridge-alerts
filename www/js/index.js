@@ -135,9 +135,9 @@ var app = {
         app.parseSettings = {
           Hawthorne: true,
           Morrison: true,
-          Burnside: false,
-          Broadway: false,
-          CuevasCrossing: false
+          Burnside: true,
+          Broadway: true,
+          CuevasCrossing: true
         };
       }
       app.settings.bridges = _.keys(app.parseSettings);
