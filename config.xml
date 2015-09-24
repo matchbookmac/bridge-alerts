@@ -37,7 +37,6 @@
         <splash density="land-hdpi" src="www/img/splash/android/splash-land-hdpi.png" />
         <splash density="land-ldpi" src="www/img/splash/android/splash-land-ldpi.png" />
         <splash density="land-mdpi" src="www/img/splash/android/splash-land-mdpi.png" />
-        <splash density="land-hdpi" src="www/img/splash/android/splash-land-hdpi.png" />
         <splash density="land-xhdpi" src="www/img/splash/android/splash-land-xhdpi.png" />
         <splash density="land-xxhdpi" src="www/img/splash/android/splash-land-xxhdpi.png" />
         <splash density="land-xxxhdpi" src="www/img/splash/android/splash-land-xxxhdpi.png" />

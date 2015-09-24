@@ -22,7 +22,6 @@ header{
   background:#346094;
   color:#fff;
   text-shadow:1px 1px 0 rgba(0,0,0,.4);
-  letter-spacing:.5px;
   border-top:1px solid transparent;
   border-bottom:1px solid transparent;
   position:relative;
@@ -154,7 +153,8 @@ nav li div{
 
 .bridge-list-item {
   margin: .25rem .375rem;
-  background:#fff;
+  background: url(../img/angle-right.svg) no-repeat 99% center #fff;
+  background-size: auto 65%;
   border-radius: 31.5px 0px 0px 31.5px;
   text-align: left;
   max-height: 60px;
