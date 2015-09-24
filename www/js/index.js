@@ -47,12 +47,10 @@ var app = {
   // deviceready Event Handler
   // The scope of 'this' is the event. In order to call the needed function, we must explicitly call 'app.function(...);'
   onDeviceReady: function () {
-// alert('onDeviceReady called');
     // window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
     app.registerToParse();
   },
   onBrowserReady: function () {
-    // Materialize.toast('<i class="material-icons left">sync_outline</i>Establishing connection...', 10000, 'rounded yellow black-text');
     app.nav.setUp();
     app.socket.connect();
     // Network connection events
@@ -61,27 +59,17 @@ var app = {
   },
   settings: {
     subscribe: function() {
-      // function syncSubscribe(counter, next) {
-      //   if (counter < numBridges) {
-      //     next(counter ++)
       var currentBridge = app.settings.bridges[app.settings.subscribeCounter];
-      if (app.parseSettings[currentBridge]) {
-        app.parse.subscribeToChannel(currentBridge);
+      if (app.settings.subscribeCounter < app.settings.numBridges) {
+        app.settings.subscribeCounter += 1;
+        if (app.parseSettings[currentBridge]) {
+          app.parse.subscribeToChannel(currentBridge);
+        } else {
+          app.settings.subscribe();
+        }
+      } else {
+        app.settings.subscribeCounter = 0;
       }
-      //   }
-      // }
-      // function subscribeToChannel(key, next) {
-      //   app.parse.subscribeToChannel(key);
-      //   next;
-      // }
-
-      // _.forIn(app.parseSettings, function (setting, key) {
-      //   if (setting) {
-      //     app.parse.subscribeToChannel(key);
-      //   } else {
-      //     app.parse.unsubscribe(key);
-      //   }
-      // });
     },
     render: function(callback) {
       var settingElement;
@@ -165,17 +153,8 @@ var app = {
     };
     //subscribe callback
     app.parse.onSubscribeToChannelSucceeded = function() {
-      alert('Subscribe to '+ app.settings.bridges[app.settings.subscribeCounter]);
-      app.settings.subscribeCounter = app.settings.subscribeCounter + 1;
-      if (app.settings.subscribeCounter < app.settings.numBridges) {
-        var currentBridge = app.settings.bridges[app.settings.subscribeCounter];
-        if (app.parseSettings[currentBridge]) {
-          app.parse.subscribeToChannel(currentBridge);
-        }
-        return;
-      } else {
-        return;
-      }
+      app.settings.subscribe();
+      return;
     };
     app.parse.onSubscribeToChannelFailed = function() {
       alert('Subscribe To Channel Failed');
@@ -358,12 +337,10 @@ var app = {
   offline: function () {
     app.socket.connection.disconnect();
     var condition = navigator.onLine ? "online" : "offline";
-    // Materialize.toast('<i class="material-icons left">error_outline</i>Could not establish connection...', 10000, 'rounded yellow black-text');
     var bridgeLED;
     $.each($("#bridge-page").children(), function ( index, child ) {
       bridgeLED = $("#"+ child.id).find("#"+ child.id +"-led");
       bridgeLED.removeClass("led-red").removeClass("led-green").addClass("led-yellow");
-      // bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>");
     });
     console.log(condition);
   },

@@ -42,16 +42,17 @@ var app = {
     // Browser DOM ready event
     document.addEventListener('DOMContentLoaded', app.onBrowserReady);
     // Cordova device ready event
-    document.addEventListener('deviceready', this.onDeviceReady, false);
+    document.addEventListener('deviceready', app.onDeviceReady, false);
   },
   // deviceready Event Handler
   // The scope of 'this' is the event. In order to call the needed function, we must explicitly call 'app.function(...);'
   onDeviceReady: function () {
-    window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+// alert('onDeviceReady called');
+    // window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
     app.registerToParse();
   },
   onBrowserReady: function () {
-    Materialize.toast('<i class="material-icons left">sync_outline</i>Establishing connection...', 10000, 'rounded yellow black-text');
+    // Materialize.toast('<i class="material-icons left">sync_outline</i>Establishing connection...', 10000, 'rounded yellow black-text');
     app.nav.setUp();
     app.socket.connect();
     // Network connection events
@@ -59,58 +60,54 @@ var app = {
     document.addEventListener('offline', app.offline, false);
   },
   settings: {
+    subscribe: function() {
+      // TODO: refactor
+      var currentBridge = app.settings.bridges[app.settings.subscribeCounter];
+      if (app.settings.subscribeCounter < app.settings.numBridges) {
+        if (app.parseSettings[currentBridge]) {
+          app.parse.subscribeToChannel(currentBridge);
+        } else {
+          app.settings.subscribeCounter += 1;
+          app.settings.subscribe();
+        }
+      }
+    },
     render: function(callback) {
       var settingElement;
       _.forIn(app.parseSettings, function (setting, key) {
-        if (setting) {
-          app.parse.subscribeToChannel(key);
-        } else {
-          app.parse.unsubscribe(key);
-        }
         settingElement = $("#"+ _.kebabCase(key) +"-pn");
         settingElement[0].checked = setting;
       });
-      if (callback) callback();
     },
-    load: function (callback) {
-      window.requestFileSystem(window.PERSISTENT, 1024*1024, function (fs) {
-        app.fs = fs;
-        app.fs.root.getFile('settings.json', {}, function(fileEntry) {
-          fileEntry.file(function(file) {
-            var reader = new FileReader();
-            reader.onloadend = function(e) {
-              var settings = this.result;
-              app.parseSettings = JSON.parse(settings);
-              app.settings.render(callback);
-            };
-            reader.readAsText(file);
-          }, errorHandler);
-        }, app.settings.saveOrCreate);
-      }, errorHandler);
-      function errorHandler(err) {
-        return;
-      }
-    },
-    saveOrCreate: function () {
-      if (!app.parseSettings) {
-        app.parseSettings = {
-          Hawthorne: true,
-          Morrison: true,
-          Burnside: true,
-          Broadway: true,
-          CuevasCrossing: true
-        };
-      }
-      app.fs.root.getFile('settings.json', { create: true }, function (fileEntry) {
-        fileEntry.createWriter(function(fileWriter) {
-          app.settingsFileWriter = fileWriter;
-          var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
-          app.settingsFileWriter.write(blob);
-        }, function (err) {
-          console.log(err);
-        });
-      });
-    },
+    // load: function (callback) {
+    //   window.requestFileSystem(window.PERSISTENT, 1024*1024, function (fs) {
+    //     app.fs = fs;
+    //     app.fs.root.getFile('settings.json', {}, function(fileEntry) {
+    //       fileEntry.file(function(file) {
+    //         var reader = new FileReader();
+    //         reader.onloadend = function(e) {
+    //           var settings = this.result;
+    //           app.parseSettings = JSON.parse(settings);
+    //         };
+    //         reader.readAsText(file);
+    //       }, errorHandler);
+    //     }, app.settings.saveOrCreate);
+    //   }, errorHandler);
+    //   function errorHandler(err) {
+    //     return;
+    //   }
+    // },
+    // saveOrCreate: function () {
+    //   app.fs.root.getFile('settings.json', { create: true }, function (fileEntry) {
+    //     fileEntry.createWriter(function(fileWriter) {
+    //       app.settingsFileWriter = fileWriter;
+    //       var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
+    //       app.settingsFileWriter.write(blob);
+    //     }, function (err) {
+    //       console.log(err);
+    //     });
+    //   });
+    // },
     attachClickListener: function () {
       var settingElement;
       _.forIn(app.parseSettings, function (setting, key) {
@@ -123,26 +120,58 @@ var app = {
             app.parse.unsubscribe(key);
             app.parseSettings[key] = false;
           }
-          app.settings.saveOrCreate();
+          // app.settings.saveOrCreate();
         });
       });
     }
   },
   registerToParse: function () {
     // parse Push notification service
+
     app.parse = window.parsepushnotification;
     app.parse.setUp(applicationId, clientKey);
     //registerAsPushNotificationClient callback (called after setUp)
     app.parse.onRegisterAsPushNotificationClientSucceeded = function () {
-      app.settings.load(app.settings.attachClickListener);
+      if (!app.parseSettings) {
+        app.parseSettings = {
+          Hawthorne: true,
+          Morrison: true,
+          Burnside: false,
+          Broadway: false,
+          CuevasCrossing: false
+        };
+      }
+      app.settings.bridges = _.keys(app.parseSettings);
+      app.settings.subscribeCounter = 0;
+      app.settings.numBridges = app.settings.bridges.length;
+      // app.settings.load();
+      app.settings.attachClickListener();
+      app.settings.subscribe();
+      app.settings.render();
     };
     app.parse.onRegisterAsPushNotificationClientFailed = function() {
       alert('Register As Push Notification Client Failed');
     };
     //subscribe callback
     app.parse.onSubscribeToChannelSucceeded = function() {
-      // alert('Subscribe To Channel Succeeded');
-      return;
+      alert('Subscribe to '+ app.settings.bridges[app.settings.subscribeCounter]);
+      app.settings.subscribeCounter += 1;
+      // TODO: refactor with line 64
+      if (app.settings.subscribeCounter < app.settings.numBridges) {
+        var currentBridge = app.settings.bridges[app.settings.subscribeCounter];
+        if (app.parseSettings[currentBridge]) {
+          app.parse.subscribeToChannel(currentBridge);
+        } else {
+          app.settings.subscribeCounter += 1;
+          app.settings.subscribe();
+          return;
+        }
+        return;
+      } else {
+        alert('reset counter');
+        app.settings.subscribeCounter = 0;
+        return;
+      }
     };
     app.parse.onSubscribeToChannelFailed = function() {
       alert('Subscribe To Channel Failed');
@@ -261,7 +290,7 @@ var app = {
       });
 
       $( "#menu-settings").click(function(){
-        // app.settings.render();
+        app.settings.render();
         $("#bridge-page").hide();
         $("#feed-page").hide();
         $("#terms-page").hide();
@@ -325,12 +354,12 @@ var app = {
   offline: function () {
     app.socket.connection.disconnect();
     var condition = navigator.onLine ? "online" : "offline";
-    Materialize.toast('<i class="material-icons left">error_outline</i>Could not establish connection...', 10000, 'rounded yellow black-text');
+    // Materialize.toast('<i class="material-icons left">error_outline</i>Could not establish connection...', 10000, 'rounded yellow black-text');
     var bridgeLED;
     $.each($("#bridge-page").children(), function ( index, child ) {
       bridgeLED = $("#"+ child.id).find("#"+ child.id +"-led");
       bridgeLED.removeClass("led-red").removeClass("led-green").addClass("led-yellow");
-      bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>");
+      // bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>");
     });
     console.log(condition);
   },
