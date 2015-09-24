@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		1BDE0025AFC340E2970D6B4C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BEA0D3CA5E47C4BFB87F51 /* libz.dylib */; };
 		1D13E37B4D434B7C957DE202 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7C376FB5EC4BBE91B78EF5 /* StoreKit.framework */; };
