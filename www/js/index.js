@@ -143,7 +143,6 @@ var app = {
       app.settings.bridges = _.keys(app.parseSettings);
       app.settings.subscribeCounter = 0;
       app.settings.numBridges = app.settings.bridges.length;
-      // app.settings.load();
       app.settings.attachClickListener();
       app.settings.subscribe();
       app.settings.render();
