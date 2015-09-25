@@ -44,11 +44,31 @@ var app = {
     // Cordova device ready event
     document.addEventListener('deviceready', app.onDeviceReady, false);
   },
+
+  listDirectory: function() {
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+      fileSystem.root.getDirectory("", { create: false }, function(directory) {
+        var directoryReader = directory.createReader();
+        directoryReader.readEntries(function(entries) {
+          var i;
+          for (i=0; i<entries.length; i++) {
+              alert(entries[i].name);
+          }
+        }, function (error) {
+            alert(error.code);
+          });
+      });
+    }, function(error) {
+        alert("can't even get the file system: " + error.code);
+      });
+  },
   // deviceready Event Handler
   // The scope of 'this' is the event. In order to call the needed function, we must explicitly call 'app.function(...);'
   onDeviceReady: function () {
     // window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
     app.registerToParse();
+    // alert("made it to onDeviceReady");
+    app.listDirectory();
   },
   onBrowserReady: function () {
     app.nav.setUp();
@@ -78,35 +98,43 @@ var app = {
         settingElement[0].checked = setting;
       });
     },
-    // load: function (callback) {
-    //   window.requestFileSystem(window.PERSISTENT, 1024*1024, function (fs) {
-    //     app.fs = fs;
-    //     app.fs.root.getFile('settings.json', {}, function(fileEntry) {
-    //       fileEntry.file(function(file) {
-    //         var reader = new FileReader();
-    //         reader.onloadend = function(e) {
-    //           var settings = this.result;
-    //           app.parseSettings = JSON.parse(settings);
-    //         };
-    //         reader.readAsText(file);
-    //       }, errorHandler);
-    //     }, app.settings.saveOrCreate);
-    //   }, errorHandler);
-    //   function errorHandler(err) {
-    //     return;
-    //   }
-    // },
-    // saveOrCreate: function () {
-    //   app.fs.root.getFile('settings.json', { create: true }, function (fileEntry) {
-    //     fileEntry.createWriter(function(fileWriter) {
-    //       app.settingsFileWriter = fileWriter;
-    //       var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
-    //       app.settingsFileWriter.write(blob);
-    //     }, function (err) {
-    //       console.log(err);
-    //     });
-    //   });
-    // },
+    load: function(callback) {
+      window.requestFileSystem(window.PERSISTENT, 1024*1024, function (fs) {
+        app.fs = fs;
+        app.fs.root.getFile('settings.json', {}, function(fileEntry) {
+          fileEntry.file(function(file) {
+            var reader = new FileReader();
+            // alert("made it to load 1")
+            reader.onloadend = function(evt) {
+              // alert("made it to load 2: ");
+              var settings = evt.target.result;
+              alert("made it to load 3: " + evt.target.result);
+              app.parseSettings = JSON.parse(settings);
+              alert("made it to load 4: " + JSON.parse(settings));
+            };
+            reader.readAsDataURL(file);
+            // reader.readAsText(file);
+          }, errorHandler);
+        }, app.settings.saveOrCreate);
+      }, errorHandler);
+      function errorHandler(err) {
+        return;
+      }
+    },
+    saveOrCreate: function () {
+      // alert("made to saveOrCreate");
+      app.fs.root.getFile('settings.json', { create: true }, function (fileEntry) {
+        // alert("made it to saveOrCreate");
+        fileEntry.createWriter(function(fileWriter) {
+          app.settingsFileWriter = fileWriter;
+          var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
+          app.settingsFileWriter.write(blob);
+        }, function (err) {
+          console.log(err);
+        });
+      });
+    },
+
     attachClickListener: function () {
       var settingElement;
       _.forIn(app.parseSettings, function (setting, key) {
@@ -119,7 +147,7 @@ var app = {
             app.parse.unsubscribe(key);
             app.parseSettings[key] = false;
           }
-          // app.settings.saveOrCreate();
+          app.settings.saveOrCreate();
         });
       });
     }
@@ -132,13 +160,17 @@ var app = {
     //registerAsPushNotificationClient callback (called after setUp)
     app.parse.onRegisterAsPushNotificationClientSucceeded = function () {
       if (!app.parseSettings) {
-        app.parseSettings = {
-          Hawthorne: true,
-          Morrison: true,
-          Burnside: true,
-          Broadway: true,
-          CuevasCrossing: true
-        };
+        app.settings.load();
+        // alert("made it to app.parseSettings: " + app.parseSettings);
+        var directoryReader = dirEntry.createReader();
+        directoryReader.readEntries(success,fail);
+        // {
+        //   Hawthorne: true,
+        //   Morrison: true,
+        //   Burnside: true,
+        //   Broadway: true,
+        //   CuevasCrossing: true
+        // };
       }
       app.settings.bridges = _.keys(app.parseSettings);
       app.settings.subscribeCounter = 0;
@@ -356,3 +388,4 @@ var app = {
 };
 
 app.initialize();
+app.listDirectory();
