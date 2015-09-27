@@ -146,7 +146,6 @@ var app = {
   },
   registerToParse: function () {
     // parse Push notification service
-
     app.parse = window.parsepushnotification;
     app.parse.setUp(applicationId, clientKey);
     //registerAsPushNotificationClient callback (called after setUp)

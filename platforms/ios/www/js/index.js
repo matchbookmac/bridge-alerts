@@ -94,7 +94,6 @@ var app = {
           reader.onloadend = function(e) {
             var settings = this.result;
             app.parseSettings = JSON.parse(settings);
-            alert('finishedLoading: '+settings);
             app.settings.finishedLoading();
           };
           reader.onerror = function (err) {
@@ -147,7 +146,6 @@ var app = {
   },
   registerToParse: function () {
     // parse Push notification service
-
     app.parse = window.parsepushnotification;
     app.parse.setUp(applicationId, clientKey);
     //registerAsPushNotificationClient callback (called after setUp)
