@@ -139,7 +139,6 @@ var app = {
             app.parse.unsubscribe(key);
             app.parseSettings[key] = false;
           }
-          // app.settings.saveOrCreate();
         });
       });
     }
