@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <!-- <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi"/> -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *"> -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/socket.io.js"></script>
+    <script type="text/javascript" src="js/moment.js"></script>
+    <script type="text/javascript" src="js/lodash.min.js"></script>
+    <!-- <script type="text/javascript" src="js/materialize.js"></script> -->
+    <script type="text/javascript" src="js/index.js"></script>
+  </head>
+
+ <body>
+    <div class="site-wrap">
+      <header role="banner">
+        <a href="#menu" class="menu-link">Menu</a>
+        <h1 class="brand-logo">Bridges</h1>
+      </header>
+      <div id="content-wrap" class="clearfix">
+        <nav id="menu" role="navigation">
+            <ul>
+              <li><div id="menu-home">Home</div></li>
+              <li><div id="menu-feed">@MultCoBridges</div></li>
+              <li><div id="menu-terms">About</div></li>
+              <li><div id="multco-us">Multnomah County</div></li>
+              <li><div id="menu-settings">Settings</div></li>
+            </ul>
+        </nav>
+        <main>
+          <!-- first page -->
+          <div id="bridge-page">
+            <div class="card bridge-list-item clearfix" id="hawthorne">
+              <span class="led led-yellow" id="hawthorne-led"></span>
+              <p>Hawthorne<span class="bridge-next" id="hawthorne-next"></span></p>
+            </div>
+            <div class="card bridge-list-item clearfix" id="morrison">
+              <span class="led led-yellow" id="morrison-led"></span>
+              <p>Morrison<span class="bridge-next" id="morrison-next"></span></p>
+            </div>
+            <div class="card bridge-list-item clearfix" id="burnside">
+              <span class="led led-yellow" id="burnside-led"></span>
+              <p>Burnside<span class="bridge-next" id="burnside-next"></span></p>
+            </div>
+            <div class="card bridge-list-item clearfix" id="broadway">
+              <span class="led led-yellow" id="broadway-led"></span>
+              <p>Broadway<span class="bridge-next" id="broadway-next"></span></p>
+            </div>
+            <div class="card bridge-list-item clearfix" id="cuevas-crossing">
+              <span class="led led-yellow" id="cuevas-crossing-led"></span>
+              <p>Cuevas Crossing<span class="bridge-next" id="cuevas-crossing-next"></span></p>
+            </div>
+          </div>
+          <!-- second page -->
+          <div id="feed-page">
+            <h1>Alerts from @MultCoBridges</h1>
+            <div class="page-content">
+              <a class="twitter-timeline" href="https://twitter.com/MultCoBridges" data-widget-id="641318974458761216" data-chrome="noheader nofooter noborders noscrollbar" data-tweet-limit="5" twtr-user="none"></a>
+              <script>!function(d,s,id){
+                var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}
+                (document,"script","twitter-wjs");
+              </script>
+            </div>
+          </div>
+          <!-- third page -->
+          <div id="terms-page">
+            <h1>About</h1>
+            <div class="page-content">
+              <h2>Terms &amp; Conditions</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            </div>
+          </div>
+          <!-- Hawthorne Page -->
+          <div id="hawthorne-page">
+            <h1>Hawthorne</h1>
+            <div class="page-content">
+              <p><strong>Height:</strong> 49'</p>
+              <h3>Last five bridge openings</h3>
+              <div class="bridge-last-5" id="hawthorne-last-5"></div>
+              <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Hawthorne_Bridge_%28Multnomah_County%2C_Oregon_scenic_images%29_%28mulDA0052%29.jpg" alt="Hawthorne Bridge"/>
+              <p class="button"><a id="hawthorne-bridge-link" class="bridge-link">More about the Hawthorne Bridge</a></p>
+            </div>
+          </div>
+          <div id="morrison-page">
+            <h1>Morrison</h1>
+            <div class="page-content">
+              <p><strong>Height:</strong> 69'</p>
+              <h3>Last five bridge openings</h3>
+              <div class="bridge-last-5" id="morrison-last-5"></div>
+              <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/General_view_of_Morrison_Bridge%2C_looking_northeast._-_Morrison_Bridge%2C_Spanning_Willamette_River_on_Morrison_and_Alder_Streets%2C_Portland%2C_Multnomah_County%2C_OR_HAER_OR-100-27_%28CT%29.tif/lossy-page1-303px-thumbnail.tif.jpg" alt="Morrison Bridge"/>
+              <p class="button"><a id="morrison-bridge-link" class="bridge-link">More about the Morrison Bridge</a></p>
+            </div>
+          </div>
+          <div id="burnside-page">
+            <h1>Burnside</h1>
+            <div class="page-content">
+              <p><strong>Height:</strong> 64'</p>
+              <h3>Last five bridge openings</h3>
+              <div class="bridge-last-5" id="burnside-last-5"></div>
+              <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Burnside_Bridge.JPG/320px-Burnside_Bridge.JPG" alt="Burnside Bridge"/>
+              <p class="button"><a id="burnside-bridge-link" class="bridge-link"> More about the Burnside Bridge</a></p>
+            </div>
+          </div>
+          <div id="broadway-page">
+            <h1>Broadway</h1>
+            <div class="page-content">
+              <p><strong>Height:</strong> 70'</p>
+              <h3>Last five bridge openings</h3>
+              <div class="bridge-last-5" id="broadway-last-5"></div>
+              <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Broadway_Bridge%2C_Portland_HDR_%2818017408858%29.jpg/640px-Broadway_Bridge%2C_Portland_HDR_%2818017408858%29.jpg" alt="Broadway Bridge"/>
+              <p class="button"><a id="broadway-bridge-link" class="bridge-link">More about the Broadway Bridge</a></p>
+            </div>
+          </div>
+          <div id="cuevas-crossing-page">
+            <h1>Cuevas Crossing</h1>
+            <div class="page-content">
+              <p><strong>Height:</strong> 70'</p>
+              <h3>Last five bridge openings</h3>
+              <div class="bridge-last-5" id="cuevas-crossing-last-5"></div>
+              <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/CrookedRiverHighBridge.jpg/484px-CrookedRiverHighBridge.jpg" alt="Cuevas Crossing Bridge"/>
+              <p class="button"><a id="cuevas-crossing-bridge-link" class="bridge-link">More about Cuevas Crossing</a></p>
+            </div>
+          </div>
+          <div id="settings-page">
+            <h1>Settings</h1>
+            <div class="page-content">
+              <h2>Push Notifications</h2>
+              <div class="bridge-switch">
+                  <h4>Hawthorne</h4>
+                  <div class="switch">
+                    <label>
+                      <input type="checkbox" id="hawthorne-pn" class="push-setting">
+                      <span class="lever"></span>
+                      On
+                    </label>
+                  </div>
+              </div>
+
+              <div class="bridge-switch">
+                <h4>Morrison</h4>
+                <div class="switch">
+                  <label>
+                    <input type="checkbox" id="morrison-pn" class="push-setting">
+                    <span class="lever"></span>
+                    On
+                  </label>
+                </div>
+              </div>
+
+              <div class="bridge-switch">
+                <h4>Burnside</h4>
+                <div class="switch">
+                  <label>
+                    <input type="checkbox" id="burnside-pn" class="push-setting">
+                    <span class="lever"></span>
+                    On
+                  </label>
+                </div>
+              </div>
+
+              <div class="bridge-switch">
+                  <h4>Broadway</h4>
+                  <div class="switch">
+                    <label>
+                      <input type="checkbox" id="broadway-pn" class="push-setting">
+                      <span class="lever"></span>
+                      On
+                    </label>
+                  </div>
+              </div>
+
+              <div class="bridge-switch">
+                  <h4>Cuevas Crossing</h4>
+                  <div class="switch">
+                    <label>
+                      <input type="checkbox" id="cuevas-crossing-pn" class="push-setting">
+                      <span class="lever"></span>
+                      On
+                    </label>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <footer role="contentinfo"><img class="logo" src="img/multco.svg" alt="Multnomah County" /></footer>
+  </body>
+</html>
