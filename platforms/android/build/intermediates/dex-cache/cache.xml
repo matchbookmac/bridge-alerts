@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/macdoni/code/cordova-bridgeapp/platforms/android/libs/ParseCrashReporting-1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="7a11f2d74111fd9b02c2d091a1b76b82f6a4357e">
+        <dex dex="/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/pre-dexed/debug/ParseCrashReporting-1.9.4-49bde5dedf22c54d1a1ee0c1af95fe8a660d88b3.jar" />
+    </item>
+    <item
+        jar="/Users/macdoni/code/cordova-bridgeapp/platforms/android/libs/bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/pre-dexed/debug/bolts-android-1.2.0-e19bcd8baf8da8fe0484c09a6f7939add7dc1e1e.jar" />
+    </item>
+    <item
+        jar="/Users/macdoni/code/cordova-bridgeapp/platforms/android/libs/ParseFacebookUtilsV4-1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="d0490b697e2ff12e81b214d17f166534dfd3bced">
+        <dex dex="/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/pre-dexed/debug/ParseFacebookUtilsV4-1.9.4-875623a175bfbed37d56149af7e7962d8eaf0447.jar" />
+    </item>
+    <item
+        jar="/Users/macdoni/code/cordova-bridgeapp/platforms/android/libs/Parse-1.9.4.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="56c22930b5d4f77015b6a40c7f14103d3e101001">
+        <dex dex="/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/pre-dexed/debug/Parse-1.9.4-adaa96724b08e13bfb75d63f7a314ef15623b05b.jar" />
+    </item>
+    <item
+        jar="/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f888eca3d8daf6e860acc6c6b37d9f7bfd808c22">
+        <dex dex="/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/pre-dexed/debug/classes-dee39e0a23fcabd24e5b67ac9b0d6b29d82c6592.jar" />
+    </item>
+
+</items>
