@@ -190,10 +190,6 @@ nav li div{
 .switch{
   float:right;
 }
-.switch label{
-  color:#999;
-}
-
 
 .page-content img{
   width:100%;
@@ -226,7 +222,7 @@ nav li div{
   display: block;
   height: 57px;
 }
-.button a{
+.button a, button{
   background:#346094;
   display:block;
   text-align:center;
@@ -247,7 +243,13 @@ nav li div{
   top:.25rem;
   left:.25rem;
 }
-
+button{
+  border:0;
+  font-size:1rem;
+  width:100%;
+  margin:1rem 0;
+  padding:.8125rem .25rem;
+}
 
 #toast-container{
     margin:.375rem;
