@@ -1,6 +1,0 @@
-/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/classes/debug
-/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/pre-dexed/debug/ParseFacebookUtilsV4-1.9.4-875623a175bfbed37d56149af7e7962d8eaf0447.jar
-/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/pre-dexed/debug/bolts-android-1.2.0-e19bcd8baf8da8fe0484c09a6f7939add7dc1e1e.jar
-/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/pre-dexed/debug/ParseCrashReporting-1.9.4-49bde5dedf22c54d1a1ee0c1af95fe8a660d88b3.jar
-/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/pre-dexed/debug/classes-dee39e0a23fcabd24e5b67ac9b0d6b29d82c6592.jar
-/Users/macdoni/code/cordova-bridgeapp/platforms/android/build/intermediates/pre-dexed/debug/Parse-1.9.4-adaa96724b08e13bfb75d63f7a314ef15623b05b.jar

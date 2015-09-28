@@ -388,6 +388,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: David Bailey (ZPXM4WYT7H)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
+				ENABLE_BITCODE = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -399,7 +400,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Cordova;
-				PROVISIONING_PROFILE = "4c8bd229-b511-417b-a6e4-a921462e3f99";
+				PROVISIONING_PROFILE = "c2dfd9a8-cbac-4f33-b6aa-bfab8cfb435d";
 				PUBLIC_HEADERS_FOLDER_PATH = include/Cordova;
 				SKIP_INSTALL = YES;
 			};
@@ -412,6 +413,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: David Bailey (ZPXM4WYT7H)";
 				DSTROOT = "/tmp/$(PROJECT_NAME).dst";
+				ENABLE_BITCODE = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = CordovaLib_Prefix.pch;
@@ -421,7 +423,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Cordova;
-				PROVISIONING_PROFILE = "4c8bd229-b511-417b-a6e4-a921462e3f99";
+				PROVISIONING_PROFILE = "c2dfd9a8-cbac-4f33-b6aa-bfab8cfb435d";
 				PUBLIC_HEADERS_FOLDER_PATH = include/Cordova;
 				SKIP_INSTALL = YES;
 			};
