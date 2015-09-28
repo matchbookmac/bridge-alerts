@@ -149,7 +149,6 @@ var app = {
     app.parse.setUp(applicationId, clientKey);
     //registerAsPushNotificationClient callback (called after setUp)
     app.parse.onRegisterAsPushNotificationClientSucceeded = function () {
-alert('register called');
       if (!app.parseSettings) {
         app.parseSettings = {
           Hawthorne: true,

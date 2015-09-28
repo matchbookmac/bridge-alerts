@@ -40,6 +40,14 @@
     <preference name="StatusBarStyle" value="lightcontent" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
+    <icon height="48" src="www/img/icon/ios/icon-48.png" width="48" />
+    <icon height="55" src="www/img/icon/ios/icon-55.png" width="55" />
+    <icon height="58" src="www/img/icon/ios/icon-58.png" width="58" />
+    <icon height="80" src="www/img/icon/ios/icon-80.png" width="80" />
+    <icon height="87" src="www/img/icon/ios/icon-87.png" width="87" />
+    <icon height="88" src="www/img/icon/ios/icon-88.png" width="88" />
+    <icon height="172" src="www/img/icon/ios/icon-172.png" width="172" />
+    <icon height="196" src="www/img/icon/ios/icon-196.png" width="196" />
     <icon height="180" src="www/img/icon/ios/icon-60@3x.png" width="180" />
     <icon height="60" src="www/img/icon/ios/icon-60.png" width="60" />
     <icon height="120" src="www/img/icon/ios/icon-60@2x.png" width="120" />
@@ -61,10 +69,10 @@
     <splash height="480" src="www/img/splash/ios/Default~iphone.png" width="320" />
     <name>Bridge Alerts</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+      A sample Apache Cordova application that responds to the deviceready event.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+      Apache Cordova Team
     </author>
     <access origin="*" />
     <content src="index.html" />
