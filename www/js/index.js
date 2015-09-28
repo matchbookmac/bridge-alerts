@@ -240,18 +240,12 @@ var app = {
       });
 
       $("#menu-feed").click(function() {
-        $("#bridge-page").hide();
-        $("#feed-page").show();
-        $("#terms-page").hide();
-        $("#hawthorne-page").hide();
-        $("#morrison-page").hide();
-        $("#burnside-page").hide();
-        $("#broadway-page").hide();
-        $("#cuevas-crossing-page").hide();
-        $("#settings-page").hide();
 
-        $menulink.toggleClass('active');
-        $wrap.toggleClass('active');
+        if (typeof window.cordova === 'undefined') {
+          window.open('https://multco.us/bridge-services');
+        } else {
+          var ref = cordova.InAppBrowser.open('https://mobile.twitter.com/multcobridges', '_blank', 'enableViewportScale=yes;location=yes');
+        }
       });
 
       $("#menu-home").click(function(){
