@@ -47,12 +47,19 @@ var app = {
   // deviceready Event Handler
   // The scope of 'this' is the event. In order to call the needed function, we must explicitly call 'app.function(...);'
   onDeviceReady: function () {
-// alert('onDeviceReady called');
-    // window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
-    app.registerToParse();
+    window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+    window.resolveLocalFileSystemURL(
+      cordova.file.dataDirectory,
+      function (dir) {
+        app.settings.storage = dir;
+        app.registerToParse();
+      },
+      function (err) {
+        alert('error getting file system: '+ err);
+      }
+    );
   },
   onBrowserReady: function () {
-    // Materialize.toast('<i class="material-icons left">sync_outline</i>Establishing connection...', 10000, 'rounded yellow black-text');
     app.nav.setUp();
     app.socket.connect();
     // Network connection events
@@ -61,27 +68,17 @@ var app = {
   },
   settings: {
     subscribe: function() {
-      // function syncSubscribe(counter, next) {
-      //   if (counter < numBridges) {
-      //     next(counter ++)
       var currentBridge = app.settings.bridges[app.settings.subscribeCounter];
-      if (app.parseSettings[currentBridge]) {
-        app.parse.subscribeToChannel(currentBridge);
+      if (app.settings.subscribeCounter < app.settings.numBridges) {
+        app.settings.subscribeCounter += 1;
+        if (app.parseSettings[currentBridge]) {
+          app.parse.subscribeToChannel(currentBridge);
+        } else {
+          app.settings.subscribe();
+        }
+      } else {
+        app.settings.subscribeCounter = 0;
       }
-      //   }
-      // }
-      // function subscribeToChannel(key, next) {
-      //   app.parse.subscribeToChannel(key);
-      //   next;
-      // }
-
-      // _.forIn(app.parseSettings, function (setting, key) {
-      //   if (setting) {
-      //     app.parse.subscribeToChannel(key);
-      //   } else {
-      //     app.parse.unsubscribe(key);
-      //   }
-      // });
     },
     render: function(callback) {
       var settingElement;
@@ -90,35 +87,46 @@ var app = {
         settingElement[0].checked = setting;
       });
     },
-    // load: function (callback) {
-    //   window.requestFileSystem(window.PERSISTENT, 1024*1024, function (fs) {
-    //     app.fs = fs;
-    //     app.fs.root.getFile('settings.json', {}, function(fileEntry) {
-    //       fileEntry.file(function(file) {
-    //         var reader = new FileReader();
-    //         reader.onloadend = function(e) {
-    //           var settings = this.result;
-    //           app.parseSettings = JSON.parse(settings);
-    //         };
-    //         reader.readAsText(file);
-    //       }, errorHandler);
-    //     }, app.settings.saveOrCreate);
-    //   }, errorHandler);
-    //   function errorHandler(err) {
-    //     return;
-    //   }
-    // },
-    // saveOrCreate: function () {
-    //   app.fs.root.getFile('settings.json', { create: true }, function (fileEntry) {
-    //     fileEntry.createWriter(function(fileWriter) {
-    //       app.settingsFileWriter = fileWriter;
-    //       var blob = new Blob([JSON.stringify(app.parseSettings)], {type: 'text/plain'});
-    //       app.settingsFileWriter.write(blob);
-    //     }, function (err) {
-    //       console.log(err);
-    //     });
-    //   });
-    // },
+    load: function () {
+      app.settings.storage.getFile('settings.json', {}, function(fileEntry) {
+        fileEntry.file(function(file) {
+          var reader = new FileReader();
+          reader.onloadend = function(e) {
+            var settings = this.result;
+            app.parseSettings = JSON.parse(settings);
+            app.settings.finishedLoading();
+          };
+          reader.onerror = function (err) {
+          };
+          reader.readAsText(file);
+        }, errorHandler);
+      }, app.settings.saveOrCreate);
+      function errorHandler(err) {
+        alert(err);
+        return;
+      }
+    },
+    saveOrCreate: function () {
+      app.settings.storage.getFile('settings.json', { create: true }, function (fileEntry) {
+        fileEntry.createWriter(function(fileWriter) {
+          var blob = new Blob([JSON.stringify(app.parseSettings)+'\n\n'], {type: 'text/plain'});
+          fileWriter.onwriteend = function (err) {
+            app.settings.finishedLoading();
+          };
+          fileWriter.write(blob);
+        }, function (err) {
+          alert(err);
+        });
+      });
+    },
+    finishedLoading: function () {
+      app.settings.bridges = _.keys(app.parseSettings);
+      app.settings.subscribeCounter = 0;
+      app.settings.numBridges = app.settings.bridges.length;
+      app.settings.attachClickListener();
+      app.settings.subscribe();
+      app.settings.render();
+    },
     attachClickListener: function () {
       var settingElement;
       _.forIn(app.parseSettings, function (setting, key) {
@@ -131,14 +139,12 @@ var app = {
             app.parse.unsubscribe(key);
             app.parseSettings[key] = false;
           }
-          // app.settings.saveOrCreate();
         });
       });
     }
   },
   registerToParse: function () {
     // parse Push notification service
-
     app.parse = window.parsepushnotification;
     app.parse.setUp(applicationId, clientKey);
     //registerAsPushNotificationClient callback (called after setUp)
@@ -147,35 +153,20 @@ var app = {
         app.parseSettings = {
           Hawthorne: true,
           Morrison: true,
-          Burnside: false,
-          Broadway: false,
-          CuevasCrossing: false
+          Burnside: true,
+          Broadway: true,
+          CuevasCrossing: true
         };
       }
-      app.settings.bridges = _.keys(app.parseSettings);
-      app.settings.subscribeCounter = 0;
-      app.settings.numBridges = app.settings.bridges.length;
-      // app.settings.load();
-      app.settings.attachClickListener();
-      app.settings.subscribe();
-      app.settings.render();
+      app.settings.load();
     };
     app.parse.onRegisterAsPushNotificationClientFailed = function() {
       alert('Register As Push Notification Client Failed');
     };
     //subscribe callback
     app.parse.onSubscribeToChannelSucceeded = function() {
-      alert('Subscribe to '+ app.settings.bridges[app.settings.subscribeCounter]);
-      app.settings.subscribeCounter = app.settings.subscribeCounter + 1;
-      if (app.settings.subscribeCounter < app.settings.numBridges) {
-        var currentBridge = app.settings.bridges[app.settings.subscribeCounter];
-        if (app.parseSettings[currentBridge]) {
-          app.parse.subscribeToChannel(currentBridge);
-        }
-        return;
-      } else {
-        return;
-      }
+      app.settings.subscribe();
+      return;
     };
     app.parse.onSubscribeToChannelFailed = function() {
       alert('Subscribe To Channel Failed');
@@ -229,7 +220,7 @@ var app = {
     }
   },
   nav: {
-   setUp: function () {
+    setUp: function () {
       var $menu = $('#menu'),
         $menulink = $('.menu-link'),
         $wrap = $('#content-wrap');
@@ -240,7 +231,7 @@ var app = {
         return false;
       });
 
-      $( "#multco-us" ).click(function () {
+      $("#multco-us").click(function () {
         if (typeof window.cordova === 'undefined') {
           window.open('https://multco.us/bridge-services');
         } else {
@@ -248,7 +239,7 @@ var app = {
         }
       });
 
-      $( "#menu-feed" ).click(function() {
+      $("#menu-feed").click(function() {
         $("#bridge-page").hide();
         $("#feed-page").show();
         $("#terms-page").hide();
@@ -263,7 +254,7 @@ var app = {
         $wrap.toggleClass('active');
       });
 
-      $( "#menu-home").click(function(){
+      $("#menu-home").click(function(){
         $("#bridge-page").show();
         $("#feed-page").hide();
         $("#terms-page").hide();
@@ -278,7 +269,7 @@ var app = {
         $wrap.toggleClass('active');
       });
 
-      $( "#menu-terms").click(function(){
+      $("#menu-terms").click(function(){
         $("#bridge-page").hide();
         $("#feed-page").hide();
         $("#terms-page").show();
@@ -293,7 +284,7 @@ var app = {
         $wrap.toggleClass('active');
       });
 
-      $( "#menu-settings").click(function(){
+      $("#menu-settings").click(function(){
         app.settings.render();
         $("#bridge-page").hide();
         $("#feed-page").hide();
@@ -309,15 +300,15 @@ var app = {
         $wrap.toggleClass('active');
       });
 
-      $("#hawthorne").click(this.showBridgePage);
+      $("#hawthorne").click(app.nav.showBridgePage);
 
-      $("#morrison").click(this.showBridgePage);
+      $("#morrison").click(app.nav.showBridgePage);
 
-      $("#burnside").click(this.showBridgePage);
+      $("#burnside").click(app.nav.showBridgePage);
 
-      $("#broadway").click(this.showBridgePage);
+      $("#broadway").click(app.nav.showBridgePage);
 
-      $("#cuevas-crossing").click(this.showBridgePage);
+      $("#cuevas-crossing").click(app.nav.showBridgePage);
 
       $(".bridge-link").click(function (event) {
         var bridge = event.currentTarget.id.replace('-link', "");
@@ -327,6 +318,8 @@ var app = {
           var ref = cordova.InAppBrowser.open('https://multco.us/bridge-services/'+ bridge, '_blank', 'enableViewportScale=yes;location=yes');
         }
       });
+
+      $("#save-settings").click(app.settings.saveOrCreate);
     },
     showBridgePage: function(event){
       var bridge = event.currentTarget.id;
@@ -358,12 +351,10 @@ var app = {
   offline: function () {
     app.socket.connection.disconnect();
     var condition = navigator.onLine ? "online" : "offline";
-    // Materialize.toast('<i class="material-icons left">error_outline</i>Could not establish connection...', 10000, 'rounded yellow black-text');
     var bridgeLED;
     $.each($("#bridge-page").children(), function ( index, child ) {
       bridgeLED = $("#"+ child.id).find("#"+ child.id +"-led");
       bridgeLED.removeClass("led-red").removeClass("led-green").addClass("led-yellow");
-      // bridgeLED.empty().html("<i class='material-icons' style='padding-top:12.5px'>error_outline</i>");
     });
     console.log(condition);
   },

@@ -12,16 +12,19 @@
     <feature name="NetworkStatus">
         <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
     </feature>
+    <feature name="ParsePushNotificationPlugin">
+        <param name="android-package" value="com.cranberrygame.cordova.plugin.pushnotification.parsepushnotification.ParsePushNotificationPlugin" />
+    </feature>
     <feature name="SplashScreen">
         <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="Whitelist">
-        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
-        <param name="onload" value="true" />
-    </feature>
     <feature name="StatusBar">
         <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
     <allow-intent href="market:*" />
@@ -31,9 +34,9 @@
     <icon density="xhdpi" height="96" src="www/img/icon/android/xhdpi.png" width="96" />
     <icon density="xxhdpi" height="144" src="www/img/icon/android/xxhdpi.png" width="144" />
     <icon density="xxxhdpi" height="192" src="www/img/icon/android/xxxhdpi.png" width="192" />
+    <splash density="land-hdpi" src="www/img/splash/android/splash-land-hdpi.png" />
     <splash density="land-ldpi" src="www/img/splash/android/splash-land-ldpi.png" />
     <splash density="land-mdpi" src="www/img/splash/android/splash-land-mdpi.png" />
-    <splash density="land-hdpi" src="www/img/splash/android/splash-land-hdpi.png" />
     <splash density="land-xhdpi" src="www/img/splash/android/splash-land-xhdpi.png" />
     <splash density="land-xxhdpi" src="www/img/splash/android/splash-land-xxhdpi.png" />
     <splash density="land-xxxhdpi" src="www/img/splash/android/splash-land-xxxhdpi.png" />
@@ -43,7 +46,7 @@
     <splash density="port-xhdpi" src="www/img/splash/android/splash-port-xhdpi.png" />
     <splash density="port-xxhdpi" src="www/img/splash/android/splash-port-xxhdpi.png" />
     <splash density="port-xxxhdpi" src="www/img/splash/android/splash-port-xxxhdpi.png" />
-    <name>Bridges</name>
+    <name>Bridge Alerts</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
@@ -64,7 +67,4 @@
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#152c48" />
     <preference name="StatusBarStyle" value="blackopaque" />
-    <feature name="ParsePushNotificationPlugin">
-        <param name="android-package" value="com.cranberrygame.cordova.plugin.pushnotification.parsepushnotification.ParsePushNotificationPlugin" />
-    </feature>
 </widget>

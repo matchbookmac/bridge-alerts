@@ -59,7 +59,7 @@
     <splash height="320" src="www/img/splash/ios/Default-Landscape~iphone.png" width="480" />
     <splash height="960" src="www/img/splash/ios/Default@2x~iphone.png" width="640" />
     <splash height="480" src="www/img/splash/ios/Default~iphone.png" width="320" />
-    <name>Bridges</name>
+    <name>Bridge Alerts</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>

@@ -14,7 +14,7 @@ Follow:
 http://cordova.apache.org/docs/en/5.1.1/guide_cli_index.md.html#The%20Command-Line%20Interface
 to setup the rest of cordova. Add plugins for device hooks to system hardware.
 
-Once you try to build a project for android, it might propt to add some additional sdks, do so with
+Once you try to build a project for android, it might prompt to add some additional sdks, do so with
 the instructions provided from the error message.
 
 ## iOS build/dev
@@ -78,6 +78,8 @@ cordova run android
 ## Push Notifications
 Using:
 https://github.com/cranberrygame/cordova-plugin-pushnotification-parsepushnotification
+SWITCHED TO THIS FORK:
+https://github.com/anzovin-brian/cordova-plugin-pushnotification-parsepushnotification
 and Parse:
 https://www.parse.com/tutorials/ios-push-notifications
 up until step three
