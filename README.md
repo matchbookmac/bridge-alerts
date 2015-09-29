@@ -14,7 +14,9 @@ Click 'Download'
 Once the file has downloaded, open it. This should open xcode and add the profile to your dev environment.
 At this point, in xcode, go to the top-level .xcodeproject file,
 Go to 'Build Settings'
-Under 'Code Signing,' select the iOS Development certificate you downloaded above. You should be able to build now.
+Under 'Code Signing,' select the iOS Development certificate you downloaded above.
+Under 'Provisioning Profile', select 'Automatic'
+You should be able to build now.
 If xcode errors, and prompts you to resolve issues, click okay and have xcode resolve them for you.
 
 ## Starting from scratch:
