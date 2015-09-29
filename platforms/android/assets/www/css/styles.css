@@ -190,10 +190,10 @@ nav li div{
 .switch{
   float:right;
 }
+
 .switch label{
   color:#999;
 }
-
 
 .page-content img{
   width:100%;
@@ -226,7 +226,7 @@ nav li div{
   display: block;
   height: 57px;
 }
-.button a{
+.button a, button{
   background:#346094;
   display:block;
   text-align:center;
@@ -246,6 +246,25 @@ nav li div{
   position:relative;
   top:.25rem;
   left:.25rem;
+}
+button{
+  border:0;
+  font-size:1rem;
+  width:100%;
+  margin:1rem 0;
+  padding:.8125rem .25rem;
+}
+
+#toast-container{
+    margin:.375rem;
+    padding:.625rem .625rem .625rem 3.25rem;
+    background:url(../img/antenna.svg) no-repeat .75rem .5rem #fffecb;
+    background-size:1.5rem;
+    color: #834400;
+    border-left:5px solid #ff9421;
+}
+#toast-container p{
+  margin:0;
 }
 
 

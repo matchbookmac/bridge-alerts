@@ -48,10 +48,10 @@
     <splash density="port-xxxhdpi" src="www/img/splash/android/splash-port-xxxhdpi.png" />
     <name>Bridge Alerts</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+      A sample Apache Cordova application that responds to the deviceready event.
     </description>
     <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+      Apache Cordova Team
     </author>
     <access origin="*" />
     <content src="index.html" />

@@ -1,3 +1,26 @@
+## Integrating with the current development workflow:
+
+### Xcode:
+
+Log in to https://developer.apple.com/account/overview.action
+Go to 'Certificates, Identifiers & Profiles'
+Go to 'Certificates'
+Click on the latest iOS Development certificate
+Click 'Download'
+Once the file has downloaded, open it. This should open keychain and add the certificate to your keychain.
+Next, under 'Provisioning Profiles', click 'Development'
+Click on the 'Multco Bridge Alerts Dev' profile
+Click 'Download'
+Once the file has downloaded, open it. This should open xcode and add the profile to your dev environment.
+At this point, in xcode, go to the top-level .xcodeproject file,
+Go to 'Build Settings'
+Under 'Code Signing,' select the iOS Development certificate you downloaded above.
+Under 'Provisioning Profile', select 'Automatic'
+You should be able to build now.
+If xcode errors, and prompts you to resolve issues, click okay and have xcode resolve them for you.
+
+## Starting from scratch:
+
 Install xcode from the apple app store
 Install the Android studio from https://developer.android.com/sdk/index.html#top
 
