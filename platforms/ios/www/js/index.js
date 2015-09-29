@@ -233,7 +233,7 @@ var app = {
       function toggleHandler(toggle) {
         toggle.addEventListener( "click", function(e) {
           e.preventDefault();
-          if (this.classList.contains("c-hamburger--htla") && ) {
+          if (this.classList.contains("c-hamburger--htla") && this.classList.contains("is-active")) {
             $("#bridge-page").show();
             $("#feed-page").hide();
             $("#terms-page").hide();
@@ -243,9 +243,10 @@ var app = {
             $("#broadway-page").hide();
             $("#cuevas-crossing-page").hide();
             $("#settings-page").hide();
-            ("#menu-button".classList.contains("is-active") === false) ? "#menu-button".classList.add("is-active") : "#menu-button".classList.remove("is-active");
-            $menulink.classList.add('active');
-            $wrap.classList.add('active');
+            // ("#menu-button".classList.contains("is-active") === false) ? "#menu-button".classList.add("is-active") : "#menu-button".classList.remove("is-active");
+            $("#menu-button").removeClass("is-active");
+            $menulink.removeClass('active');
+            $wrap.removeClass('active');
           } else {
             if (this.classList.contains("is-active") === true){
               this.classList.remove("is-active");
@@ -314,7 +315,6 @@ var app = {
         $("#broadway-page").hide();
         $("#cuevas-crossing-page").hide();
         $("#settings-page").hide();
-        // $("#menu-button").removeClass("is-active");
         $menulink.toggleClass('active');
         $wrap.toggleClass('active');
         $("#menu-button").addClass("c-hamburger--htla");
@@ -332,9 +332,10 @@ var app = {
         $("#broadway-page").hide();
         $("#cuevas-crossing-page").hide();
         $("#settings-page").show();
-
         $menulink.toggleClass('active');
         $wrap.toggleClass('active');
+        $("#menu-button").addClass("c-hamburger--htla");
+        $("#menu-button").removeClass("c-hamburger--htx");
       });
 
       $("#hawthorne").click(app.nav.showBridgePage);
@@ -359,6 +360,9 @@ var app = {
       $("#save-settings").click(app.settings.saveOrCreate);
     },
     showBridgePage: function(event){
+      $("#menu-button").addClass("c-hamburger--htla");
+      $("#menu-button").removeClass("c-hamburger--htx");
+      $("#menu-button").addClass("is-active");
       var bridge = event.currentTarget.id;
       $("#"+ bridge +"-last-5").empty();
       $("#bridge-page").hide();
