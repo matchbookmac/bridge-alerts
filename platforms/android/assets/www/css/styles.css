@@ -191,7 +191,6 @@ nav li div{
   float:right;
 }
 .switch label{
-  font-size:.875rem;
   color:#999;
 }
 
@@ -249,6 +248,19 @@ nav li div{
   left:.25rem;
 }
 
+
+#toast-container{
+    margin:.375rem;
+    padding:.625rem .625rem .625rem 3.25rem;
+    background:url(../img/antenna.svg) no-repeat .75rem .5rem #fffecb;
+    background-size:1.5rem;
+    color: #834400;
+    border-left:5px solid #ff9421;
+}
+#toast-container p{
+  margin:0;
+}
+
 /* LED styling */
 
 .led {
@@ -281,8 +293,9 @@ nav li div{
 }
 
 .led-yellow {
-  background-color: #ffeb3b;
-  color: black;
+  background:url(../img/loop.svg) no-repeat center center #fffecb;
+  background-size:40%;
+  color: #834400;
 }
 
 .clearfix:before, .clearfix:after {

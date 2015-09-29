@@ -43,6 +43,7 @@ var app = {
     document.addEventListener('DOMContentLoaded', app.onBrowserReady);
     // Cordova device ready event
     document.addEventListener('deviceready', app.onDeviceReady, false);
+
   },
   // deviceready Event Handler
   // The scope of 'this' is the event. In order to call the needed function, we must explicitly call 'app.function(...);'
@@ -221,6 +222,46 @@ var app = {
   },
   nav: {
     setUp: function () {
+
+      var toggles = document.querySelectorAll(".c-hamburger");
+
+      for (var i = toggles.length - 1; i >= 0; i--) {
+        var toggle = toggles[i];
+        toggleHandler(toggle);
+      };
+
+      function toggleHandler(toggle) {
+        toggle.addEventListener( "click", function(e) {
+          e.preventDefault();
+          if (this.classList.contains("c-hamburger--htla") && ) {
+            $("#bridge-page").show();
+            $("#feed-page").hide();
+            $("#terms-page").hide();
+            $("#hawthorne-page").hide();
+            $("#morrison-page").hide();
+            $("#burnside-page").hide();
+            $("#broadway-page").hide();
+            $("#cuevas-crossing-page").hide();
+            $("#settings-page").hide();
+            ("#menu-button".classList.contains("is-active") === false) ? "#menu-button".classList.add("is-active") : "#menu-button".classList.remove("is-active");
+            $menulink.classList.add('active');
+            $wrap.classList.add('active');
+          } else {
+            if (this.classList.contains("is-active") === true){
+              this.classList.remove("is-active");
+              $menulink.toggleClass('active');
+              $wrap.toggleClass('active');
+            } else {
+              this.classList.add("is-active");
+              $menulink.toggleClass('active');
+              $wrap.toggleClass('active');
+              $("#menu-button").removeClass("c-hamburger--htla");
+              $("#menu-button").addClass("c-hamburger--htx");
+            }
+          }
+        });
+      };
+
       var $menu = $('#menu'),
         $menulink = $('.menu-link'),
         $wrap = $('#content-wrap');
@@ -240,18 +281,12 @@ var app = {
       });
 
       $("#menu-feed").click(function() {
-        $("#bridge-page").hide();
-        $("#feed-page").show();
-        $("#terms-page").hide();
-        $("#hawthorne-page").hide();
-        $("#morrison-page").hide();
-        $("#burnside-page").hide();
-        $("#broadway-page").hide();
-        $("#cuevas-crossing-page").hide();
-        $("#settings-page").hide();
 
-        $menulink.toggleClass('active');
-        $wrap.toggleClass('active');
+        if (typeof window.cordova === 'undefined') {
+          window.open('https://multco.us/bridge-services');
+        } else {
+          var ref = cordova.InAppBrowser.open('https://mobile.twitter.com/multcobridges', '_blank', 'enableViewportScale=yes;location=yes');
+        }
       });
 
       $("#menu-home").click(function(){
@@ -264,9 +299,9 @@ var app = {
         $("#broadway-page").hide();
         $("#cuevas-crossing-page").hide();
         $("#settings-page").hide();
-
-        $menulink.toggleClass('active');
-        $wrap.toggleClass('active');
+        ("#menu-button".classList.contains("is-active") === false) ? "#menu-button".classList.add("is-active") : "#menu-button".classList.remove("is-active");
+        $menulink.classList.add('active');
+        $wrap.classList.add('active');
       });
 
       $("#menu-terms").click(function(){
@@ -279,9 +314,11 @@ var app = {
         $("#broadway-page").hide();
         $("#cuevas-crossing-page").hide();
         $("#settings-page").hide();
-
+        // $("#menu-button").removeClass("is-active");
         $menulink.toggleClass('active');
         $wrap.toggleClass('active');
+        $("#menu-button").addClass("c-hamburger--htla");
+        $("#menu-button").removeClass("c-hamburger--htx");
       });
 
       $("#menu-settings").click(function(){

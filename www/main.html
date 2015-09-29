@@ -8,6 +8,8 @@
     <meta name="msapplication-tap-highlight" content="no">
 
     <link rel="stylesheet" href="css/styles.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/hamburger.css" media="screen" title="no title" charset="utf-8">
+
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
@@ -21,7 +23,10 @@
  <body>
     <div class="site-wrap">
       <header role="banner">
-        <a href="#menu" class="menu-link">Menu</a>
+        <!-- <a href="#menu" class="menu-link">Menu</a> -->
+        <button id="menu-button" class="c-hamburger c-hamburger--htla">
+          <span>toggle menu</span>
+        </button>
         <h1 class="brand-logo">Bridges</h1>
       </header>
       <div id="content-wrap" class="clearfix">
