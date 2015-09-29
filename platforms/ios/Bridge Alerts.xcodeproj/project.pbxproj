@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		05F3D4AAAC914D2C8EE0C6D3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86158E8380A24055AC7F25B5 /* Security.framework */; };
 		0C97C08380F0413BA492A912 /* ParsePushNotificationPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 942438E4C8C34C628634A0C5 /* ParsePushNotificationPlugin.m */; };
@@ -544,6 +545,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "Bridge Alerts";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -580,6 +582,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "Bridge Alerts";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
