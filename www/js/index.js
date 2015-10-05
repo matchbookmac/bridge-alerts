@@ -108,11 +108,14 @@ var app = {
       }
     },
     saveOrCreate: function () {
-      $('.settings-notification').fadeIn(300).delay(3000).fadeOut(300);
       app.settings.storage.getFile('settings.json', { create: true }, function (fileEntry) {
         fileEntry.createWriter(function(fileWriter) {
           var blob = new Blob([JSON.stringify(app.parseSettings)+'\n\n'], {type: 'text/plain'});
           fileWriter.onwriteend = function (err) {
+            $('.settings-notification').fadeIn(300).delay(3000).fadeOut(300);
+            app.settings.finishedLoading();
+          };
+          fileWriter.onerror = function (err) {
             app.settings.finishedLoading();
           };
           fileWriter.write(blob);
@@ -228,7 +231,7 @@ var app = {
       for (var i = toggles.length - 1; i >= 0; i--) {
         var toggle = toggles[i];
         toggleHandler(toggle);
-      };
+      }
 
       function toggleHandler(toggle) {
         toggle.addEventListener( "click", function(e) {
@@ -260,7 +263,7 @@ var app = {
             }
           }
         });
-      };
+      }
 
       var $menu = $('#menu'),
         $menulink = $('.menu-link'),
