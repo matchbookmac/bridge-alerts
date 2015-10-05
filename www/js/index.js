@@ -219,6 +219,25 @@ var app = {
           } else{
             bridgeSchedule.hide().empty();
           }
+          if (data[bridge].lastFive) {
+            $("#"+ bridge +"-last-5").empty().append(
+                "<ul class='bridge-lifts' id='"+ bridge +"-data'></ul>"
+            );
+            $.each(data[bridge].lastFive, function( key, val ) {
+              // var upTime = val.upTime.toString();
+              var upTime = new Date(val.upTime);
+              // var downTime = val.downTime.toString();
+              var downTime = new Date(val.downTime);
+              var duration = downTime - upTime;
+              $("#"+ bridge +"-data").append(
+                "<li>"+
+                  "<span class='start-lift'>"+moment(upTime).format('ddd, MMM D gggg - h:mma')+"</span> to "+
+                  "<span class='end-lift'>"+moment(downTime).format('h:mma')+"</span>"+
+                  "<div class='lift-duration'>"+_.round(duration/60000, 2)+" min</div>"+
+                "</li>"
+              );
+            });
+          }
         }
       });
     }
@@ -361,28 +380,8 @@ var app = {
       $("#menu-button").removeClass("c-hamburger--htx");
       $("#menu-button").addClass("is-active");
       var bridge = event.currentTarget.id;
-      $("#"+ bridge +"-last-5").empty();
       $("#bridge-page").hide();
       $("#"+ bridge +"-page").show();
-      $.getJSON( "https://api.multco.us/bridges/"+ bridge +"/events/actual/5", function( data ) {
-        $("#"+ bridge +"-last-5").empty().append(
-            "<ul class='bridge-lifts' id='"+ bridge +"-data'></ul>"
-        );
-        $.each( data, function( key, val ) {
-          // var upTime = val.upTime.toString();
-          var upTime = new Date(val.upTime);
-          // var downTime = val.downTime.toString();
-          var downTime = new Date(val.downTime);
-          var duration = downTime - upTime;
-          $("#"+ bridge +"-data").append(
-            "<li>"+
-              "<span class='start-lift'>"+moment(upTime).format('ddd, MMM D gggg - h:mma')+"</span> to "+
-              "<span class='end-lift'>"+moment(downTime).format('h:mma')+"</span>"+
-              //"<div class='lift-duration'>Duration: "+_.round(duration/60000, 2)+"</div>"+
-            "</li>"
-          );
-        });
-      });
     }
   },
   // Update DOM to reflect offline status
