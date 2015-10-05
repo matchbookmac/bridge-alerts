@@ -56,7 +56,7 @@ var app = {
         app.registerToParse();
       },
       function (err) {
-        alert('error getting file system: '+ err);
+        $('.error-notification').text('Error getting file system: '+ err).fadeIn(300).delay(3000).fadeOut(300);
       }
     );
   },
@@ -97,13 +97,12 @@ var app = {
             app.parseSettings = JSON.parse(settings);
             app.settings.finishedLoading();
           };
-          reader.onerror = function (err) {
-          };
+          reader.onerror = errorHandler;
           reader.readAsText(file);
         }, errorHandler);
       }, app.settings.saveOrCreate);
       function errorHandler(err) {
-        alert(err);
+        $('.error-notification').text('Failed to load settings').fadeIn(300).delay(3000).fadeOut(300);
         return;
       }
     },
@@ -121,7 +120,7 @@ var app = {
           };
           fileWriter.write(blob);
         }, function (err) {
-          alert(err);
+          $('.error-notification').text('Failed to save').fadeIn(300).delay(3000).fadeOut(300);
         });
       });
     },
