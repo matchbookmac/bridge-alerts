@@ -112,10 +112,11 @@ var app = {
         fileEntry.createWriter(function(fileWriter) {
           var blob = new Blob([JSON.stringify(app.parseSettings)+'\n\n'], {type: 'text/plain'});
           fileWriter.onwriteend = function (err) {
-            $('.settings-notification').fadeIn(300).delay(3000).fadeOut(300);
+            $('.status-notification').text('Saved').fadeIn(300).delay(3000).fadeOut(300);
             app.settings.finishedLoading();
           };
           fileWriter.onerror = function (err) {
+            $('.error-notification').text('Failed to save').fadeIn(300).delay(3000).fadeOut(300);
             app.settings.finishedLoading();
           };
           fileWriter.write(blob);
