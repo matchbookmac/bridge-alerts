@@ -158,7 +158,7 @@ nav li div{
 #menu-settings{background: url(../img/cog.svg) 0 13px no-repeat;background-size:16px auto;}
 
 
-#hawthorne-page, #morrison-page, #burnside-page, #broadway-page, #cuevas-crossing-page, #feed-page, #arrow-button, #settings-page, #terms-page {
+#hawthorne-page, #morrison-page, #burnside-page, #broadway-page, #feed-page, #arrow-button, #settings-page, #terms-page {
   display: none;
 }
 
@@ -277,10 +277,26 @@ button{
     background:url(../img/antenna.svg) no-repeat .75rem .5rem #fffecb;
     background-size:1.5rem;
     color: #834400;
-    border-left:5px solid #ff9421;
+    /*border-left:5px solid #ff9421;*/
 }
-#toast-container p{
+#toast-container p, .settings-notification p{
   margin:0;
+}
+.settings-notification{
+  margin:0;
+  padding:.625rem 1rem .625rem 2.5rem;
+  background:url(../img/check.svg) no-repeat .75rem .625rem #d6ffcb;
+  background-size:1.25rem;
+  color:#1a7000;
+  border-left:5px solid #1a7000;
+  position:absolute;
+  left:50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  top:-47px;
+}
+.settings-submit{
+  position:relative;
 }
 
 /* LED styling */
@@ -317,7 +333,8 @@ button{
 .led-yellow {
   background:url(../img/loop.svg) no-repeat center center #fffecb;
   background-size:40%;
-  color: #834400;
+  padding:50px 0 0 50px;
+  overflow:hidden;
 }
 
 .clearfix:before, .clearfix:after {

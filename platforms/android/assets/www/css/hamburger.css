@@ -48,11 +48,11 @@
 }
 
 .c-hamburger span::before {
-  top: -12px;
+  top: -9px;
 }
 
 .c-hamburger span::after {
-  bottom: -12px;
+  bottom: -9px;
 }
 
 .c-hamburger--htla {
@@ -64,11 +64,13 @@
 }
 
 .c-hamburger--htla span::before {
+  -webkit-transform-origin: top right;
   transform-origin: top right;
   transition: transform 0.15s, width 0.15s, top 0.15s;
 }
 
 .c-hamburger--htla span::after {
+  -webkit-transform-origin: bottom right;
   transform-origin: bottom right;
   transition: transform 0.15s, width 0.15s, bottom 0.15s;
 }
@@ -79,6 +81,7 @@
 }
 
 .c-hamburger--htla.is-active span {
+  -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 
@@ -89,11 +92,13 @@
 
 .c-hamburger--htla.is-active span::before {
   top: 0;
+  -webkit-transform: translateX(16px) translateY(2px) rotate(45deg);
   transform: translateX(16px) translateY(2px) rotate(45deg);
 }
 
 .c-hamburger--htla.is-active span::after {
   bottom: 0;
+  -webkit-transform: translateX(16px) translateY(-2px) rotate(-45deg);
   transform: translateX(16px) translateY(-2px) rotate(-45deg);
 }
 
@@ -132,11 +137,13 @@
 
 .c-hamburger--htx.is-active span::before {
   top: 0;
+  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
 .c-hamburger--htx.is-active span::after {
   bottom: 0;
+  -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
 

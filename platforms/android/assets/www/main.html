@@ -23,20 +23,15 @@
  <body>
     <div class="site-wrap">
       <header role="banner">
-<<<<<<< HEAD
         <!-- <a href="#menu" class="menu-link">Menu</a> -->
         <button id="menu-button" class="c-hamburger c-hamburger--htla">
           <span>toggle menu</span>
         </button>
-=======
-        <a href="#menu" class="menu-link">Menu</a>
->>>>>>> 710332cc05856a83861670224b92455c6373263e
-        <h1 class="brand-logo">Bridges</h1>
+        <h1 class="brand-logo">Bridge Alerts</h1>
       </header>
       <div id="content-wrap" class="clearfix">
         <nav id="menu" role="navigation">
             <ul>
-              <li><div id="menu-home">Home</div></li>
               <li><div id="menu-feed">@MultCoBridges</div></li>
               <li><div id="menu-terms">About</div></li>
               <li><div id="multco-us">multco.us</div></li>
@@ -65,10 +60,6 @@
               <span class="led led-yellow" id="broadway-led"></span>
               <p>Broadway<span class="bridge-next" id="broadway-next"></span></p>
             </div>
-            <div class="card bridge-list-item clearfix" id="cuevas-crossing">
-              <span class="led led-yellow" id="cuevas-crossing-led"></span>
-              <p>Cuevas Crossing<span class="bridge-next" id="cuevas-crossing-next"></span></p>
-            </div>
           </div>
           <!-- second page -->
           <div id="feed-page">
@@ -87,7 +78,7 @@
           <div id="hawthorne-page">
             <h1>Hawthorne</h1>
             <div class="page-content">
-              <p><strong>Height:</strong> 49'</p>
+              <p><strong>Vertical clearance:</strong> 49'</p>
               <h3>Last five bridge openings</h3>
               <div class="bridge-last-5" id="hawthorne-last-5"></div>
               <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/Hawthorne_Bridge_%28Multnomah_County%2C_Oregon_scenic_images%29_%28mulDA0052%29.jpg" alt="Hawthorne Bridge"/>
@@ -97,7 +88,7 @@
           <div id="morrison-page">
             <h1>Morrison</h1>
             <div class="page-content">
-              <p><strong>Height:</strong> 69'</p>
+              <p><strong>Vertical clearance:</strong> 69'</p>
               <h3>Last five bridge openings</h3>
               <div class="bridge-last-5" id="morrison-last-5"></div>
               <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/General_view_of_Morrison_Bridge%2C_looking_northeast._-_Morrison_Bridge%2C_Spanning_Willamette_River_on_Morrison_and_Alder_Streets%2C_Portland%2C_Multnomah_County%2C_OR_HAER_OR-100-27_%28CT%29.tif/lossy-page1-303px-thumbnail.tif.jpg" alt="Morrison Bridge"/>
@@ -107,7 +98,7 @@
           <div id="burnside-page">
             <h1>Burnside</h1>
             <div class="page-content">
-              <p><strong>Height:</strong> 64'</p>
+              <p><strong>Vertical clearance:</strong> 64'</p>
               <h3>Last five bridge openings</h3>
               <div class="bridge-last-5" id="burnside-last-5"></div>
               <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Burnside_Bridge.JPG/320px-Burnside_Bridge.JPG" alt="Burnside Bridge"/>
@@ -117,21 +108,11 @@
           <div id="broadway-page">
             <h1>Broadway</h1>
             <div class="page-content">
-              <p><strong>Height:</strong> 70'</p>
+              <p><strong>Vertical clearance:</strong> 70'</p>
               <h3>Last five bridge openings</h3>
               <div class="bridge-last-5" id="broadway-last-5"></div>
               <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Broadway_Bridge%2C_Portland_HDR_%2818017408858%29.jpg/640px-Broadway_Bridge%2C_Portland_HDR_%2818017408858%29.jpg" alt="Broadway Bridge"/>
               <p class="button"><a id="broadway-bridge-link" class="bridge-link">More about the Broadway Bridge</a></p>
-            </div>
-          </div>
-          <div id="cuevas-crossing-page">
-            <h1>Cuevas Crossing</h1>
-            <div class="page-content">
-              <p><strong>Height:</strong> 70'</p>
-              <h3>Last five bridge openings</h3>
-              <div class="bridge-last-5" id="cuevas-crossing-last-5"></div>
-              <img src= "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/CrookedRiverHighBridge.jpg/484px-CrookedRiverHighBridge.jpg" alt="Cuevas Crossing Bridge"/>
-              <p class="button"><a id="cuevas-crossing-bridge-link" class="bridge-link">More about Cuevas Crossing</a></p>
             </div>
           </div>
           <div id="settings-page">
@@ -182,18 +163,8 @@
                 </div>
               </div>
 
-              <div class="bridge-switch">
-                <h4>Cuevas Crossing</h4>
-                <div class="switch">
-                  <label>
-                    <input type="checkbox" id="cuevas-crossing-pn" class="push-setting">
-                    <span class="lever"></span>
-                    On
-                  </label>
-                </div>
-              </div>
-
-              <div>
+              <div class="settings-submit">
+                <div style="display:none;" class="settings-notification"><p>saved</p></div>
                 <button type="button" name="save-settings" id="save-settings">Save Settings</button>
               </div>
             </div>

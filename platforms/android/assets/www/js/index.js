@@ -108,6 +108,7 @@ var app = {
       }
     },
     saveOrCreate: function () {
+      $('.settings-notification').fadeIn(300).delay(3000).fadeOut(300);
       app.settings.storage.getFile('settings.json', { create: true }, function (fileEntry) {
         fileEntry.createWriter(function(fileWriter) {
           var blob = new Blob([JSON.stringify(app.parseSettings)+'\n\n'], {type: 'text/plain'});
@@ -155,8 +156,7 @@ var app = {
           Hawthorne: true,
           Morrison: true,
           Burnside: true,
-          Broadway: true,
-          CuevasCrossing: true
+          Broadway: true
         };
       }
       app.settings.load();
@@ -241,7 +241,6 @@ var app = {
             $("#morrison-page").hide();
             $("#burnside-page").hide();
             $("#broadway-page").hide();
-            $("#cuevas-crossing-page").hide();
             $("#settings-page").hide();
             // ("#menu-button".classList.contains("is-active") === false) ? "#menu-button".classList.add("is-active") : "#menu-button".classList.remove("is-active");
             $("#menu-button").removeClass("is-active");
@@ -298,7 +297,6 @@ var app = {
         $("#morrison-page").hide();
         $("#burnside-page").hide();
         $("#broadway-page").hide();
-        $("#cuevas-crossing-page").hide();
         $("#settings-page").hide();
         ("#menu-button".classList.contains("is-active") === false) ? "#menu-button".classList.add("is-active") : "#menu-button".classList.remove("is-active");
         $menulink.classList.add('active');
@@ -313,7 +311,6 @@ var app = {
         $("#morrison-page").hide();
         $("#burnside-page").hide();
         $("#broadway-page").hide();
-        $("#cuevas-crossing-page").hide();
         $("#settings-page").hide();
         $menulink.toggleClass('active');
         $wrap.toggleClass('active');
@@ -330,7 +327,6 @@ var app = {
         $("#morrison-page").hide();
         $("#burnside-page").hide();
         $("#broadway-page").hide();
-        $("#cuevas-crossing-page").hide();
         $("#settings-page").show();
         $menulink.toggleClass('active');
         $wrap.toggleClass('active');
@@ -345,8 +341,6 @@ var app = {
       $("#burnside").click(app.nav.showBridgePage);
 
       $("#broadway").click(app.nav.showBridgePage);
-
-      $("#cuevas-crossing").click(app.nav.showBridgePage);
 
       $(".bridge-link").click(function (event) {
         var bridge = event.currentTarget.id.replace('-link', "");
