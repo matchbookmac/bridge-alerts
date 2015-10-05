@@ -279,25 +279,35 @@ button{
     color: #834400;
     /*border-left:5px solid #ff9421;*/
 }
-#toast-container p, .settings-notification p{
+#toast-container p, .notification p{
   margin:0;
 }
-.settings-notification{
+.notification{
   margin:0;
   padding:.625rem 1rem .625rem 2.5rem;
-  background:url(../img/check.svg) no-repeat .75rem .625rem #d6ffcb;
-  background-size:1.25rem;
-  color:#1a7000;
-  border-left:5px solid #1a7000;
   position:absolute;
   left:50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
   top:-47px;
+  white-space:nowrap;
+}
+.status-notification{
+  background:url(../img/check.svg) no-repeat .75rem .625rem #d6ffcb;
+  background-size:1.25rem;
+  color:#1a7000;
+  border-left:5px solid #1a7000;
+}
+.error-notification{
+  background:url(../img/error.svg) no-repeat .75rem .625rem #ffdddd;
+  background-size:1.25rem;
+  color:#c70000;
+  border-left:5px solid #c70000;
 }
 .settings-submit{
   position:relative;
 }
+
 
 /* LED styling */
 

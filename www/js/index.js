@@ -193,8 +193,7 @@ var app = {
     },
     updateDOM: function (data) {
       $("#toast-container").remove();
-      var bridgeLED;
-      var bridgeSchedule;
+      var bridgeLED, bridgeSchedule, nextLift;
       $.each(data, function (bridge) {
         if(data[bridge] !== null){
           bridgeName = bridge.replace(/\s/g, '-');
@@ -209,8 +208,9 @@ var app = {
             bridgeLED.removeClass("led-red").addClass("led-green");
             bridgeLED.text(" DOWN");
           }
-          if(data[bridge].scheduledLift) {
-            var estLiftTime = data[bridge].scheduledLift.estimatedLiftTime;
+          nextLift = _.first(data[bridge].scheduledLifts);
+          if (nextLift) {
+            var estLiftTime = nextLift.estimatedLiftTime;
             var newEstLiftTime = new Date(estLiftTime);
             bridge = bridge.replace(/\s/g, '-');
             bridgeSchedule.empty()

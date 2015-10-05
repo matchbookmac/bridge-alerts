@@ -56,7 +56,7 @@ var app = {
         app.registerToParse();
       },
       function (err) {
-        alert('error getting file system: '+ err);
+        $('.error-notification').text('Error getting file system: '+ err).fadeIn(300).delay(3000).fadeOut(300);
       }
     );
   },
@@ -97,27 +97,30 @@ var app = {
             app.parseSettings = JSON.parse(settings);
             app.settings.finishedLoading();
           };
-          reader.onerror = function (err) {
-          };
+          reader.onerror = errorHandler;
           reader.readAsText(file);
         }, errorHandler);
       }, app.settings.saveOrCreate);
       function errorHandler(err) {
-        alert(err);
+        $('.error-notification').text('Failed to load settings').fadeIn(300).delay(3000).fadeOut(300);
         return;
       }
     },
     saveOrCreate: function () {
-      $('.settings-notification').fadeIn(300).delay(3000).fadeOut(300);
       app.settings.storage.getFile('settings.json', { create: true }, function (fileEntry) {
         fileEntry.createWriter(function(fileWriter) {
           var blob = new Blob([JSON.stringify(app.parseSettings)+'\n\n'], {type: 'text/plain'});
           fileWriter.onwriteend = function (err) {
+            $('.status-notification').text('Saved').fadeIn(300).delay(3000).fadeOut(300);
+            app.settings.finishedLoading();
+          };
+          fileWriter.onerror = function (err) {
+            $('.error-notification').text('Failed to save').fadeIn(300).delay(3000).fadeOut(300);
             app.settings.finishedLoading();
           };
           fileWriter.write(blob);
         }, function (err) {
-          alert(err);
+          $('.error-notification').text('Failed to save').fadeIn(300).delay(3000).fadeOut(300);
         });
       });
     },
@@ -190,8 +193,7 @@ var app = {
     },
     updateDOM: function (data) {
       $("#toast-container").remove();
-      var bridgeLED;
-      var bridgeSchedule;
+      var bridgeLED, bridgeSchedule, nextLift;
       $.each(data, function (bridge) {
         if(data[bridge] !== null){
           bridgeName = bridge.replace(/\s/g, '-');
@@ -206,8 +208,9 @@ var app = {
             bridgeLED.removeClass("led-red").addClass("led-green");
             bridgeLED.text(" DOWN");
           }
-          if(data[bridge].scheduledLift) {
-            var estLiftTime = data[bridge].scheduledLift.estimatedLiftTime;
+          nextLift = _.first(data[bridge].scheduledLifts);
+          if (nextLift) {
+            var estLiftTime = nextLift.estimatedLiftTime;
             var newEstLiftTime = new Date(estLiftTime);
             bridge = bridge.replace(/\s/g, '-');
             bridgeSchedule.empty()
@@ -215,6 +218,25 @@ var app = {
               .show();
           } else{
             bridgeSchedule.hide().empty();
+          }
+          if (data[bridge].lastFive) {
+            $("#"+ bridge +"-last-5").empty().append(
+                "<ul class='bridge-lifts' id='"+ bridge +"-data'></ul>"
+            );
+            $.each(data[bridge].lastFive, function( key, val ) {
+              // var upTime = val.upTime.toString();
+              var upTime = new Date(val.upTime);
+              // var downTime = val.downTime.toString();
+              var downTime = new Date(val.downTime);
+              var duration = downTime - upTime;
+              $("#"+ bridge +"-data").append(
+                "<li>"+
+                  "<span class='start-lift'>"+moment(upTime).format('ddd, MMM D gggg - h:mma')+"</span> to "+
+                  "<span class='end-lift'>"+moment(downTime).format('h:mma')+"</span>"+
+                  "<div class='lift-duration'>"+_.round(duration/60000, 2)+" min</div>"+
+                "</li>"
+              );
+            });
           }
         }
       });
@@ -228,7 +250,7 @@ var app = {
       for (var i = toggles.length - 1; i >= 0; i--) {
         var toggle = toggles[i];
         toggleHandler(toggle);
-      };
+      }
 
       function toggleHandler(toggle) {
         toggle.addEventListener( "click", function(e) {
@@ -260,7 +282,7 @@ var app = {
             }
           }
         });
-      };
+      }
 
       var $menu = $('#menu'),
         $menulink = $('.menu-link'),
@@ -358,28 +380,8 @@ var app = {
       $("#menu-button").removeClass("c-hamburger--htx");
       $("#menu-button").addClass("is-active");
       var bridge = event.currentTarget.id;
-      $("#"+ bridge +"-last-5").empty();
       $("#bridge-page").hide();
       $("#"+ bridge +"-page").show();
-      $.getJSON( "https://api.multco.us/bridges/"+ bridge +"/events/actual/5", function( data ) {
-        $("#"+ bridge +"-last-5").empty().append(
-            "<ul class='bridge-lifts' id='"+ bridge +"-data'></ul>"
-        );
-        $.each( data, function( key, val ) {
-          // var upTime = val.upTime.toString();
-          var upTime = new Date(val.upTime);
-          // var downTime = val.downTime.toString();
-          var downTime = new Date(val.downTime);
-          var duration = downTime - upTime;
-          $("#"+ bridge +"-data").append(
-            "<li>"+
-              "<span class='start-lift'>"+moment(upTime).format('ddd, MMM D gggg - h:mma')+"</span> to "+
-              "<span class='end-lift'>"+moment(downTime).format('h:mma')+"</span>"+
-              //"<div class='lift-duration'>Duration: "+_.round(duration/60000, 2)+"</div>"+
-            "</li>"
-          );
-        });
-      });
     }
   },
   // Update DOM to reflect offline status
