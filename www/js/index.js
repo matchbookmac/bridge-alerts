@@ -191,39 +191,59 @@ var app = {
       // var socket = io('http://127.0.0.1:9000');
       this.connection.on('bridge data', this.updateDOM);
     },
+    bridgeTimers: {
+      hawthorne: null,
+      morrison: null,
+      burnside: null,
+      broadway: null
+    },
     updateDOM: function (data) {
       $("#toast-container").remove();
-      var bridgeLED, bridgeSchedule, nextLift;
       $.each(data, function (bridge) {
-        if(data[bridge] !== null){
-          bridgeName = bridge.replace(/\s/g, '-');
+        var bridgeLED, bridgeSchedule, bridgeDuration, nextLift;
+        var currentBridgeData = data[bridge];
+        if(currentBridgeData !== null){
+          var bridgeName = bridge.replace(/\s/g, '-');
           bridgeLED = $("#" + bridgeName + "-led");
           bridgeSchedule = $("#" + bridgeName + "-next");
+          bridgeDuration = $("#"+ bridgeName + "-duration");
           bridgeLED.removeClass("led-yellow");
-          if (data[bridge].status) {
+          // Update LED status
+          if (currentBridgeData.status) {
             bridgeLED.removeClass("led-green", 1000, "easeInBack");
             bridgeLED.addClass("led-red", 1000, "easeInBack");
             bridgeLED.text(" UP");
+            clearInterval(app.socket.bridgeTimers[bridge]);
+            app.socket.bridgeTimers[bridge] = countdown(new Date(currentBridgeData.upTime), function (ts) {
+              var minutes = Math.floor(ts.value/60000);
+              var secondsRaw = Math.floor((ts.value/1000)%60);
+              var seconds = secondsRaw.toString().length > 1 ? secondsRaw : "0"+ secondsRaw; 
+              bridgeDuration.text(minutes+":"+seconds);
+            }, countdown.SECONDS);
           } else {
             bridgeLED.removeClass("led-red").addClass("led-green");
             bridgeLED.text(" DOWN");
+            clearInterval(app.socket.bridgeTimers[bridge]);
+            bridgeDuration.empty();
           }
-          nextLift = _.first(data[bridge].scheduledLifts);
+          // Update scheduledLifts
+          nextLift = _.first(currentBridgeData.scheduledLifts);
           if (nextLift) {
             var estLiftTime = nextLift.estimatedLiftTime;
             var newEstLiftTime = new Date(estLiftTime);
             bridge = bridge.replace(/\s/g, '-');
             bridgeSchedule.empty()
-              .append("Lift est: "+ moment(newEstLiftTime).format('ddd [at] LT'))
+              .append("Lift est: "+ moment(newEstLiftTime).format('ddd MM[/]DD [at] LT'))
               .show();
           } else{
             bridgeSchedule.hide().empty();
           }
-          if (data[bridge].lastFive) {
+          // Update Last Five lift events
+          if (currentBridgeData.lastFive) {
             $("#"+ bridge +"-last-5").empty().append(
                 "<ul class='bridge-lifts' id='"+ bridge +"-data'></ul>"
             );
-            $.each(data[bridge].lastFive, function( key, val ) {
+            $.each(currentBridgeData.lastFive, function( key, val ) {
               // var upTime = val.upTime.toString();
               var upTime = new Date(val.upTime);
               // var downTime = val.downTime.toString();

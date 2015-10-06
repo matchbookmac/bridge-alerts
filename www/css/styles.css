@@ -186,10 +186,18 @@ nav li div{
   line-height:1.2;
   color:#346094;
 }
+
 .bridge-next{
   display:block;
   font-size:.75rem;
   color:#333;
+}
+
+.bridge-duration{
+  display:inline;
+  font-size:.75rem;
+  color:#333;
+  padding-left: 5px;
 }
 
 .bridge-switch{
