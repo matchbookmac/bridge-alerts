@@ -217,7 +217,7 @@ var app = {
             app.socket.bridgeTimers[bridge] = countdown(new Date(currentBridgeData.upTime), function (ts) {
               var minutes = Math.floor(ts.value/60000);
               var secondsRaw = Math.floor((ts.value/1000)%60);
-              var seconds = secondsRaw.toString().length > 1 ? secondsRaw : "0"+ secondsRaw; 
+              var seconds = secondsRaw.toString().length > 1 ? secondsRaw : "0"+ secondsRaw;
               bridgeDuration.text(minutes+":"+seconds);
             }, countdown.SECONDS);
           } else {
@@ -238,15 +238,27 @@ var app = {
           } else{
             bridgeSchedule.hide().empty();
           }
+          if (currentBridgeData.scheduledLifts) {
+            $("#"+ bridge +"-pending-scheduled").empty().append(
+                "<ul class='bridge-scheduled' id='"+ bridge +"-scheduled'></ul>"
+            );
+            console.log(currentBridgeData.scheduledLifts);
+            $.each(currentBridgeData.scheduledLifts, function( key, val ) {
+              var estimatedLiftTime = new Date(val.estimatedLiftTime);
+              $("#"+ bridge +"-scheduled").append(
+                "<li>"+
+                  "<span class='estimated-lift'>"+moment(estimatedLiftTime).format('ddd MM[/]DD [at] LT')+"</span>"+
+                "</li>"
+              );
+            });
+          }
           // Update Last Five lift events
           if (currentBridgeData.lastFive) {
             $("#"+ bridge +"-last-5").empty().append(
                 "<ul class='bridge-lifts' id='"+ bridge +"-data'></ul>"
             );
             $.each(currentBridgeData.lastFive, function( key, val ) {
-              // var upTime = val.upTime.toString();
               var upTime = new Date(val.upTime);
-              // var downTime = val.downTime.toString();
               var downTime = new Date(val.downTime);
               var duration = downTime - upTime;
               $("#"+ bridge +"-data").append(
