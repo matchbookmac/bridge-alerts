@@ -242,7 +242,6 @@ var app = {
             $("#"+ bridge +"-pending-scheduled").empty().append(
                 "<ul class='bridge-scheduled' id='"+ bridge +"-scheduled'></ul>"
             );
-            console.log(currentBridgeData.scheduledLifts);
             $.each(currentBridgeData.scheduledLifts, function( key, val ) {
               var estimatedLiftTime = new Date(val.estimatedLiftTime);
               $("#"+ bridge +"-scheduled").append(
